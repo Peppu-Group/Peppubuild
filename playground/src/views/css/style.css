@@ -746,3 +746,30 @@ Grapes
 .space {
     margin-right: 10px;
 }
+
+.datatext {
+    font-size: 14px;
+    text-align: center;
+}
+
+.alerttext {
+    font-size: 10px;
+}
+
+.alert-box {
+    padding: 5px;
+}
+
+.back-g {
+    background-color: #f6f6ff;
+    padding: 10px;
+    border-radius: 10px;
+    height: 120px;
+    margin: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.datasection {
+    margin: 1vw;
+}

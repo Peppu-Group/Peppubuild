@@ -49,7 +49,7 @@
                         <h2 class="card-title">{{ project.name.split('.').slice(0, -1).join('.') }}</h2>
                         <div class="card-footer">
                           <button @click="deleteProject(project.id)" class="btn btn-danger space">Delete</button>
-                          <button @click="projectWorkspace(project.id, project.name)"
+                          <button @click="projectWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
                             class="btn btn-primary">Continue</button>
                         </div>
                       </div>
@@ -205,6 +205,7 @@ export default {
         res.json().then((response) => {
           let projectString = JSON.stringify(response);
           localStorage.setItem('gjsProject', projectString);
+          Swal.close();
           this.$router.push({ name: "Home", params: { id } });
         })
       })
@@ -258,6 +259,7 @@ export default {
               let id = response.id
               localStorage.setItem('projectId', id);
               localStorage.setItem('gjsProject', `{}`)
+              this.$router.push({ name: "Home", params: { id } });
             } else {
               Swal.fire({
                 icon: "error",

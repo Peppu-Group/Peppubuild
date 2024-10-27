@@ -1,6 +1,78 @@
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
 
+  const attrsToString = (attrs) => {
+    const result = [];
+
+    for (let key in attrs) {
+      let value = attrs[key];
+      const toParse = value instanceof Array || value instanceof Object;
+      value = toParse ? JSON.stringify(value) : value;
+      result.push(`${key}=${toParse ? `'${value}'` : `'${value}'`}`);
+    }
+
+    return result.length ? ` ${result.join(' ')}` : '';
+  };
+  const stylePrefix = 'gjs';
+  const clsRow = `${stylePrefix}row`;
+  const clsCell = `${stylePrefix}cell`;
+  const styleRow =  `
+    .${clsRow} {
+      display: flex;
+      justify-content: flex-start;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      padding: 10px;
+    }
+    @media (max-width: 768px) {
+      .${clsRow} {
+        flex-wrap: wrap;
+      }
+    }`;
+    const colAttr = {
+      class: clsCell,
+      'data-gjs-draggable': `.${clsRow}`,
+      'data-gjs-name': 'Cell'
+    };
+    const attrsCell = attrsToString(colAttr);
+  const rowAttr = {
+    class: clsRow,
+    'data-gjs-droppable': `.${clsCell}`,
+    'data-gjs-name': 'Row'
+  };
+  const styleClm = `
+    .${clsCell} {
+      min-height: 100px;
+      flex-grow: 1;
+      flex-basis: 100%;
+    }`;
+  const attrsRow = attrsToString(rowAttr);
+  domc.addType('VUE-INPUT', {
+    // Make the editor understand when to bind `my-input-type`
+    // Model definition
+    model: {
+      // Default properties
+      defaults: {
+        tagName: 'div',
+        draggable: true, // Can be dropped only inside `form` elements
+        droppable: true, // Can't drop other elements inside
+        content: `<div ${attrsRow}>
+        <div ${attrsCell}></div>
+      </div>
+      ${
+         `<style>
+          ${styleRow}
+          ${styleClm}
+        </style>`
+      }`,
+        traits: [
+          'v-for',
+          'v-if'
+        ],
+      }
+    }
+  });
+
   domc.addType('NAVBAR', {
     model: {
       defaults: {
@@ -16,29 +88,31 @@ export default (editor, opts = {}) => {
               content: 'Navbar'
             }, {
               type: 'button',
-              attributes: { class: 'navbar-toggler', type:'button', 'data-bs-toggle': '#navbarSupportedContent', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
+              attributes: { class: 'navbar-toggler', type: 'button', 'data-bs-toggle': '#navbarSupportedContent', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
               components: [{
                 tagName: 'span',
                 attributes: { class: 'navbar-toggler-icon' },
               }]
             },
             {
-              tagName:'div',
-              attributes: {class: 'collapse navbar-collapse', id: 'navbarSupportedContent'},
+              tagName: 'div',
+              attributes: { class: 'collapse navbar-collapse', id: 'navbarSupportedContent' },
               components: [{
                 tagName: 'ul',
-                attributes: {class: 'navbar-nav me-auto mb-2 mb-lg-0'},
+                attributes: { class: 'navbar-nav me-auto mb-2 mb-lg-0' },
                 components: [{
                   tagName: 'li',
-                  attributes: {class: 'nav-item'},
-                  
+                  attributes: { class: 'nav-item' },
+
                 }]
               }]
             }
             ],
           }
         ]
-      }}})
+      }
+    }
+  })
   // Bootstrap card component
   domc.addType('B-CARD', {
     model: {
