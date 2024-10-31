@@ -1,6 +1,62 @@
 export default (editor, opts = {}) => {
   const bm = editor.BlockManager;
 
+  const attrsToString = (attrs) => {
+    const result = [];
+
+    for (let key in attrs) {
+      let value = attrs[key];
+      const toParse = value instanceof Array || value instanceof Object;
+      value = toParse ? JSON.stringify(value) : value;
+      result.push(`${key}=${toParse ? `'${value}'` : `'${value}'`}`);
+    }
+
+    return result.length ? ` ${result.join(' ')}` : '';
+  };
+  const stylePrefix = 'gjs';
+  const clsRow = `${stylePrefix}row`;
+  const clsCell = `${stylePrefix}cell`;
+  const styleRow =  `
+    .${clsRow} {
+      display: flex;
+      justify-content: flex-start;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      padding: 10px;
+    }
+    @media (max-width: 768px) {
+      .${clsRow} {
+        flex-wrap: wrap;
+      }
+    }`;
+    const colAttr = {
+      class: clsCell,
+      'data-gjs-draggable': `.${clsRow}`,
+      'data-gjs-name': 'Cell'
+    };
+    const attrsCell = attrsToString(colAttr);
+  const rowAttr = {
+    class: clsRow,
+    'data-gjs-droppable': `.${clsCell}`,
+    'data-gjs-name': 'Row'
+  };
+  const styleClm = `
+    .${clsCell} {
+      min-height: 100px;
+      flex-grow: 1;
+      flex-basis: 100%;
+    }`;
+  const attrsRow = attrsToString(rowAttr);
+
+  // Vue Components
+  bm.add('VUE-INPUT', {
+    label: 'Column 1',
+    media: `<svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M2 20h20V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h20a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Z"/>
+    </svg>`, 
+    content: {type: 'VUE-INPUT'}, 
+  });
+
   // Navbar
   bm.add('Navbar', {
     label: 'Navbar',
@@ -51,6 +107,12 @@ export default (editor, opts = {}) => {
     // media: '<svg>...</svg>',
   });
 
+  bm.add('INPUT', {
+    label: 'INPUT',
+    category: 'Bootstrap Component',
+    media: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"/></svg>`,
+    content: { type: 'B-INPUT' }
+  });
   // Accordion
   bm.add('Accordion', {
     label: 'Accordion',

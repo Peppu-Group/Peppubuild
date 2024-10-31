@@ -14,7 +14,6 @@ export default class PagesApp extends UI {
         this.handleNameInput = this.handleNameInput.bind(this);
         this.openEdit = this.openEdit.bind(this);
         this.saveProject = this.saveProject.bind(this);
-        this.publishProject = this.publishProject.bind(this);
         this.getProject = this.getProject.bind(this);
         this.openDelete = this.openDelete.bind(this);
         this.deleteProject = this.deleteProject.bind(this);
@@ -71,7 +70,7 @@ export default class PagesApp extends UI {
     }
 
     removePage(e) {
-        if (this.opts.confirmDeletePage() /* &&  this.pm.getSelected().id !== 'index' throw a can't delete home page*/) {
+        if (this.opts.confirmDeletePage()) {
             this.pm.remove(e.currentTarget.dataset.key);
             this.update();
         }
@@ -124,7 +123,6 @@ export default class PagesApp extends UI {
         const projectdata = editor.getProjectData();
         let pages = JSON.stringify(projectdata);
         let pname = localStorage.getItem('projectName');
-        let name = pname.split('.').slice(0, -1).join('.');
         Swal.showLoading();
         try {
             fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/clientdeploy/${pname}`, {
@@ -136,7 +134,7 @@ export default class PagesApp extends UI {
             }).then((response) => {
                 if (response.ok) {
                     swal("Successful!", "Project Published", "success").then(() => {
-                        window.location.replace(`http://www.${name}.peppubuild.com`);
+                        window.location.replace(`http://www.${pname}.peppubuild.com`);
                     })
                 }
             })
@@ -175,31 +173,7 @@ export default class PagesApp extends UI {
         } catch { swal("Error", "An error occurred", "error") }
     }
 
-<<<<<<< HEAD
-    publishProject() {
-        this.saveProject();
-        let name = this.state.projectName;
-        try {
-            fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/clientdeploy/${name}`, {
-                method: "GET", // or 'PUT'
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }).then((response) => {
-                if (response.ok) {
-                    swal("Successful!", `Your project is now live at ${name}.ammyraj.com`, "success");
-                } else swal("Error!", `An error occurred`, "error");
-            })
-        } catch (error) {
-            swal("Error!", error, "error");
-        }
-        // call /clientdeploy.
-    }
-
-    async getProject() {
-=======
     async getProject(id) {
->>>>>>> main
         const { editor } = this;
         let data = await fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/project/${id}`).then(response => { return response.json() });
         return data;
@@ -213,76 +187,6 @@ export default class PagesApp extends UI {
         // reference: index line 72 - 74
     }
 
-<<<<<<< HEAD
-    addProject() {
-        swal("What would you like to name this project?", {
-            content: "input",
-        }).then((val) => {
-            const name = val;
-            this.state.projectName = name;
-            swal("What type of project will you like to create", {
-                buttons: {
-                    front: {
-                        text: "Frontend",
-                        value: "publishfront",
-                    },
-                    /* 
-                    back: {
-                        text: "Backend",
-                        value: "publishback",
-                    },
-                    defeat: {
-                        text: "Fullstack",
-                        value: "publishfull",
-                    }
-                    */
-                },
-            })
-                .then((value) => {
-                    switch (value) {
-                        case "publishfront":
-                            try {
-                                this.createPublish(value).then(async (response) => {
-                                    let text = await response.text();
-                                    let json = JSON.parse(text);
-                                    if (json.success) {
-                                        localStorage.setItem("projectName", name);
-                                        this.update();
-                                        swal("Successful!", "Created Project", "success");
-                                    } else swal("Error", json.error, 'error');
-                                })
-                            } catch (error) {
-                                swal("Error", "An error occurred", 'error');
-                            }
-                            break;
-
-                        /* 
-                        case "publishback":
-                            try {
-                                this.createPublish(value);
-                                swal("Successful!", "Backend bootstrapped", "success");
-                            } catch (error) {
-                                swal("Error", "An error occurred", error);
-                            }
-                            break;
-    
-                        case "publishfull":
-                            try {
-                                this.createPublish(value);
-                                swal("Successful!", "Fullstack bootstrapped", "success");
-                            } catch (error) {
-                                swal("Error", "An error occurred", "error");
-                            }
-                            break;
-                        */
-
-                        default:
-
-                    }
-                });
-            // this.update();
-        });
-=======
     async readText(event) {
         const file = event.target.files.item(0)
         const text = await file.text();
@@ -296,7 +200,6 @@ export default class PagesApp extends UI {
         localStorage.setItem("projectName", output);
         await this.setProjectName(output);
         this.update();
->>>>>>> main
     }
 
     handleNameInput(e) {

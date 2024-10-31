@@ -34,6 +34,12 @@
                         Layers
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button"
+                        role="tab" aria-controls="data" aria-selected="false">
+                        Add Data
+                    </button>
+                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="style" role="tabpanel" aria-labelledby="style-tab">
@@ -41,6 +47,17 @@
                 </div>
                 <div class="tab-pane fade" id="trait" role="tabpanel" aria-labelledby="trait-tab">
                     <div id="layers-containe"></div>
+                </div>
+                <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
+                    <p class="datatext">Create a collection to get data
+                        from anywhere. (Coming soon)</p>
+
+                    <div class="datasection">
+                        <p class="datatext">Available Data</p>
+                        <div class="alert alert-info alert-box" role="alert" v-for="data in peppuMethods" :key="data.id">
+                            <p class="alerttext">{{ data.availMethod }} {{ data.id }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,6 +83,8 @@
 import grapesjs from 'grapesjs'
 import grapesjsIcons from 'grapesjs-icons';
 import { userAuth } from './js/firebase.js';
+import Swal from 'sweetalert2';
+const serverUrl = 'https://server.peppubuild.com';
 
 const options = {
     // see https://icon-sets.iconify.design/
@@ -85,7 +104,8 @@ export default {
     */
     data() {
         return {
-            edit: ""
+            edit: "",
+            peppuMethods: ""
         }
     },
     mounted() {
@@ -304,6 +324,38 @@ export default {
                 }
                 ],
             },
+            assetManager: {
+                // Upload endpoint, set `false` to disable upload, default `false`
+                uploadFile: async (ev) => {
+                    const files = ev.dataTransfer ? ev.dataTransfer.files : ev.target.files;
+                    Swal.showLoading();
+                    var formData = new FormData();
+                    editor.on('asset', () => { 
+                        Swal.close();
+                     });
+                    for (var i in files) {
+                        formData.append('file', files[i]) //containing all the selected images from local
+                    }
+                    await fetch(`${serverUrl}/uploadfile/${localStorage.getItem('oauth')}`, {
+                        method: 'POST',
+                        body: formData,
+                    }).then(response => {
+                        response.json().then(res => {
+                            let data = {
+                                // You can pass any custom property you want
+                                category: 'c1',
+                                src: `https://drive.google.com/thumbnail?id=${res.id}&sz=w1000`,
+                            }
+
+                            editor.AssetManager.add(data);
+                            editor.AssetManager.render();
+                        })
+                        /*
+                        
+                     */
+                    })
+                }
+            },
             // Add peppu and other plugins.
             plugins: ['peppu-sidebar', 'peppu-bootstrap', 'peppu-panel', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
             pluginsOpts: {
@@ -354,6 +406,7 @@ export default {
         panelManager.removeButton("views", "open-layers");
         panelManager.removeButton("views", "open-tm");
         this.edit = editor;
+        this.peppuMethods = JSON.parse(localStorage.getItem('peppuMethods'))
     },
     methods: {
         popen() {
@@ -375,6 +428,83 @@ export default {
                 })
             })
         },
+        createApi(type) {
+            const modal = this.edit.Modal;
+
+            const container = document.createElement('div');
+
+            const inputHtml = `<div class="form-group">
+                    <label>URL</label>
+                    <input type="text" class="form-control" placeholder="http://test-data/" name="url" id="urlInput">
+                    </div>
+                    <br>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="getCheckbox" value=""
+                    onclick="document.getElementById('getCheckbox').setAttribute('value', 'Get')">
+                    <label class="form-check-label" for="getCheckbox">Get Request</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="postCheckbox" value=""
+                    onclick="document.getElementById('postCheckbox').setAttribute('value', 'Post')">
+                    <label class="form-check-label" for="postCheckbox">Post Request</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="deleteCheckbox" value=""
+                    onclick="document.getElementById('deleteCheckbox').setAttribute('value', 'Delete')">
+                    <label class="form-check-label" for="deleteCheckbox">Delete Request</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="putCheckbox" value=""
+                    onclick="document.getElementById('putCheckbox').setAttribute('value', 'Put')">
+                    <label class="form-check-label" for="putCheckbox">Put Request</label>
+                    </div>
+                    <br>`;
+            const btnEdit = document.createElement('button');
+            btnEdit.innerHTML = 'Submit';
+            btnEdit.className = 'btn btn-success';
+            btnEdit.onclick = function () {
+                // get url value
+                const urlInputElement = document.getElementById('urlInput');
+                const urlVal = urlInputElement.value;
+
+                // get value
+                const getCheckElement = document.getElementById('getCheckbox');
+                const getVal = getCheckElement.value;
+
+                // post value
+                const postCheckElement = document.getElementById('postCheckbox');
+                const postVal = postCheckElement.value;
+
+                // delete value
+                const deleteCheckElement = document.getElementById('deleteCheckbox');
+                const deleteVal = deleteCheckElement.value;
+
+                // put value
+                const putCheckElement = document.getElementById('putCheckbox');
+                const putVal = putCheckElement.value;
+
+                // here is where you put your ajax logic
+                // myAjaxCallFunction(urlVal, idVal);
+                console.log(urlVal);
+                console.log(getVal);
+                console.log(postVal);
+                console.log(deleteVal);
+                console.log(putVal);
+
+                let methods = [getVal, postVal, deleteVal, putVal]
+                let availMethod = methods.filter(str => /\w+/.test(str))
+                let peppm = [{ id: urlVal, availMethod }]
+                localStorage.setItem('peppuMethods', JSON.stringify(peppm))
+
+                modal.close();
+            };
+
+            modal.setTitle(`Collect and manage data from ${type}`);
+            container.innerHTML = inputHtml;
+            container.appendChild(btnEdit);
+            modal.setContent(container);
+            modal.open();
+        }
     }
 }
 

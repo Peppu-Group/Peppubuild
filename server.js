@@ -104,11 +104,40 @@ async function startServer() {
               pages: pages.pages
             }
           });
+          
+
+          function getCss() {
+            let css =''
+            for (const style of pages.styles) {
+              if (style.mediaText) {
+                const cssRule = editor.Css.setRule(style.selectors, style.style, {
+                  atRuleType: style.atRuleType,
+                  atRuleParams: style.mediaText
+                })
+                css += cssRule.toCSS();
+                // let cssstreams = Readable.from(css)
+                // await client.uploadFrom(cssstreams, `style.css`);
+                // fs.writeFileSync('create.css', css)
+              } else {
+                const cssRule = editor.Css.setRule(style.selectors, style.style)
+                css  += cssRule.toCSS();
+                // fs.writeFileSync('create.css', css)
+                // console.log(css)
+                // let cssstreams = Readable.from(css)
+                // await client.uploadFrom(cssstreams, `style.css`);
+              }
+            }
+            return css
+          }
+
+          let cssstreams = Readable.from(getCss())
+          await client.uploadFrom(cssstreams, `style.css`);
+
           for (const e of editor.Pages.getAll()) {
             const name = e.id
             const component = e.getMainComponent()
             const html = editor.getHtml({ component });
-            const css = editor.getCss({ component });
+            const css = editor.getCss({ component });  
             let htmlContent = `
               <!DOCTYPE html>
                 <html lang="en">
@@ -117,7 +146,7 @@ async function startServer() {
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Document</title>
-                    <link rel="stylesheet" type="text/css" href="./css/${name}.css">
+                    <link rel="stylesheet" type="text/css" href="./style.css">
                     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
                 </head>
                 ${html}
@@ -125,8 +154,6 @@ async function startServer() {
             // create directory and add files into directory
             let htmlstreams = Readable.from([htmlContent]);
             await client.uploadFrom(htmlstreams, `${name}.html`);
-            let cssstreams = Readable.from(css)
-            await client.uploadFrom(cssstreams, `${name}.css`);
           }
         } catch (error) {
           console.error("Error:", error);
