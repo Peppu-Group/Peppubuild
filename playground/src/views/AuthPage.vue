@@ -91,15 +91,15 @@ export default {
          * This function uses signInWithPopup, to retrieve credential after login.
          * We store credential and user data in localStorage().
         */
-       async sendEmail(email, token) {
-        let userSignInMethods = await fetchSignInMethodsForEmail(userAuth, email)
-        if (userSignInMethods.length > 0) {
-            this.callVerify(token);
-        } else {
-            this.sendWelcome(email);
-            this.callVerify(token);
-        }
-       },
+        async sendEmail(email, token) {
+            let userSignInMethods = await fetchSignInMethodsForEmail(userAuth, email)
+            if (userSignInMethods.length > 0) {
+                this.callVerify(token);
+            } else {
+                this.sendWelcome(email);
+                this.callVerify(token);
+            }
+        },
         providerLogin(authProvider, provider) {
             signInWithPopup(userAuth, provider)
                 .then((result) => {
@@ -132,6 +132,7 @@ export default {
         googleLogin() {
             const provider = new GoogleAuthProvider();
             provider.addScope('https://www.googleapis.com/auth/drive.appdata')
+            provider.addScope('https://www.googleapis.com/auth/drive.file')
             this.providerLogin(GoogleAuthProvider, provider);
         },
         // Github Authentication
@@ -154,8 +155,27 @@ export default {
                     // verify token
 
                     // store token
-                    document.cookie = `pepputoken=${providerToken}; max-age=3300`
+                    document.cookie = `pepputoken=${providerToken}; max-age=3300`;
                     resolve();
+                    var timeleft = 3300;
+                    setInterval(function () {
+                        if (timeleft <= 0) {
+                            // clearInterval(downloadTimer);
+                                return new Promise((resolve, reject) => {
+                                    userAuth.onAuthStateChanged((user) => {
+                                        if (user) {
+                                            user.getIdToken(true).then((accessToken) => {
+                                                resolve(document.cookie = `pepputoken=${accessToken}; max-age=3300`)
+                                            })
+                                        }
+                                        reject
+                                    })
+                                }).then(() => {
+                                    timeleft += 3300;
+                                })
+                        } 
+                        timeleft -= 1;
+                    }, 1000);
                 } else {
                     reject();
                 }

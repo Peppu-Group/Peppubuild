@@ -51,11 +51,11 @@
                 <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
                     <p class="datatext">Create a collection to get data
                         from anywhere. (Coming soon)</p>
-                    
+
                     <div class="datasection">
                         <p class="datatext">Available Data</p>
                         <div class="alert alert-info alert-box" role="alert" v-for="data in peppuMethods" :key="data.id">
-                            <p class="alerttext">{{data.availMethod}} {{ data.id }}</p>
+                            <p class="alerttext">{{ data.availMethod }} {{ data.id }}</p>
                         </div>
                     </div>
                 </div>
@@ -83,6 +83,8 @@
 import grapesjs from 'grapesjs'
 import grapesjsIcons from 'grapesjs-icons';
 import { userAuth } from './js/firebase.js';
+import Swal from 'sweetalert2';
+const serverUrl = 'https://server.peppubuild.com';
 
 const options = {
     // see https://icon-sets.iconify.design/
@@ -322,6 +324,38 @@ export default {
                 }
                 ],
             },
+            assetManager: {
+                // Upload endpoint, set `false` to disable upload, default `false`
+                uploadFile: async (ev) => {
+                    const files = ev.dataTransfer ? ev.dataTransfer.files : ev.target.files;
+                    Swal.showLoading();
+                    var formData = new FormData();
+                    editor.on('asset', () => { 
+                        Swal.close();
+                     });
+                    for (var i in files) {
+                        formData.append('file', files[i]) //containing all the selected images from local
+                    }
+                    await fetch(`${serverUrl}/uploadfile/${localStorage.getItem('oauth')}`, {
+                        method: 'POST',
+                        body: formData,
+                    }).then(response => {
+                        response.json().then(res => {
+                            let data = {
+                                // You can pass any custom property you want
+                                category: 'c1',
+                                src: `https://drive.google.com/thumbnail?id=${res.id}&sz=w1000`,
+                            }
+
+                            editor.AssetManager.add(data);
+                            editor.AssetManager.render();
+                        })
+                        /*
+                        
+                     */
+                    })
+                }
+            },
             // Add peppu and other plugins.
             plugins: ['peppu-sidebar', 'peppu-bootstrap', 'peppu-panel', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
             pluginsOpts: {
@@ -461,7 +495,7 @@ export default {
                 let availMethod = methods.filter(str => /\w+/.test(str))
                 let peppm = [{ id: urlVal, availMethod }]
                 localStorage.setItem('peppuMethods', JSON.stringify(peppm))
-                
+
                 modal.close();
             };
 
