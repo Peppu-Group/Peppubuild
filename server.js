@@ -19,7 +19,9 @@ const { google } = require('googleapis');
 require('dotenv').config();
 const { Readable } = require('stream');
 var ftp = require("basic-ftp");
-var cors = require('cors')
+var cors = require('cors');
+var fs = require('fs');
+var formidable = require('formidable');
 
 // ENV constants for Namecheap
 const CURR_DIR = os.tmpdir();
@@ -51,7 +53,49 @@ async function startServer() {
  * @param {number} Id - FileId
  * @param {string} accessToken - Oauth Access Token
 */
-  async function getContent(Id, accessToken) {
+async function uploadPhoto(accessToken, filePath) {
+  const service = driveAuth(accessToken);
+  const requestBody = {
+    name: 'photo.jpg',
+    fields: 'id',
+  };
+  const media = {
+    mimeType: 'image/jpeg',
+    body: fs.createReadStream(filePath),
+  };
+  try {
+    const file = await service.files.create({
+      requestBody,
+      media: media,
+    });
+    return file.data.id;
+  } catch (err) {
+    console.log(err)
+    throw err;
+  }
+}
+app.post('/uploadfile/:accesstoken', (req, res) => {
+  let accessToken = req.params.accesstoken;
+  const service = driveAuth(accessToken);
+  let fileid = '';
+  const form = formidable({ multiples: true });
+    form.parse(req, (err, fields, files) => {
+      uploadPhoto(accessToken, files.file.filepath).then((Id) => {
+        res.send({ id: Id })
+        service.permissions.create({
+              fileId: Id,
+              resource: {  
+                  role: "reader",
+                  type: "anyone",
+              }
+          });
+          fileid +=  Id;
+
+      })
+      
+    });
+})
+async function getContent(Id, accessToken) {
     const service = driveAuth(accessToken);
     try {
       const file = await service.files.get({
