@@ -1,12 +1,13 @@
 
 <template>
     <div class="background">
-        <div id="i9x1">
-            <h1>Login or Sign into your account with your Google profile.</h1>
-        </div>
         <div class="main__container">
             <div class="wrapper">
                 <div class="form-wrapper sign-in">
+                    <div class="formcenter">
+                        <img src="./img/logo.png" style="width: 50px; height: 50px"/>
+                        <h1 class="walltext">Welcome to Peppubuild</h1>
+                    </div>
                     <div class="start">
                         <div class="google-btn google-bk" @click="googleLogin()">
                             <div class="google-icon-wrapper">
@@ -91,15 +92,16 @@ export default {
          * This function uses signInWithPopup, to retrieve credential after login.
          * We store credential and user data in localStorage().
         */
-        async sendEmail(email, token) {
-            let userSignInMethods = await fetchSignInMethodsForEmail(userAuth, email)
-            if (userSignInMethods.length > 0) {
-                this.callVerify(token);
-            } else {
-                this.sendWelcome(email);
-                this.callVerify(token);
-            }
-        },
+       async sendEmail(email, token) {
+        let userSignInMethods = await fetchSignInMethodsForEmail(userAuth, email)
+        if (userSignInMethods.length > 0) {
+            this.sendWelcome(email);
+            this.callVerify(token);
+        } else {
+            // call verify
+            this.callVerify(token);
+        }
+       },
         providerLogin(authProvider, provider) {
             signInWithPopup(userAuth, provider)
                 .then((result) => {
@@ -132,7 +134,6 @@ export default {
         googleLogin() {
             const provider = new GoogleAuthProvider();
             provider.addScope('https://www.googleapis.com/auth/drive.appdata')
-            provider.addScope('https://www.googleapis.com/auth/drive.file')
             this.providerLogin(GoogleAuthProvider, provider);
         },
         // Github Authentication
@@ -155,27 +156,8 @@ export default {
                     // verify token
 
                     // store token
-                    document.cookie = `pepputoken=${providerToken}; max-age=3300`;
+                    document.cookie = `pepputoken=${providerToken}; max-age=3300`
                     resolve();
-                    var timeleft = 3300;
-                    setInterval(function () {
-                        if (timeleft <= 0) {
-                            // clearInterval(downloadTimer);
-                                return new Promise((resolve, reject) => {
-                                    userAuth.onAuthStateChanged((user) => {
-                                        if (user) {
-                                            user.getIdToken(true).then((accessToken) => {
-                                                resolve(document.cookie = `pepputoken=${accessToken}; max-age=3300`)
-                                            })
-                                        }
-                                        reject
-                                    })
-                                }).then(() => {
-                                    timeleft += 3300;
-                                })
-                        } 
-                        timeleft -= 1;
-                    }, 1000);
                 } else {
                     reject();
                 }
@@ -189,7 +171,7 @@ export default {
         },
         sendWelcome(userEmail) {
             const form = new FormData();
-            form.append('from', 'Ugo from Peppubuild <ugochi.ukpai@peppubuild.com>');
+            form.append('from', 'Ugochi from Peppubuild');
             form.append('to', userEmail);
             form.append('subject', 'Welcome to Peppubuild');
             form.append('template', 'welcome');
