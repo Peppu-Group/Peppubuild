@@ -7,10 +7,6 @@ global styles
     background-color: white;
     color: #333;
 }
-.gjs-btn-prim {
-    background-color: #34A853;
-    font-size: 12px;
-}
 body {
     margin: 0;
     font-family: sans-serif;
@@ -35,9 +31,11 @@ auth starts here
 ################
 */
 .background {
-    padding-top: 10vh;
     padding-left: 3vh;
     padding-right: 3vh;
+    box-shadow: inset 0 0 0 1000px rgba(30, 127, 17, 0.2);
+    height: 100vh;
+    background-image: url('https://peppubuild.com/AboutMain.png');
 }
 
 .signUpBtn {
@@ -155,8 +153,8 @@ auth starts here
 
 .wrapper {
     position: relative;
-    width: 380px;
-    height: 480px;
+    width: 450px;
+    height: 420px;
     background: #fff;
     box-shadow: 0 0 50px rgb(225, 215, 215);
     border-radius: 20px;
@@ -164,15 +162,16 @@ auth starts here
     overflow: hidden;
     margin: 0 1rem;
 }
-
-
-
+.walltext {
+    font-size: 30px;
+    margin: 20px;
+}
+.formcenter {
+    text-align: center;
+}
 .form-wrapper {
-    display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
     transition: .5s ease-in-out;
 }
 
@@ -745,31 +744,4 @@ Grapes
 
 .space {
     margin-right: 10px;
-}
-
-.datatext {
-    font-size: 14px;
-    text-align: center;
-}
-
-.alerttext {
-    font-size: 10px;
-}
-
-.alert-box {
-    padding: 5px;
-}
-
-.back-g {
-    background-color: #f6f6ff;
-    padding: 10px;
-    border-radius: 10px;
-    height: 120px;
-    margin: 5px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.datasection {
-    margin: 1vw;
 }
