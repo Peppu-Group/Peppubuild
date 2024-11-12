@@ -112,22 +112,26 @@ export default (editor, opts = {}) => {
     },
   });
 
-  domc.addType('NAVBAR', {
+  domc.addType('B-NAVBAR', {
     model: {
       defaults: {
-        tagName: 'nav',
-        attributes: { class: 'navbar navbar-expand-lg fixed-top navbar-light' },
-        components: [
-          {
-            tagName: 'div',
-            attributes: { class: 'container-fluid' },
-            components: [{
+        tagName: 'div',
+        attributes: { class: 'navbar navbar-expand-lg nav-contain' },
+        components: [{
+          tagName: 'div',
+          attributes: { class: 'container-fluid' },
+          components: [
+            {
               type: 'link',
-              attributes: { class: 'navbar-brand' },
-              content: 'Navbar'
-            }, {
-              type: 'button',
-              attributes: { class: 'navbar-toggler', type: 'button', 'data-bs-toggle': '#navbarSupportedContent', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
+              attributes: { class: 'navbar-brand', href: '#' },
+              components: [{
+                type: 'image',
+                attributes: { src: 'https://peppubuild.com/logo.png' },
+              }]
+            },
+            {
+              tagName: 'button',
+              attributes: { class: 'navbar-toggler', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#navbarSupportedContent" },
               components: [{
                 tagName: 'span',
                 attributes: { class: 'navbar-toggler-icon' },
@@ -136,20 +140,164 @@ export default (editor, opts = {}) => {
             {
               tagName: 'div',
               attributes: { class: 'collapse navbar-collapse', id: 'navbarSupportedContent' },
-              components: [{
-                tagName: 'ul',
-                attributes: { class: 'navbar-nav me-auto mb-2 mb-lg-0' },
-                components: [{
-                  tagName: 'li',
-                  attributes: { class: 'nav-item' },
-
-                }]
-              }]
+              components: [
+                {
+                  tagName: 'ul',
+                  attributes: { class: 'navbar-nav me-auto mb-2 mb-lg-0' },
+                  components: [
+                    {
+                      tagName: 'li',
+                      attributes: { class: 'nav-item' },
+                      components: [{
+                        type: 'link',
+                        attributes: { class: 'nav-link active', 'aria-current': 'page', href: '#' },
+                        components: [{
+                          type: 'textnode',
+                          content: 'Home'
+                        }]
+                      }]
+                    },
+                    {
+                      tagName: 'li',
+                      attributes: { class: 'nav-item' },
+                      components: [{
+                        type: 'link',
+                        attributes: { class: 'nav-link', 'aria-current': 'page', href: '#' },
+                        components: [{
+                          type: 'textnode',
+                          content: 'Link'
+                        }]
+                      }]
+                    },
+                    {
+                      tagName: 'li',
+                      attributes: { class: 'nav-item dropdown' },
+                      components: [
+                        {
+                          type: 'link',
+                          attributes: { class: 'nav-link dropdown-toggle', id: 'navbarDropdown', href: '#', role: 'button', 'data-bs-toggle': "dropdown" },
+                          components: [{
+                            type: 'textnode',
+                            content: 'Dropdown'
+                          }]
+                        },
+                        {
+                          tagName: 'ul',
+                          attributes: { class: 'dropdown-menu', 'aria-labelledby': 'navbarDropdown' },
+                          components: [
+                            {
+                              tagName: 'li',
+                              components: [{
+                                type: 'link',
+                                attributes: { class: 'dropdown-item', href: '#' },
+                                components: [{
+                                  type: 'textnode',
+                                  content: 'Action'
+                                }]
+                              }]
+                            },
+                            {
+                              tagName: 'li',
+                              components: [{
+                                type: 'link',
+                                attributes: { class: 'dropdown-item', href: '#' },
+                                components: [{
+                                  type: 'textnode',
+                                  content: 'Action'
+                                }]
+                              }]
+                            },
+                            {
+                              tagName: 'li',
+                              components: [{
+                                tagName: 'hr',
+                                attributes: { class: 'dropdown-divider' },
+                              }]
+                            },
+                            {
+                              tagName: 'li',
+                              components: [{
+                                type: 'link',
+                                attributes: { class: 'dropdown-item', href: '#' },
+                                components: [{
+                                  type: 'textnode',
+                                  content: 'Action'
+                                }]
+                              }]
+                            },
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  tagName: 'form',
+                  attributes: { class: 'd-flex' },
+                  components: [
+                    {
+                      tagName: 'input',
+                      attributes: { class: 'form-control me-2', type: 'search', placeholder: 'Search', 'aria-label': 'Search' }
+                    },
+                    {
+                      type: 'B-BUTTON',
+                    }
+                  ]
+                }
+              ]
             }
+          ]
+        }],
+        styles: `
+        .container-fluid img {
+          width: 50px; 
+          height: 25px;
+          margin: 0px 15px 0px 25px;
+        }
+        .nav-contain {
+          border-bottom: 1px solid #e3e3e3;
+        }
+        `
+      },
+    },
+
+    view: {
+
+    },
+  });
+  domc.addType('B-SIDEBAR', {
+    model: {
+      defaults: {
+        tagName: 'div',
+        attributes: { class: 'container-fluid' },
+        components: [{
+          tagName: 'div',
+          attributes: { class: 'row flex-nowrap' },
+          components: [{
+            tagName: 'div',
+            attributes: { class: 'col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark' },
+            components: [{
+              tagName: 'div',
+              attributes: { class: 'd-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100' },
+              components: [
+                {
+                type: 'link',
+                attributes: { href: '#', class: 'd-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none' },
+                components: [{
+                  tagName: 'span',
+                  type: 'text',
+                  attributes: { class: 'fs-5 d-none d-sm-inline'}
+                }]
+              },
+              {
+                tagName: 'ul',
+                attributes: { class: 'nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start', id: 'menu'}
+              }
             ],
-          }
-        ]
+            }]
+          }]
+        }]
       }
     }
-  })
+    })
 };
