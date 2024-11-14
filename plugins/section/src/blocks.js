@@ -122,4 +122,33 @@ export default (editor, opts = {}) => {
     </svg>`,
     content: { type: 'B-ACCORDION' }
   });
+
+  bm.add('Form', {
+    label: 'Bootstrap Form',
+    category: 'Section',
+    media: `<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <rect x="10" y="15" width="28" height="9" fill="#D9D9D9"/>
+    <rect x="10" y="29" width="28" height="11" fill="#D9D9D9"/>
+    <path d="M33.7074 17.6364L35.0028 21.3097H35.054L36.3494 17.6364H36.9034L35.3011 22H34.7557L33.1534 17.6364H33.7074Z" fill="black"/>
+    </svg>`,
+    content: `
+    <form class='container col-xxl-6 px-4 py-5'>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+    `
+  });
 }
