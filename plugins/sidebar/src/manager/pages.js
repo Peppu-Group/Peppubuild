@@ -1,6 +1,10 @@
 import UI from '../utils/ui';
 import swal from 'sweetalert';
 import Swal from 'sweetalert2';
+import JSZip from "jszip";
+import FileSaver from 'file-saver';
+
+var zip = new JSZip();
 
 export default class PagesApp extends UI {
     constructor(editor, opts = {}) {
@@ -81,7 +85,7 @@ export default class PagesApp extends UI {
         localStorage.removeItem("projectName");
         // call drive delete route
         try {
-            
+
         } catch { swal("Error", "An error occurred", "error") }
     }
 
@@ -119,6 +123,8 @@ export default class PagesApp extends UI {
     }
 
     addProject() {
+        let pname = localStorage.getItem('projectName');
+        /*
         const { editor } = this;
         const projectdata = editor.getProjectData();
         let pages = JSON.stringify(projectdata);
@@ -139,6 +145,72 @@ export default class PagesApp extends UI {
                 }
             })
         } catch { swal("Error", "An error occurred", "error") }
+        */
+
+        Swal.fire({
+            title: "How would you like to publish your work?",
+            showCancelButton: true,
+            confirmButtonText: "Download Artifacts",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                const pages = JSON.parse(localStorage.getItem('gjsProject'))
+                let editor = grapesjs.init({
+                    headless: true, pageManager: {
+                        pages: pages.pages
+                    }
+                });
+
+
+                function getCss() {
+                    let css = ''
+                    for (const style of pages.styles) {
+                        if (style.mediaText) {
+                            const cssRule = editor.Css.setRule(style.selectors, style.style, {
+                                atRuleType: style.atRuleType,
+                                atRuleParams: style.mediaText
+                            })
+                            css += cssRule.toCSS();
+                            // let cssstreams = Readable.from(css)
+                            // await client.uploadFrom(cssstreams, `style.css`);
+                            // fs.writeFileSync('create.css', css)
+                        } else {
+                            const cssRule = editor.Css.setRule(style.selectors, style.style)
+                            css += cssRule.toCSS();
+                            // fs.writeFileSync('create.css', css)
+                            // console.log(css)
+                            // let cssstreams = Readable.from(css)
+                            // await client.uploadFrom(cssstreams, `style.css`);
+                        }
+                    }
+                    return css
+                }
+
+                // let cssstreams = Readable.from(getCss())
+                // await client.uploadFrom(cssstreams, `style.css`);
+                zip.file("style.css", getCss());
+
+                for (const e of editor.Pages.getAll()) {
+                    const name = e.id
+                    const component = e.getMainComponent()
+                    const html = editor.getHtml({ component });
+                    let htmlContent = `
+            var ${name} = { 
+              template: ${html}
+            };
+            `
+                    zip.file(`pages/${name}.js`, `${htmlContent}`);
+                    zip.generateAsync({ type: "blob" })
+                        .then(function (blob) {
+                            FileSaver.saveAs(blob, `${pname}.zip`);
+                        });
+                }
+
+
+               // Swal.fire("Saved!", "", "success");
+            }
+        });
+
     }
 
     addPage() {

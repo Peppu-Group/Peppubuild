@@ -25,6 +25,9 @@
     "author": "Ukpai Ugochi",
     "license": "MIT",
     "dependencies": {
-        "sweetalert": "^2.1.2"
+        "file-saver": "^2.0.5",
+        "jszip": "^3.10.1",
+        "sweetalert": "^2.1.2",
+        "sweetalert2": "^11.14.5"
     }
 }
