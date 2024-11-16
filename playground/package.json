@@ -10,10 +10,12 @@
   "dependencies": {
     "chart.js": "^4.4.4",
     "core-js": "^3.8.3",
+    "file-saver": "^2.0.5",
     "firebase": "^10.13.1",
     "grapesjs": "^0.22.1",
     "grapesjs-icons": "0.0.4",
     "grapesjs-rulers": "^1.0.8",
+    "jszip": "^3.10.1",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.14.0",
     "vue": "^3.2.13",
