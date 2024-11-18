@@ -745,3 +745,55 @@ Grapes
 .space {
     margin-right: 10px;
 }
+
+/*
+################
+icons for editor
+################
+*/
+
+.icons-flex {
+    background-size: 70% 65% !important;
+    height: 15px;
+    width: 17px;
+    opacity: 0.9;
+  }
+  .icon-dir-row {
+    background: url("../img/flex-dir-row.png") no-repeat center;
+  }
+  .icon-dir-row-rev {
+    background: url("../img/flex-dir-row-rev.png") no-repeat center;
+  }
+  .icon-dir-col {
+    background: url("../img/flex-dir-col.png") no-repeat center;
+  }
+  .icon-dir-col-rev {
+    background: url("../img/flex-dir-col-rev.png") no-repeat center;
+  }
+  .icon-just-start{
+   background: url("../img/flex-just-start.png") no-repeat center;
+  }
+  .icon-just-end{
+   background: url("../img/flex-just-end.png") no-repeat center;
+  }
+  .icon-just-sp-bet{
+   background: url("../img/flex-just-sp-bet.png") no-repeat center;
+  }
+  .icon-just-sp-ar{
+   background: url("../img/flex-just-sp-ar.png") no-repeat center;
+  }
+  .icon-just-sp-cent{
+   background: url("../img/flex-just-sp-cent.png") no-repeat center;
+  }
+  .icon-al-start{
+   background: url("../img/flex-al-start.png") no-repeat center;
+  }
+  .icon-al-end{
+   background: url("../img/flex-al-end.png") no-repeat center;
+  }
+  .icon-al-str{
+   background: url("../img/flex-al-str.png") no-repeat center;
+  }
+  .icon-al-center{
+   background: url("../img/flex-al-center.png") no-repeat center;
+  }
