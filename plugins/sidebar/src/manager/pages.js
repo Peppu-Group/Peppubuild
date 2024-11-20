@@ -154,6 +154,8 @@ export default class PagesApp extends UI {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
+                this.saveProject();
+                Swal.showLoading();
                 const pages = JSON.parse(localStorage.getItem('gjsProject'))
                 let editor = grapesjs.init({
                     headless: true, pageManager: {
@@ -195,14 +197,15 @@ export default class PagesApp extends UI {
                     const component = e.getMainComponent()
                     const html = editor.getHtml({ component });
                     let htmlContent = `
-            var ${name} = { 
-              template: ${html}
-            };
-            `
+                        var ${name} = { 
+                        template: ${html}
+                        };
+                        `
                     zip.file(`pages/${name}.js`, `${htmlContent}`);
                     zip.generateAsync({ type: "blob" })
                         .then(function (blob) {
                             FileSaver.saveAs(blob, `${pname}.zip`);
+                            Swal.close();
                         });
                 }
 

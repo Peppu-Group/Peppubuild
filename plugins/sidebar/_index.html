@@ -508,6 +508,16 @@
         }
       });
       const pn = editor.Panels;
+      pn.addButton('views', {
+        id: 'peppu:open',
+        className: 'fa fa-file-o',
+        attributes: {
+          title: 'Take Screenshot'
+        },
+        command: 'peppu:open',
+        togglable: false
+      });
+
       const pageManager = editor.Pages;
     },
       100);
