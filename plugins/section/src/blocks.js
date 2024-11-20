@@ -236,7 +236,14 @@ export default (editor, opts = {}) => {
   bm.add('B-CARD', {
     label: 'Card',
     category: 'Elements',
-    media: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M448 96V224H288V96H448zm0 192V416H288V288H448zM224 224H64V96H224V224zM64 288H224V416H64V288zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"/></svg>`,
+    media: `
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <rect x="10" y="13" width="27" height="22" fill="white" stroke="black" stroke-width="2"/>
+    <line x1="9" y1="23.5" x2="38" y2="23.5" stroke="black"/>
+    <line x1="24.5" y1="12" x2="24.5" y2="36" stroke="black"/>
+    </svg>
+    `,
     content: { type: 'B-CARD' }
   });
   /* 
@@ -276,7 +283,12 @@ export default (editor, opts = {}) => {
   bm.add('Footer', {
     label: 'Footer',
     category: 'Elements',
-    media: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>`,
+    media: `
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <line y1="33" x2="48" y2="33" stroke="black" stroke-width="2"/>
+    </svg>
+    `,
     /*
     content: `
   <div class="">
@@ -496,14 +508,25 @@ export default (editor, opts = {}) => {
     */
     content: {type: 'B-PRICING'},
     media: `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <rect x="11" y="13" width="25" height="21" fill="white" stroke="black" stroke-width="2"/>
+    <path d="M23.4773 29.0909V18.1818H24.1761V29.0909H23.4773ZM25.8295 21.4545C25.7784 21.0227 25.571 20.6875 25.2074 20.4489C24.8438 20.2102 24.3977 20.0909 23.8693 20.0909C23.483 20.0909 23.1449 20.1534 22.8551 20.2784C22.5682 20.4034 22.3438 20.5753 22.1818 20.794C22.0227 21.0128 21.9432 21.2614 21.9432 21.5398C21.9432 21.7727 21.9986 21.973 22.1094 22.1406C22.223 22.3054 22.3679 22.4432 22.544 22.554C22.7202 22.6619 22.9048 22.7514 23.098 22.8224C23.2912 22.8906 23.4688 22.946 23.6307 22.9886L24.517 23.2273C24.7443 23.2869 24.9972 23.3693 25.2756 23.4744C25.5568 23.5795 25.8253 23.723 26.081 23.9048C26.3395 24.0838 26.5526 24.3139 26.7202 24.5952C26.8878 24.8764 26.9716 25.2216 26.9716 25.6307C26.9716 26.1023 26.848 26.5284 26.6009 26.9091C26.3565 27.2898 25.9986 27.5923 25.527 27.8168C25.0582 28.0412 24.4886 28.1534 23.8182 28.1534C23.1932 28.1534 22.652 28.0526 22.1946 27.8509C21.7401 27.6491 21.3821 27.3679 21.1207 27.0071C20.8622 26.6463 20.7159 26.2273 20.6818 25.75H21.7727C21.8011 26.0795 21.9119 26.3523 22.1051 26.5682C22.3011 26.7812 22.5483 26.9403 22.8466 27.0455C23.1477 27.1477 23.4716 27.1989 23.8182 27.1989C24.2216 27.1989 24.5838 27.1335 24.9048 27.0028C25.2259 26.8693 25.4801 26.6847 25.6676 26.4489C25.8551 26.2102 25.9489 25.9318 25.9489 25.6136C25.9489 25.3239 25.8679 25.0881 25.706 24.9062C25.544 24.7244 25.331 24.5767 25.0668 24.4631C24.8026 24.3494 24.517 24.25 24.2102 24.1648L23.1364 23.858C22.4545 23.6619 21.9148 23.3821 21.517 23.0185C21.1193 22.6548 20.9205 22.179 20.9205 21.5909C20.9205 21.1023 21.0526 20.6761 21.3168 20.3125C21.5838 19.946 21.9418 19.6619 22.3906 19.4602C22.8423 19.2557 23.3466 19.1534 23.9034 19.1534C24.4659 19.1534 24.9659 19.2543 25.4034 19.456C25.8409 19.6548 26.1875 19.9276 26.4432 20.2741C26.7017 20.6207 26.8381 21.0142 26.8523 21.4545H25.8295Z" fill="black"/>
+    </svg>
     `
   });
 
   bm.add('Features', {
     label: 'Features',
     category: 'Elements',
-    media: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M96 96c0-35.3 28.7-64 64-64H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H80c-44.2 0-80-35.8-80-80V128c0-17.7 14.3-32 32-32s32 14.3 32 32V400c0 8.8 7.2 16 16 16s16-7.2 16-16V96zm64 24v80c0 13.3 10.7 24 24 24H296c13.3 0 24-10.7 24-24V120c0-13.3-10.7-24-24-24H184c-13.3 0-24 10.7-24 24zm208-8c0 8.8 7.2 16 16 16h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H384c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H384c-8.8 0-16 7.2-16 16zM160 304c0 8.8 7.2 16 16 16H432c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16H432c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z"/></svg>`,
+    media: `
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <rect x="11" y="13" width="25" height="21" fill="white" stroke="black" stroke-width="2"/>
+    <line x1="10" y1="28.5" x2="37" y2="28.5" stroke="black"/>
+    <rect x="15.5" y="17.5" width="6" height="6" fill="white" stroke="black"/>
+    </svg>
+    `,
     /*
        content: `
     <div>
@@ -558,13 +581,25 @@ export default (editor, opts = {}) => {
     label: 'Button',
     category: 'Elements',
     content: { type: 'B-BUTTON' },
-    media: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z"/></svg>`
+    media: `
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <rect x="10" y="25" width="27" height="9" fill="white" stroke="black" stroke-width="2"/>
+    </svg>
+    `
   });
 
   bm.add('Carousel', {
     label: 'Carousel',
     category: 'Animation',
-    media: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z"/></svg>`,
+    media: `
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.00024" y="1" width="46" height="46" rx="4" fill="white" stroke="black" stroke-width="2"/>
+    <rect x="11" y="13" width="25" height="21" fill="white" stroke="black" stroke-width="2"/>
+    <path d="M18.6989 24.9318L13.2102 27.7273V26.6364L17.4205 24.608L17.3864 24.6761V24.5057L17.4205 24.5739L13.2102 22.5455V21.4545L18.6989 24.25V24.9318Z" fill="black"/>
+    <path d="M28.2102 24.9318V24.25L33.6989 21.4545V22.5455L29.4886 24.5739L29.5227 24.5057V24.6761L29.4886 24.608L33.6989 26.6364V27.7273L28.2102 24.9318Z" fill="black"/>
+    </svg>
+    `,
     /*
     content: `
     <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
