@@ -387,8 +387,16 @@ export default (editor, opts = {}) => {
         attributes: { class: 'd-flex justify-content-center align-items-center flex-container' },
         components: [
           {
-            tagName: 'textnode',
-              content: 'Put your content here'
+            tagName: 'h2',
+            type: 'text',
+            components: [{
+              type: 'textnode',
+              content: `Landing Page`
+            }]
+          },
+          {
+            type: 'image',
+            attributes: { src: 'https://fakeimg.pl/600x400?text=Replace+image', alt: '' },
           }
         ],
         styles: `
@@ -398,6 +406,21 @@ export default (editor, opts = {}) => {
           margin: 10px 10px 10px 10px;
         }
         `
+      }
+    },
+  });
+
+  domc.addType('B-Pages', {
+    model: {
+      defaults: {
+        components: [
+          {
+            type: 'B-NAVBAR',
+          },
+          {
+            type: 'B-Center',
+          }
+        ]
       }
     },
   });
@@ -422,6 +445,10 @@ export default (editor, opts = {}) => {
       }
     },
   });
+
+  domc.addType('Social', {})
+
+  domc.addType('B-FAQ', {})
 
   // Bootstrap card component
   domc.addType('B-CARD', {
