@@ -419,6 +419,15 @@ export default (editor, opts = {}) => {
           },
           {
             type: 'B-Center',
+          },
+          {
+            type: 'B-FEATURES',
+          },
+          {
+            type: 'B-ACCORDION',
+          },
+          {
+            type: 'B-FOOTER',
           }
         ]
       }
