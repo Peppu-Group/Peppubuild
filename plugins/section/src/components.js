@@ -2,7 +2,7 @@ export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
 
   // accordion
-  domc.addType('B-ACCORDION', {
+  domc.addType('B-ACCORDIO', {
     model: {
       defaults: {
         tagName: 'div',
@@ -27,7 +27,7 @@ export default (editor, opts = {}) => {
                 attributes: { class: 'accordion-header', id: 'headingOne' },
                 components: [{
                   tagName: 'button',
-                  attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseOne", 'aria-expanded': "true", 'aria-controls': "collapseOne" },
+                  attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseOne", 'aria-expanded': "false", 'aria-controls': "collapseOne" },
                   components: [{
                     type: 'textnode',
                     content: 'Accordion Item #1'
@@ -418,8 +418,25 @@ export default (editor, opts = {}) => {
             type: 'B-NAVBAR',
           },
           {
-            type: 'B-Center',
+          attributes: { class: 'my-5 m-5 d-flex justify-content-center align-items-center flex-container' },
+          components: [
+          {
+            tagName: 'h1',
+            type: 'text',
+            components: [{
+              type: 'textnode',
+              content: `Landing Page`
+            }]
+          }]
           },
+          {
+            attributes: { class: 'my-3 m-5 d-flex justify-content-center align-items-center flex-container' },
+            components: [
+            {
+              type: 'image',
+            attributes: { src: 'https://fakeimg.pl/600x400?text=Replace+image', alt: '' },
+            }]
+            },
           {
             type: 'B-FEATURES',
           },
@@ -628,12 +645,49 @@ export default (editor, opts = {}) => {
     },
   });
 
+  domc.addType('B-Socials', {
+    model: {
+      defaults: {
+        tagName: 'div',
+        attributes: { class: 'd-flex justify-content-center align-items-center flex-container' },
+        components: [
+          {
+            type: 'link',
+            attributes: { class: 'bi bi-facebook large'}
+          },
+          {
+            type: 'link',
+            attributes: { class: 'bi bi-linkedin large'}
+          },
+          {
+            type: 'link',
+            attributes: { class: 'bi bi-twitter large'}
+          },
+          {
+            type: 'link',
+            attributes: { class: 'bi bi-youtube large'}
+          },
+          {
+            tagName: 'link',
+            attributes: { class: 'bi bi-github large'}
+          }
+        ],
+        styles: `
+        .large {
+          font-size: 50px;
+          padding: 20px;
+        }
+        `
+      }
+    },
+  });
+
   // Bootstrap Accordion.
   domc.addType('B-ACCORDION', {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: 'accordionExample', class: 'container col-xxl-8 px-4 py-5 accordion' },
+        attributes: { id: 'accordionExample', class: 'container col-xxl-8 px-4 py-5 accordion accordion-flush' },
         components: [
           {
             tagName: 'h2',
@@ -641,7 +695,7 @@ export default (editor, opts = {}) => {
             attributes: { class: 'pb-2 border-bottom' },
             components: [{
               type: 'textnode',
-              content: 'Accordion'
+              content: 'Frequently Asked Questions (FAQ)'
             }]
           },
           {
@@ -654,16 +708,16 @@ export default (editor, opts = {}) => {
                 attributes: { class: 'accordion-header', id: 'headingOne' },
                 components: [{
                   tagName: 'button',
-                  attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseOne", 'aria-expanded': "true", 'aria-controls': "collapseOne" },
+                  attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseOne", 'aria-expanded': "false", 'aria-controls': "collapseOne" },
                   components: [{
                     type: 'textnode',
-                    content: 'Accordion Item #1'
+                    content: 'Why Use Peppubuild'
                   }]
                 }]
               },
               {
                 tagName: 'div',
-                attributes: { class: 'accordion-collapse collapse show', id: 'collapseOne', 'aria-labelledby': "headingOne", 'data-bs-parent': "#accordionExample" },
+                attributes: { class: 'accordion-collapse collapse', id: 'collapseOne', 'aria-labelledby': "headingOne", 'data-bs-parent': "#accordionExample" },
                 components: [
                   {
                     tagName: 'div',
@@ -674,12 +728,12 @@ export default (editor, opts = {}) => {
                         tagName: 'strong',
                         components: [{
                           type: 'textnode',
-                          content: `This is the first item's accordion body.`
+                          content: `Peppubuild is a great choice.`
                         }]
                       },
                       {
                         type: 'textnode',
-                        content: `It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the accordion-body, though the transition does limit overflow`
+                        content: `Peppubuild is open-source and flexible. It also gives you full ownership as you own your code.`
                       }
                     ]
                   }
@@ -700,13 +754,13 @@ export default (editor, opts = {}) => {
                   attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseTwo", 'aria-expanded': "true", 'aria-controls': "collapseTwo" },
                   components: [{
                     type: 'textnode',
-                    content: 'Accordion Item #1'
+                    content: 'Is Peppubuild Right For Me?'
                   }]
                 }]
               },
               {
                 tagName: 'div',
-                attributes: { class: 'accordion-collapse collapse show', id: 'collapseTwo', 'aria-labelledby': "headingTwo", 'data-bs-parent': "#accordionExample" },
+                attributes: { class: 'accordion-collapse collapse', id: 'collapseTwo', 'aria-labelledby': "headingTwo", 'data-bs-parent': "#accordionExample" },
                 components: [
                   {
                     tagName: 'div',
@@ -717,12 +771,12 @@ export default (editor, opts = {}) => {
                         tagName: 'strong',
                         components: [{
                           type: 'textnode',
-                          content: `This is the second item's accordion body.`
+                          content: `Definitly it is. They're multiple reasons.`
                         }]
                       },
                       {
                         type: 'textnode',
-                        content: `It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the accordion-body, though the transition does limit overflow`
+                        content: `First, think of how quickly it is to build your application. Hence, speed and faster execution.`
                       }
                     ]
                   }
@@ -899,6 +953,9 @@ export default (editor, opts = {}) => {
                     }
                   ]
                 }]
+              },
+              {
+                type: 'B-Socials'
               },
               {
                 tagName: 'div',
