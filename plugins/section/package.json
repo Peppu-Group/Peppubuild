@@ -1,6 +1,6 @@
 {
   "name": "peppu-blocks",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Section",
   "main": "dist/index.js",
   "repository": {

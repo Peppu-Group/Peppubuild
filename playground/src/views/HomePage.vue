@@ -357,7 +357,7 @@ export default {
                 }
             },
             // Add peppu and other plugins.
-            plugins: ['peppu-sidebar', 'peppu-bootstrap', 'peppu-panel', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
+            plugins: ['peppu-sidebar', 'peppu-blocks', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
             pluginsOpts: {
                 'peppu-sidebar': { /* Test here your options  */ },
                 'peppu-bootstrap': {},
