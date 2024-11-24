@@ -418,7 +418,7 @@ export default (editor, opts = {}) => {
             type: 'B-NAVBAR',
           },
           {
-          attributes: { class: 'my-5 m-5 d-flex justify-content-center align-items-center flex-container' },
+          attributes: { class: 'mtop text-center mx-5 d-flex justify-content-center align-items-center flex-container' },
           components: [
           {
             tagName: 'h1',
@@ -430,11 +430,35 @@ export default (editor, opts = {}) => {
           }]
           },
           {
+            attributes: { class: 'mx-5 text-center d-flex justify-content-center align-items-center flex-container' },
+            components: [{
+            tagName: 'p',
+            type: 'text',
+            components: [{
+              type: 'textnode',
+              content: `Build visually satisfying and functional webpages with Peppubuild faster.`
+            }]
+            }]
+          },
+          {
+            attributes: { class: 'm-3 d-flex justify-content-center align-items-center flex-container' },
+            components: [
+              {
+                type: 'B-BUTTON',
+                text: 'Sign in',
+              },
+              {
+                type: 'B-BUTTON',
+                text: 'Start for free'
+              }
+            ]
+            },
+          {
             attributes: { class: 'my-3 m-5 d-flex justify-content-center align-items-center flex-container' },
             components: [
             {
               type: 'image',
-            attributes: { src: 'https://fakeimg.pl/600x400?text=Replace+image', alt: '' },
+            attributes: { src: 'https://fakeimg.pl/600x400?text=Replace+image', class: 'col-10 col-sm-8 col-lg-6', alt: '' },
             }]
             },
           {
@@ -446,7 +470,12 @@ export default (editor, opts = {}) => {
           {
             type: 'B-FOOTER',
           }
-        ]
+        ],
+        styles: `
+        .mtop {
+          margin-top: 70px;
+        }
+        `
       }
     },
   });
@@ -608,8 +637,8 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'button',
-        attributes: { type: 'button', class: 'btn btn-primary' },
-        text: 'Send',
+        attributes: { type: 'button', class: 'btn btn-dark mx-3', href: '#'},
+        text: 'Search',
         traits: [
           {
             name: 'text',
@@ -649,7 +678,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'd-flex justify-content-center align-items-center flex-container' },
+        attributes: { class: 'd-flex justify-content-center align-items-center flex-container mar' },
         components: [
           {
             type: 'link',
@@ -674,8 +703,12 @@ export default (editor, opts = {}) => {
         ],
         styles: `
         .large {
-          font-size: 50px;
+          font-size: 30px;
           padding: 20px;
+          color: black;
+        }
+        .mar {
+          border-top: 1px solid #e3e3e3;
         }
         `
       }
@@ -686,105 +719,41 @@ export default (editor, opts = {}) => {
   domc.addType('B-ACCORDION', {
     model: {
       defaults: {
-        tagName: 'div',
-        attributes: { id: 'accordionExample', class: 'container col-xxl-8 px-4 py-5 accordion accordion-flush' },
-        components: [
-          {
-            tagName: 'h2',
-            type: 'text',
-            attributes: { class: 'pb-2 border-bottom' },
-            components: [{
-              type: 'textnode',
-              content: 'Frequently Asked Questions (FAQ)'
-            }]
-          },
-          {
-            tagName: 'div',
-            attributes: { class: 'accordion-item' },
-            components: [
-              {
-                tagName: 'h2',
-                type: 'text',
-                attributes: { class: 'accordion-header', id: 'headingOne' },
-                components: [{
-                  tagName: 'button',
-                  attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseOne", 'aria-expanded': "false", 'aria-controls': "collapseOne" },
-                  components: [{
-                    type: 'textnode',
-                    content: 'Why Use Peppubuild'
-                  }]
-                }]
-              },
-              {
-                tagName: 'div',
-                attributes: { class: 'accordion-collapse collapse', id: 'collapseOne', 'aria-labelledby': "headingOne", 'data-bs-parent': "#accordionExample" },
-                components: [
-                  {
-                    tagName: 'div',
-                    type: 'text',
-                    attributes: { class: 'accordion-body' },
-                    components: [
-                      {
-                        tagName: 'strong',
-                        components: [{
-                          type: 'textnode',
-                          content: `Peppubuild is a great choice.`
-                        }]
-                      },
-                      {
-                        type: 'textnode',
-                        content: `Peppubuild is open-source and flexible. It also gives you full ownership as you own your code.`
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            tagName: 'div',
-            attributes: { class: 'accordion-item' },
-            components: [
-              {
-                tagName: 'h2',
-                type: 'text',
-                attributes: { class: 'accordion-header', id: 'headingTwo' },
-                components: [{
-                  tagName: 'button',
-                  attributes: { class: 'accordion-button', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#collapseTwo", 'aria-expanded': "true", 'aria-controls': "collapseTwo" },
-                  components: [{
-                    type: 'textnode',
-                    content: 'Is Peppubuild Right For Me?'
-                  }]
-                }]
-              },
-              {
-                tagName: 'div',
-                attributes: { class: 'accordion-collapse collapse', id: 'collapseTwo', 'aria-labelledby': "headingTwo", 'data-bs-parent': "#accordionExample" },
-                components: [
-                  {
-                    tagName: 'div',
-                    type: 'text',
-                    attributes: { class: 'accordion-body' },
-                    components: [
-                      {
-                        tagName: 'strong',
-                        components: [{
-                          type: 'textnode',
-                          content: `Definitly it is. They're multiple reasons.`
-                        }]
-                      },
-                      {
-                        type: 'textnode',
-                        content: `First, think of how quickly it is to build your application. Hence, speed and faster execution.`
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        components: `
+        <div class="accordion accordion-flush container col-xxl-8 px-4 py-5" id="accordionFlushExample">
+    <h2 class="pb-2 border-bottom">Frequently Asked Questions (FAQ)</h2>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Why Use Peppubuild
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Is No-code Right For You
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        How is Peppubuild Different
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    </div>
+  </div>
+</div>  
+        `
       },
     },
 
@@ -1031,10 +1000,10 @@ export default (editor, opts = {}) => {
               },
               {
                 type: 'link',
-                attributes: { href: '#', class: 'btn btn-primary' },
+                attributes: { href: '#', class: 'btn btn-dark' },
                 components: [{
                   type: 'textnode',
-                  content: 'Primary button'
+                  content: 'Try Now'
                 }]
               },
             ]
