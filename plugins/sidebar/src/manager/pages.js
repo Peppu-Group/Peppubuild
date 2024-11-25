@@ -332,6 +332,13 @@ export default class PagesApp extends UI {
         this.$el?.remove();
 
         const cont = $(`<div style="display: ${this.state.isShowing ? 'flex' : 'none'};" class="pages-wrp">
+                <div  class="flex-row">
+                <input 
+                    class="tm-input sm" 
+                    type="text" 
+                    placeholder="Change Webpage Title" 
+                />
+                </div>
                 <div class="pages">
                     ${this.renderPagesList()}
                 </div>
