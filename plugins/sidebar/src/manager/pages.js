@@ -10,12 +10,14 @@ export default class PagesApp extends UI {
     constructor(editor, opts = {}) {
         super(editor, opts);
         this.addPage = this.addPage.bind(this);
+        this.addTitle = this.addTitle.bind(this);
         this.addProject = this.addProject.bind(this);
         this.loadProject = this.loadProject.bind(this);
         this.selectPage = this.selectPage.bind(this);
         this.removePage = this.removePage.bind(this);
         this.isSelected = this.isSelected.bind(this);
         this.handleNameInput = this.handleNameInput.bind(this);
+        this.handleTitle = this.handleTitle.bind(this);
         this.openEdit = this.openEdit.bind(this);
         this.saveProject = this.saveProject.bind(this);
         this.getProject = this.getProject.bind(this);
@@ -28,6 +30,7 @@ export default class PagesApp extends UI {
             editablePageId: '',
             isShowing: true,
             nameText: '',
+            projectTitle: '',
             pages: [],
             loading: false,
             projectName: ''
@@ -210,7 +213,7 @@ export default class PagesApp extends UI {
                 }
 
 
-               // Swal.fire("Saved!", "", "success");
+                // Swal.fire("Saved!", "", "success");
             }
         });
 
@@ -224,7 +227,15 @@ export default class PagesApp extends UI {
             id: nameText,
             component: ''
         });
+        document.getElementById("textfield2").value=""
         this.update();
+    }
+
+    addTitle() {
+        const { projectTitle } = this.state;
+        localStorage.setItem('projectTitle', projectTitle);
+        swal("Successful!", "Web Title Saved!", "success");
+        document.getElementById("textfield1").value=""
     }
 
     saveProject() {
@@ -283,6 +294,12 @@ export default class PagesApp extends UI {
         })
     }
 
+    handleTitle(e) {
+        this.setStateSilent({
+            projectTitle: e.target.value.trim()
+        })
+    }
+
     renderPagesList() {
         const { pages, loading } = this.state;
         const { opts, isSelected } = this;
@@ -334,10 +351,14 @@ export default class PagesApp extends UI {
         const cont = $(`<div style="display: ${this.state.isShowing ? 'flex' : 'none'};" class="pages-wrp">
                 <div  class="flex-row">
                 <input 
-                    class="tm-input sm" 
+                    class="tm-input bm" 
+                    id="textfield1"
                     type="text" 
-                    placeholder="Change Webpage Title" 
+                    placeholder="Webpage Title" 
                 />
+                </div>
+                <div class="add-title">
+                    Change Webpage Title
                 </div>
                 <div class="pages">
                     ${this.renderPagesList()}
@@ -345,6 +366,7 @@ export default class PagesApp extends UI {
                 <div  class="flex-row">
                     <input 
                         class="tm-input sm" 
+                        id="textfield2"
                         type="text" 
                         placeholder="${editor.I18n.t('peppu-sidebar.pages.placeholder')}" 
                     />
@@ -361,7 +383,9 @@ export default class PagesApp extends UI {
             </div>`);
         cont.find('.add-page').on('click', this.addPage);
         cont.find('.add-project').on('click', this.addProject);
-        cont.find('input').on('change', this.handleNameInput);
+        cont.find('.sm').on('change', this.handleNameInput);
+        cont.find('.add-title').on('click', this.addTitle);
+        cont.find('.bm').on('change', this.handleTitle);
 
         // cont.find('.load-project').on('change', this.readText);
 

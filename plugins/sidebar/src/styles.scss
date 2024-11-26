@@ -99,6 +99,14 @@ $mainColor: #34A853;
         margin: 10px 0;
         padding: 8px 10px;
     }
+
+    &.bm {
+        width: 100%;
+        min-width: 0;
+        font-size: 12px;
+        margin: 10px 0;
+        padding: 8px 10px;
+    }
 }
 
 .header {
@@ -350,6 +358,17 @@ $mainColor: #34A853;
     cursor: pointer;
     white-space: nowrap;
     margin-bottom: 10px;
+}
+
+.add-title {
+    background: black;
+    color: white;
+    font-size: 12px;
+    padding: 8px 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: 40px;
 }
 
 
