@@ -152,13 +152,13 @@ export default class PagesApp extends UI {
 
         Swal.fire({
             title: "How would you like to publish your work?",
+            icon: "info",
             showCancelButton: true,
             confirmButtonText: "Download Artifacts",
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 this.saveProject();
-                Swal.showLoading();
                 const pages = JSON.parse(localStorage.getItem('gjsProject'))
                 let editor = grapesjs.init({
                     headless: true, pageManager: {
@@ -195,13 +195,89 @@ export default class PagesApp extends UI {
                 // await client.uploadFrom(cssstreams, `style.css`);
                 zip.file("style.css", getCss());
 
+                let indexhtml = `
+                <!DOCTYPE html>
+                <html>
+
+                <head>
+                    <title>${localStorage.getItem("projectTitle") || 'Peppubuild - Project'}</title>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                    <link href="./style.css" rel="stylesheet">
+                    <!-- VueJS development version -->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
+                    <!-- Vue Router -->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.0.0/vue-router.min.js"></script>
+                </head>
+                <body>
+                <div id="app">
+                    <router-view></router-view>
+                </div>
+
+                <!-- Vue Pages -->
+                ${(function fun() {
+                    let value = ""
+                    for (const e of editor.Pages.getAll()) {
+                        value += `<script src="pages/${e.id}.js"></script>`  
+                    } 
+                    return value
+                })()}
+
+                <!-- Routes -->
+                <script>
+                ${(function fun() {
+                    var value = ""
+                    for (const e of editor.Pages.getAll()) {
+                        console.log(e.id[0])
+                        value += `
+                            { path: '/${e.id}', component: ${e.id} },
+                        `  
+                    } 
+                    return `
+                    var routes = [
+                        ${value},
+                        { path: '/', component: index }
+                    ];
+                    `                  
+                })()}
+
+
+                    var router = new VueRouter({
+                        routes: routes,
+                        mode: 'history',
+                        base: '/'
+                    });
+
+                    var app = new Vue({
+                        el: '#app',
+                        router: router
+                    })
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                </body>
+                </html>
+                `
+                zip.file("index.html", indexhtml);
+
+                let htaccess = `
+                <IfModule mod_rewrite.c>
+                    RewriteEngine On
+                    RewriteBase /
+                    RewriteRule ^index\.html$ - [L]
+                    RewriteCond %{REQUEST_FILENAME} !-f
+                    RewriteCond %{REQUEST_FILENAME} !-d
+                    RewriteRule . /index.html [L]
+                </IfModule>
+                `
+                zip.file(".htaccess", htaccess);
+
                 for (const e of editor.Pages.getAll()) {
                     const name = e.id
                     const component = e.getMainComponent()
                     const html = editor.getHtml({ component });
                     let htmlContent = `
                         var ${name} = { 
-                        template: ${html}
+                        template: \`${html}\`
                         };
                         `
                     zip.file(`pages/${name}.js`, `${htmlContent}`);
@@ -211,9 +287,6 @@ export default class PagesApp extends UI {
                             Swal.close();
                         });
                 }
-
-
-                // Swal.fire("Saved!", "", "success");
             }
         });
 
