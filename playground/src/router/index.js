@@ -7,6 +7,7 @@ import LogPage from '../views/LogPage.vue'
 import AuthPage from '../views/AuthPage.vue'
 import DashboardPage from '../views/DashboardPage.vue'
 import PageNotFound from '../views/PageNotFound.vue'
+import CallBack from '../views/CallBack.vue'
 
 const routes = [
     {
@@ -44,7 +45,12 @@ const routes = [
         path: '/dashboard/projects',
         name: 'Dashboard',
         component: DashboardPage
-    }
+    },
+    {
+        path: '/callback',
+        name: 'CallBack',
+        component: CallBack
+    },
 ]
   
   const router = createRouter({

@@ -37,6 +37,8 @@
                       personalised AI, or build with a template</p>
                     <button type="button" class="action_btn btn btn-success" data-bs-toggle="modal"
                       data-bs-target="#exampleModal">New Project</button>
+                    <button type="button" class="action_btn btn btn-dark" @click="redirect()"
+                      >Connect Netlify</button>
                   </div>
                 </div>
                 <div class="row" v-if="projects">
@@ -313,7 +315,28 @@ export default {
     */
     aiProject() {
       alert('coming soon!')
-    }
+    },
+
+    redirect() {
+    // We don't have access to netlify's server (CORS).
+    // We'll redirect to authorisation page, instead of axios.
+    let state = null
+    state = Math.random()
+    localStorage.setItem(state, true)
+    let clientId = 'k7RNYuUbYsS1Rb99qz74DMA1F1NWHUaW2fw5dSE-URI'
+    let redirectURI = 'http://localhost:8080/callback'
+  
+    let uri =
+      'https://app.netlify.com/authorize?' +
+      'client_id=' +
+      clientId +
+      '&response_type=token' +
+      '&redirect_uri=' +
+      redirectURI +
+      '&state=' +
+      state
+    window.location.href = uri
+  }
   }
 }
 </script>
