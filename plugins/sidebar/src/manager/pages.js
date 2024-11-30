@@ -3,6 +3,13 @@ import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 import JSZip from "jszip";
 import FileSaver from 'file-saver';
+import axios from 'axios'
+import grapesjs_blocks_basic from 'grapesjs-blocks-basic';
+import peppu_blocks from 'peppu-blocks';
+import grapesjs_plugin_forms from 'grapesjs-plugin-forms';
+import prettify from 'html-prettify';
+import cssbeautify from 'cssbeautify';
+
 
 var zip = new JSZip();
 
@@ -12,6 +19,7 @@ export default class PagesApp extends UI {
         this.addPage = this.addPage.bind(this);
         this.addTitle = this.addTitle.bind(this);
         this.addProject = this.addProject.bind(this);
+        this.manageProject = this.manageProject.bind(this);
         this.loadProject = this.loadProject.bind(this);
         this.selectPage = this.selectPage.bind(this);
         this.removePage = this.removePage.bind(this);
@@ -125,6 +133,133 @@ export default class PagesApp extends UI {
         this.update()
     }
 
+    manageProject() {
+        return new Promise((resolve, reject) => {
+            const pages = JSON.parse(localStorage.getItem('gjsProject'))
+            let editor = grapesjs.init({
+                headless: true, 
+                pageManager: {
+                    pages: pages.pages
+                },
+                plugins: [peppu_blocks, grapesjs_blocks_basic, grapesjs_plugin_forms],
+
+            });
+            
+            function getCss() {
+                let css = ''
+                for (const style of pages.styles) {
+                    if (style.selectorsAdd) {
+                        const cssRule = editor.Css.setRule(style.selectorsAdd, style.style, {
+                            atRuleType: style.atRuleType,
+                            atRuleParams: style.mediaText
+                        })
+                        css += cssRule.toCSS();
+
+                    } else {
+                        const cssRule = editor.Css.setRule(style.selectors, style.style, {
+                            atRuleType: style.atRuleType,
+                            atRuleParams: style.mediaText
+                        }) 
+                        css += cssRule.toCSS();
+                    }
+                }
+                return css
+            }
+
+            // let cssstreams = Readable.from(getCss())
+            // await client.uploadFrom(cssstreams, `style.css`);
+            zip.file("style.css", cssbeautify(getCss()));
+
+            let indexhtml = `
+                <!DOCTYPE html>
+                <html>
+
+                <head>
+                    <title>${localStorage.getItem("projectTitle") || 'Peppubuild - Project'}</title>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" rel="stylesheet">
+                    <link href="./style.css" rel="stylesheet">
+                    <!-- VueJS development version -->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
+                    <!-- Vue Router -->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.0.0/vue-router.min.js"></script>
+                </head>
+                <body>
+                <div id="app">
+                    <router-view></router-view>
+                </div>
+
+                <!-- Vue Pages -->
+                ${(function fun() {
+                    let value = ""
+                    for (const e of editor.Pages.getAll()) {
+                        value += `<script src="pages/${e.id}.js"></script>`
+                    }
+                    return value
+                })()}
+
+                <!-- Routes -->
+                <script>
+                ${(function fun() {
+                    var value = ""
+                    for (const e of editor.Pages.getAll()) {
+                        value += `
+                            { path: '/${e.id}', component: ${e.id} },
+                        `
+                    }
+                    return `
+                    var routes = [
+                        ${value},
+                        { path: '/', component: index }
+                    ];
+                    `
+                })()}
+
+
+                    var router = new VueRouter({
+                        routes: routes,
+                        mode: 'history',
+                        base: '/'
+                    });
+
+                    var app = new Vue({
+                        el: '#app',
+                        router: router
+                    })
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                </body>
+                </html>
+                `
+            zip.file("index.html", prettify(indexhtml));
+
+            let htaccess = `
+                <IfModule mod_rewrite.c>
+                    RewriteEngine On
+                    RewriteBase /
+                    RewriteRule ^index\.html$ - [L]
+                    RewriteCond %{REQUEST_FILENAME} !-f
+                    RewriteCond %{REQUEST_FILENAME} !-d
+                    RewriteRule . /index.html [L]
+                </IfModule>
+                `
+            zip.file(".htaccess", htaccess);
+
+            for (const e of editor.Pages.getAll()) {
+                const name = e.id
+                const component = e.getMainComponent()
+                const html = editor.getHtml({ component });
+                let htmlContent = `
+                        var ${name} = { 
+                        template: \`${html}\`
+                        };
+                        `
+                zip.file(`pages/${name}.js`, `${htmlContent}`);
+            }
+            resolve();
+        })
+    }
+
     addProject() {
         let pname = localStorage.getItem('projectName');
         /*
@@ -153,139 +288,61 @@ export default class PagesApp extends UI {
         Swal.fire({
             title: "How would you like to publish your work?",
             icon: "info",
-            showCancelButton: true,
+            showDenyButton: true,
+            denyButtonColor: "#3085d6",
+            denyButtonText: "Publish on Netlify",
             confirmButtonText: "Download Artifacts",
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
+            this.saveProject();
             if (result.isConfirmed) {
-                this.saveProject();
-                const pages = JSON.parse(localStorage.getItem('gjsProject'))
-                let editor = grapesjs.init({
-                    headless: true, pageManager: {
-                        pages: pages.pages
-                    }
-                });
-
-
-                function getCss() {
-                    let css = ''
-                    for (const style of pages.styles) {
-                        if (style.mediaText) {
-                            const cssRule = editor.Css.setRule(style.selectors, style.style, {
-                                atRuleType: style.atRuleType,
-                                atRuleParams: style.mediaText
-                            })
-                            css += cssRule.toCSS();
-                            // let cssstreams = Readable.from(css)
-                            // await client.uploadFrom(cssstreams, `style.css`);
-                            // fs.writeFileSync('create.css', css)
-                        } else {
-                            const cssRule = editor.Css.setRule(style.selectors, style.style)
-                            css += cssRule.toCSS();
-                            // fs.writeFileSync('create.css', css)
-                            // console.log(css)
-                            // let cssstreams = Readable.from(css)
-                            // await client.uploadFrom(cssstreams, `style.css`);
-                        }
-                    }
-                    return css
-                }
-
-                // let cssstreams = Readable.from(getCss())
-                // await client.uploadFrom(cssstreams, `style.css`);
-                zip.file("style.css", getCss());
-
-                let indexhtml = `
-                <!DOCTYPE html>
-                <html>
-
-                <head>
-                    <title>${localStorage.getItem("projectTitle") || 'Peppubuild - Project'}</title>
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-                    <link href="./style.css" rel="stylesheet">
-                    <!-- VueJS development version -->
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
-                    <!-- Vue Router -->
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.0.0/vue-router.min.js"></script>
-                </head>
-                <body>
-                <div id="app">
-                    <router-view></router-view>
-                </div>
-
-                <!-- Vue Pages -->
-                ${(function fun() {
-                    let value = ""
-                    for (const e of editor.Pages.getAll()) {
-                        value += `<script src="pages/${e.id}.js"></script>`  
-                    } 
-                    return value
-                })()}
-
-                <!-- Routes -->
-                <script>
-                ${(function fun() {
-                    var value = ""
-                    for (const e of editor.Pages.getAll()) {
-                        console.log(e.id[0])
-                        value += `
-                            { path: '/${e.id}', component: ${e.id} },
-                        `  
-                    } 
-                    return `
-                    var routes = [
-                        ${value},
-                        { path: '/', component: index }
-                    ];
-                    `                  
-                })()}
-
-
-                    var router = new VueRouter({
-                        routes: routes,
-                        mode: 'history',
-                        base: '/'
-                    });
-
-                    var app = new Vue({
-                        el: '#app',
-                        router: router
-                    })
-                </script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-                </body>
-                </html>
-                `
-                zip.file("index.html", indexhtml);
-
-                let htaccess = `
-                <IfModule mod_rewrite.c>
-                    RewriteEngine On
-                    RewriteBase /
-                    RewriteRule ^index\.html$ - [L]
-                    RewriteCond %{REQUEST_FILENAME} !-f
-                    RewriteCond %{REQUEST_FILENAME} !-d
-                    RewriteRule . /index.html [L]
-                </IfModule>
-                `
-                zip.file(".htaccess", htaccess);
-
-                for (const e of editor.Pages.getAll()) {
-                    const name = e.id
-                    const component = e.getMainComponent()
-                    const html = editor.getHtml({ component });
-                    let htmlContent = `
-                        var ${name} = { 
-                        template: \`${html}\`
-                        };
-                        `
-                    zip.file(`pages/${name}.js`, `${htmlContent}`);
+                this.manageProject().then(() => {
                     zip.generateAsync({ type: "blob" })
                         .then(function (blob) {
                             FileSaver.saveAs(blob, `${pname}.zip`);
                             Swal.close();
                         });
+                })
+            } else if (result.isDenied) {
+                // change isDismissed, use multi-buttons.
+                Swal.close();
+                let key = localStorage.getItem('autkn');
+                if (key) {
+                    let netlifyContent = `
+                    # The following redirect is intended for use with most SPA's that handles routing internally.
+                    [[redirects]]
+                    from = "/*"
+                    to = "/index.html"
+                    status = 200
+                    `
+                    zip.file(`netlify.toml`, `${netlifyContent}`);
+                    this.manageProject().then(() => {
+                    zip.generateAsync({ type: "blob" }).then(function (blob) {
+                        // User the token to fetch the list of sites for the user
+                        // let name = 'mybabygirl'
+                        let name = prompt('What would you like to name your site?');
+                            if (name != null) {
+                                axios('https://netlify-proxy.onrender.com/netlify', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/zip',
+                                        Authorization: 'Bearer ' + localStorage.getItem('autkn'),
+                                    },
+                                    data: blob,
+                                    params: { name: `${name}.peppubuild` }
+                                })
+                                    .then((response) => {
+                                        swal("Successful!", "Published to Netlify Successfully!", "success").then(() => {
+                                            window.open(`https://${response.data.subdomain}.netlify.app`);
+                                        })
+                                            // add response in page so user knows it was published.
+                                            console.log(response)
+                                    })
+                            } })
+                        })
+                } else {
+                    // sweet alert asking them to connect netlify account first and try to publish later
+                    swal("Error!", "Connect your Netlify account First and Try to Publish Later", "error");
                 }
             }
         });
@@ -300,7 +357,7 @@ export default class PagesApp extends UI {
             id: nameText,
             component: ''
         });
-        document.getElementById("textfield2").value=""
+        document.getElementById("textfield2").value = ""
         this.update();
     }
 
@@ -308,7 +365,7 @@ export default class PagesApp extends UI {
         const { projectTitle } = this.state;
         localStorage.setItem('projectTitle', projectTitle);
         swal("Successful!", "Web Title Saved!", "success");
-        document.getElementById("textfield1").value=""
+        document.getElementById("textfield1").value = ""
     }
 
     saveProject() {
