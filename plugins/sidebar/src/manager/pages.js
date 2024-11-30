@@ -137,14 +137,14 @@ export default class PagesApp extends UI {
         return new Promise((resolve, reject) => {
             const pages = JSON.parse(localStorage.getItem('gjsProject'))
             let editor = grapesjs.init({
-                headless: true, 
+                headless: true,
                 pageManager: {
                     pages: pages.pages
                 },
                 plugins: [peppu_blocks, grapesjs_blocks_basic, grapesjs_plugin_forms],
 
             });
-            
+
             function getCss() {
                 let css = ''
                 for (const style of pages.styles) {
@@ -159,7 +159,7 @@ export default class PagesApp extends UI {
                         const cssRule = editor.Css.setRule(style.selectors, style.style, {
                             atRuleType: style.atRuleType,
                             atRuleParams: style.mediaText
-                        }) 
+                        })
                         css += cssRule.toCSS();
                     }
                 }
@@ -294,52 +294,84 @@ export default class PagesApp extends UI {
             confirmButtonText: "Download Artifacts",
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
-            this.saveProject();
+            swal("Publishing, please wait...", "We're publishing and updating your work, please wait", "info")
             if (result.isConfirmed) {
                 this.manageProject().then(() => {
                     zip.generateAsync({ type: "blob" })
                         .then(function (blob) {
                             FileSaver.saveAs(blob, `${pname}.zip`);
-                            Swal.close();
+                            swal.close();
+                            swal("Successful!", "Downloaded Artifacts Successfully!", "success")
                         });
                 })
             } else if (result.isDenied) {
                 // change isDismissed, use multi-buttons.
-                Swal.close();
                 let key = localStorage.getItem('autkn');
+                let published = localStorage.getItem("siteid");
                 if (key) {
-                    let netlifyContent = `
+                    if (published) {
+                        this.manageProject().then(() => {
+                            zip.generateAsync({ type: "blob" }).then(function (blob) {
+                                axios(`https://netlify-proxy.onrender.com/netlify/${published}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/zip',
+                                        Authorization: 'Bearer ' + localStorage.getItem('autkn'),
+                                    },
+                                    data: blob,
+                                }).then((response) => {
+                                    swal.close();
+                                    swal("Successful!", "Updated Website!", "success").then(() => {
+                                        window.open(`https://${response.data.subdomain}.netlify.app`);
+                                    })
+                                }).catch(function () {
+                                    swal("Error!", "An error occurred, we don't know what it is.", "error")
+                                })
+                            })
+                        })
+                    } else {
+                        let netlifyContent = `
                     # The following redirect is intended for use with most SPA's that handles routing internally.
                     [[redirects]]
                     from = "/*"
                     to = "/index.html"
                     status = 200
                     `
-                    zip.file(`netlify.toml`, `${netlifyContent}`);
-                    this.manageProject().then(() => {
-                    zip.generateAsync({ type: "blob" }).then(function (blob) {
-                        // User the token to fetch the list of sites for the user
-                        // let name = 'mybabygirl'
-                        let name = prompt('What would you like to name your site?');
-                            if (name != null) {
-                                axios('https://netlify-proxy.onrender.com/netlify', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/zip',
-                                        Authorization: 'Bearer ' + localStorage.getItem('autkn'),
-                                    },
-                                    data: blob,
-                                    params: { name: `${name}.peppubuild` }
-                                })
-                                    .then((response) => {
-                                        swal("Successful!", "Published to Netlify Successfully!", "success").then(() => {
-                                            window.open(`https://${response.data.subdomain}.netlify.app`);
-                                        })
+                        zip.file(`netlify.toml`, `${netlifyContent}`);
+                        this.manageProject().then(() => {
+                            zip.generateAsync({ type: "blob" }).then(function (blob) {
+                                // User the token to fetch the list of sites for the user
+                                // let name = 'mybabygirl'
+                                let name = prompt('What would you like to name your site?');
+                                if (name != null) {
+                                    axios('https://netlify-proxy.onrender.com/netlify', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/zip',
+                                            Authorization: 'Bearer ' + localStorage.getItem('autkn'),
+                                        },
+                                        data: blob,
+                                        params: { name: `${name}.peppubuild` }
+                                    })
+                                        .then((response) => {
+                                            localStorage.setItem("siteid", response.data.id);
+                                            swal.close();
+                                            swal("Successful!", "Published to Netlify Successfully!", "success").then(() => {
+                                                window.open(`https://${response.data.subdomain}.netlify.app`);
+                                            })
                                             // add response in page so user knows it was published.
                                             console.log(response)
-                                    })
-                            } })
+                                        }).catch(function (error) {
+                                            if (error.response.status === 422) {
+                                                swal("Error!", "The site name is already taken, website can't be deployed", "error")
+                                              } else {
+                                                swal("Error!", "An error occurred, we don't know what it is.", "error")
+                                              }
+                                        })
+                                }
+                            })
                         })
+                    }
                 } else {
                     // sweet alert asking them to connect netlify account first and try to publish later
                     swal("Error!", "Connect your Netlify account First and Try to Publish Later", "error");
