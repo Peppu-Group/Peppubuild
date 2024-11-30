@@ -324,7 +324,7 @@ export default {
     state = Math.random()
     localStorage.setItem(state, true)
     let clientId = 'k7RNYuUbYsS1Rb99qz74DMA1F1NWHUaW2fw5dSE-URI'
-    let redirectURI = 'http://localhost:8080/callback'
+    let redirectURI = 'https://app.peppubuild.com/callback'
   
     let uri =
       'https://app.netlify.com/authorize?' +
