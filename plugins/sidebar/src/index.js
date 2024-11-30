@@ -54,15 +54,6 @@ export default (editor, opts = {}) => {
         ...options.i18n,
     });
 
-    // add editor panels
-    editor.Panels.addButton('options',
-        {
-            id: 'save',
-            className: 'fa fa-save',
-            active: false,
-            command: 'peppu:save'
-        }
-    )
 
     editor.Panels.addButton('options', [
         {
@@ -169,5 +160,9 @@ export default (editor, opts = {}) => {
     // Load page with index zero
     editor.on('load', async () => {
         // location.reload();  
+    });
+
+    editor.on('update', async () => {
+      new PagesApp(editor).saveProject()
     });
 };
