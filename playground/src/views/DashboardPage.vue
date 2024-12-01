@@ -205,8 +205,10 @@ export default {
         body: JSON.stringify({ accessToken: accessToken }),
       }).then((res) => {
         res.json().then((response) => {
-          let projectString = JSON.stringify(response);
-          localStorage.setItem('gjsProject', projectString);
+          console.log(response)
+          localStorage.setItem('projectTitle', response.title)
+          localStorage.setItem('published', response.published)
+          localStorage.setItem('gjsProject', JSON.stringify(response.project));
           Swal.close();
           this.$router.push({ name: "Home", params: { id } });
         })
@@ -244,8 +246,10 @@ export default {
       let name = prompt('What will you like to name your project?');
       if (name) {
         localStorage.setItem('projectName', name);
-        let gjsProject = '{}'
-        let accessToken = localStorage.getItem('oauth')
+        let gjsProject = '{}';
+        let accessToken = localStorage.getItem('oauth');
+        let published = 'No';
+        let title = 'Peppubuild - Project';
         let url = `${serverUrl}/publishfront/${name}`
         Swal.showLoading();
         await fetch(url, {
@@ -253,14 +257,16 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken }),
+          body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken, title: title, published: published }),
         }).then((res) => {
           res.json().then((response) => {
             if (res.status == 200) {
               Swal.close();
               let id = response.id
               localStorage.setItem('projectId', id);
-              localStorage.setItem('gjsProject', `{}`)
+              localStorage.setItem('gjsProject', `{}`);
+              localStorage.setItem('published', published);
+              localStorage.setItem('projectTitle', title);
               this.$router.push({ name: "Home", params: { id } });
             } else {
               Swal.fire({
