@@ -163,6 +163,8 @@ export default (editor, opts = {}) => {
     });
 
     editor.on('update', async () => {
+      // run if command to ensure user is logged in. Else, navigate to home page.
+      // run save on each change.
       new PagesApp(editor).saveProject()
     });
 };

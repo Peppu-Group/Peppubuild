@@ -175,7 +175,7 @@ export default class PagesApp extends UI {
                 <html>
 
                 <head>
-                    <title>${localStorage.getItem("projectTitle") || 'Peppubuild - Project'}</title>
+                    <title>${localStorage.getItem("projectTitle") ?? 'Peppubuild - Project'}</title>
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" rel="stylesheet">
                     <link href="./style.css" rel="stylesheet">
@@ -307,9 +307,9 @@ export default class PagesApp extends UI {
             } else if (result.isDenied) {
                 // change isDismissed, use multi-buttons.
                 let key = localStorage.getItem('autkn');
-                let published = localStorage.getItem("siteid");
+                let published = localStorage.getItem("published");
                 if (key) {
-                    if (published) {
+                    if (published != 'No') {
                         this.manageProject().then(() => {
                             zip.generateAsync({ type: "blob" }).then(function (blob) {
                                 axios(`https://netlify-proxy.onrender.com/netlify/${published}`, {
@@ -354,7 +354,7 @@ export default class PagesApp extends UI {
                                         params: { name: `${name}.peppubuild` }
                                     })
                                         .then((response) => {
-                                            localStorage.setItem("siteid", response.data.id);
+                                            localStorage.setItem("published", response.data.id);
                                             swal.close();
                                             swal("Successful!", "Published to Netlify Successfully!", "success").then(() => {
                                                 window.open(`https://${response.data.subdomain}.netlify.app`);
@@ -397,14 +397,17 @@ export default class PagesApp extends UI {
         const { projectTitle } = this.state;
         localStorage.setItem('projectTitle', projectTitle);
         swal("Successful!", "Web Title Saved!", "success");
-        document.getElementById("textfield1").value = ""
+        document.getElementById("textfield1").value = "";
+        this.saveProject();
     }
 
     saveProject() {
         const { editor } = this;
         const projectdata = editor.getProjectData();
-        let gjsProject = JSON.stringify(projectdata)
-        let id = localStorage.getItem('projectId')
+        let gjsProject = JSON.stringify(projectdata);
+        let id = localStorage.getItem('projectId');
+        let title = localStorage.getItem("projectTitle");
+        let published = localStorage.getItem("published");
         let accessToken = localStorage.getItem('oauth');
         try {
             fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/save/${id}`, {
@@ -412,7 +415,7 @@ export default class PagesApp extends UI {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ accessToken: accessToken, gjsProject: gjsProject }),
+                body: JSON.stringify({ accessToken: accessToken, gjsProject: gjsProject, title: title, published: published }),
             }).then((response) => {
                 if (response.ok) {
                     swal("Successful!", "Saved Project", "success");
