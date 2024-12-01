@@ -103,7 +103,9 @@ async function startServer() {
       });
       let data = JSON.stringify(file.data);
       let finaldata = JSON.parse(data)
-      return finaldata.gjsProject.project;
+      // return finaldata.gjsProject.project;
+      return finaldata.gjsProject;
+      // return title and published here too.
     } catch (err) {
       // TODO(developer) - Handle error
       return err;
@@ -120,111 +122,26 @@ async function startServer() {
    * @param {string} pname - Project name
    * @param {callback} page - gjs page data.
   */
-  app.post('/clientdeploy/:pname', (req, res) => {
-    let pname = req.params.pname;
-    let page = req.body.pages;
-    const pages = JSON.parse(page)
-
-    async function uploadFiles() {
-      const client = new ftp.Client();
-      let pathname = path.parse(pname).name;
-      const projectname = `${pathname}.peppubuild.com`;
-
-      try {
-        // Connect to FTP server
-        await client.access({
-          host: process.env.HOST,
-          user: cpanelUsername,
-          password: process.env.PASSWORD,
-        });
-
-        // Set the remote directory (public_html or another directory)
-        await client.cd(projectname);
-
-        // Upload files
-        let editor = grapesjs.init({
-          headless: true, pageManager: {
-            pages: pages.pages
-          }
-        });
-
-
-        function getCss() {
-          let css = ''
-          for (const style of pages.styles) {
-            if (style.mediaText) {
-              const cssRule = editor.Css.setRule(style.selectors, style.style, {
-                atRuleType: style.atRuleType,
-                atRuleParams: style.mediaText
-              })
-              css += cssRule.toCSS();
-              // let cssstreams = Readable.from(css)
-              // await client.uploadFrom(cssstreams, `style.css`);
-              // fs.writeFileSync('create.css', css)
-            } else {
-              const cssRule = editor.Css.setRule(style.selectors, style.style)
-              css += cssRule.toCSS();
-              // fs.writeFileSync('create.css', css)
-              // console.log(css)
-              // let cssstreams = Readable.from(css)
-              // await client.uploadFrom(cssstreams, `style.css`);
-            }
-          }
-          return css
-        }
-
-        let cssstreams = Readable.from(getCss())
-        // await client.uploadFrom(cssstreams, `style.css`);
-        zip.file("style.css", cssstreams);
-
-        for (const e of editor.Pages.getAll()) {
-          const name = e.id
-          const component = e.getMainComponent()
-          const html = editor.getHtml({ component });
-          let htmlContent = `
-            var ${name} = { 
-              template: ${html}
-            };
-            `
-          zip.file(`pages/${name}.js`, `${htmlContent}`);
-          /*
-          let htmlContent = `
-            <!DOCTYPE html>
-              <html lang="en">
-              <head>
-                  <meta charset="UTF-8">
-                  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <title>Document</title>
-                  <link rel="stylesheet" type="text/css" href="./style.css">
-                  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-              </head>
-              ${html}
-            </html>`
-            */
-          zip
-            .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
-            .pipe(fs.createWriteStream('out.zip'))
-            .on('finish', function () {
-              // JSZip generates a readable stream with a "end" event,
-              // but is piped here in a writable stream which emits a "finish" event.
-              console.log("out.zip written.");
-            });
-          // create directory and add files into directory
-          // let htmlstreams = Readable.from([htmlContent]);
-          // await client.uploadFrom(htmlstreams, `${name}.html`);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        // Close the FTP connection
-        // client.close();
-        res.send('successfully created project')
-      }
-    }
-
-    // Run the function
-    uploadFiles();
+  app.post('/clientdeploy/:autkn', (req, res) => {
+    let auth = req.params.autkn
+    let body = req.body.blob
+    zip.generateAsync({ type: "blob" }).then(function (blob) {
+      // User the token to fetch the list of sites for the user
+      fetch('https://api.netlify.com/api/v1/sites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/zip',
+          Authorization: 'Bearer ' + auth
+        },
+        body: blob
+      })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(`Error fetching sites: ${error}`)
+        })
+    })
   })
 
 
@@ -350,14 +267,16 @@ async function startServer() {
    * @param {string} Id - FileId
    * @param {string} accessToken - Oauth AccessToken
   */
-  async function updateDB(project, Id, accessToken) {
+  async function updateDB(project, Id, accessToken, published, title) {
     const service = driveAuth(accessToken);
     const media = {
       mimeType: 'application/json',
       body:
         `{
         "gjsProject": {
-            "project": ${project}
+            "project": ${project},
+            "published": "${published}",
+            "title": "${title}"
         }
     }`
     };
@@ -452,7 +371,10 @@ async function startServer() {
     let id = req.params.id;
     let accessToken = req.body.accessToken;
     let gjsProject = req.body.gjsProject;
-    updateDB(gjsProject, id, accessToken).then(res.send({ success: 'Project saved successfully!' }));
+    let title = req.body.title;
+    let published = req.body.published;
+
+    updateDB(gjsProject, id, accessToken, published, title).then(res.send({ success: 'Project saved successfully!' }));
   })
 
   app.post('/publishcontent', (req, res) => {
@@ -478,6 +400,8 @@ async function startServer() {
 
     let gjsProject = req.body.gjsProject;
     let accessToken = req.body.accessToken;
+    let title = req.body.title;
+    let published = req.body.published;
     createSub(projectName).then(async (response) => {
       let text = await response.text();
       let json = JSON.parse(text);
@@ -486,7 +410,7 @@ async function startServer() {
           // Step 2 - Create file in drive
           createFrontend(projectName, accessToken).then((id) => {
             // Step 3 - Update with empty project
-            updateDB(gjsProject, id, accessToken);
+            updateDB(gjsProject, id, accessToken, published, title);
             res.send({ id: id });
           });
           // Step 4 - Add file name and project data to localstorage.
