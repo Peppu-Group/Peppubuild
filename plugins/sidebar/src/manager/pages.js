@@ -310,6 +310,14 @@ export default class PagesApp extends UI {
                 let published = localStorage.getItem("published");
                 if (key) {
                     if (published != 'No') {
+                        let netlifyContent = `
+                    # The following redirect is intended for use with most SPA's that handles routing internally.
+                    [[redirects]]
+                    from = "/*"
+                    to = "/index.html"
+                    status = 200
+                    `
+                        zip.file(`netlify.toml`, `${netlifyContent}`);
                         this.manageProject().then(() => {
                             zip.generateAsync({ type: "blob" }).then(function (blob) {
                                 axios(`https://netlify-proxy.onrender.com/netlify/${published}`, {
@@ -419,9 +427,15 @@ export default class PagesApp extends UI {
             }).then((response) => {
                 if (response.ok) {
                     swal("Successful!", "Saved Project", "success");
+                } else {
+                    swal("Error", "You're not logged in", "error").then(() => {
+                        window.location.href = 'https://app.peppubuild.com/dashboard/projects'; 
+                    })
                 }
             })
-        } catch { swal("Error", "An error occurred", "error") }
+        } catch { swal("Error", "You're not logged in", "error").then(() => {
+            window.location.href = 'https://app.peppubuild.com/dashboard/projects'; 
+        }) }
     }
 
     async getProject(id) {

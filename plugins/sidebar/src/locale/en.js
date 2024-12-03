@@ -9,7 +9,7 @@ export default {
             placeholder: 'project name',
             publish: 'Publish Project +',
             load: 'Load Project +',
-            url: 'https://server.peppubuild.com',
+            url: 'http://localhost:1404',
         },
         settings: {
             save: 'Save',
