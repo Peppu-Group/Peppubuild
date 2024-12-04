@@ -372,9 +372,9 @@ export default class PagesApp extends UI {
                                         }).catch(function (error) {
                                             if (error.response.status === 422) {
                                                 swal("Error!", "The site name is already taken, website can't be deployed", "error")
-                                              } else {
+                                            } else {
                                                 swal("Error!", "An error occurred, we don't know what it is.", "error")
-                                              }
+                                            }
                                         })
                                 }
                             })
@@ -425,17 +425,17 @@ export default class PagesApp extends UI {
                 },
                 body: JSON.stringify({ accessToken: accessToken, gjsProject: gjsProject, title: title, published: published }),
             }).then((response) => {
-                if (response.ok) {
-                    swal("Successful!", "Saved Project", "success");
-                } else {
+                if (!response.ok) {
                     swal("Error", "You're not logged in", "error").then(() => {
-                        window.location.href = 'https://app.peppubuild.com/dashboard/projects'; 
+                        window.location.href = 'https://app.peppubuild.com/dashboard/projects';
                     })
                 }
             })
-        } catch { swal("Error", "You're not logged in", "error").then(() => {
-            window.location.href = 'https://app.peppubuild.com/dashboard/projects'; 
-        }) }
+        } catch {
+            swal("Error", "You're not logged in", "error").then(() => {
+                window.location.href = 'https://app.peppubuild.com/dashboard/projects';
+            })
+        }
     }
 
     async getProject(id) {
