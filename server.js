@@ -47,6 +47,9 @@ async function startServer() {
 
   app.use(cookieParser())
 
+  process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
+  });
   /**
    * This function retrieves the gjs JSON content, which forms our website page, from Google's Drive (appDataFolder).
    * @module getContent()
@@ -285,10 +288,12 @@ async function startServer() {
         fileId: Id,
         // resource: fileMetadatad,
         media: media,
-      });
+      }).then((res) => {
+        return res
+      })
     } catch (err) {
       // TODO(developer) - Handle error
-      return err;
+      return err
     }
   }
 
@@ -374,7 +379,32 @@ async function startServer() {
     let title = req.body.title;
     let published = req.body.published;
 
-    updateDB(gjsProject, id, accessToken, published, title).then(res.send({ success: 'Project saved successfully!' }));
+    const service = driveAuth(accessToken);
+    const media = {
+      mimeType: 'application/json',
+      body:
+        `{
+        "gjsProject": {
+            "project": ${gjsProject},
+            "published": "${published}",
+            "title": "${title}"
+        }
+    }`
+    };
+    try {
+      service.files.update({
+        fileId: id,
+        // resource: fileMetadatad,
+        media: media,
+      }).then(() => {
+        res.send('Successfully saved')
+      }).catch(() => {
+        res.status(400).send('Failed to saved')
+      })
+    } catch (err) {
+      // TODO(developer) - Handle error
+      return err
+    }
   })
 
   app.post('/publishcontent', (req, res) => {
