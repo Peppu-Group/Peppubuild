@@ -159,10 +159,11 @@ export default {
                     // store token
                     document.cookie = `pepputoken=${providerToken}; max-age=3300`;
                     resolve();
-                    var timeleft = 3300;
+                    var timeleft = 2000;
                     setInterval(async function () {
                         if (timeleft <= 0) {
                             // clearInterval(downloadTimer);
+                            alert('completed timer')
                                 return new Promise((resolve, reject) => {
                                     userAuth.onAuthStateChanged((user) => {
                                         if (user) {
@@ -173,10 +174,10 @@ export default {
                                         reject
                                     })
                                 }).then(() => {
-                                    timeleft += 3300;
+                                    timeleft += 2000;
                                 })
-                        } 
-                        timeleft -= 1;
+                        }
+                        console.log(`timeleft: ${timeleft -= 1}`) 
                     }, 1000);
                 } else {
                     reject();
