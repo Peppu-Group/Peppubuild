@@ -432,6 +432,13 @@ async function startServer() {
     let accessToken = req.body.accessToken;
     let title = req.body.title;
     let published = req.body.published;
+
+    createFrontend(projectName, accessToken).then((id) => {
+      // Step 3 - Update with empty project
+      updateDB(gjsProject, id, accessToken, published, title);
+      res.send({ id: id });
+    });
+    /* 
     createSub(projectName).then(async (response) => {
       let text = await response.text();
       let json = JSON.parse(text);
@@ -451,6 +458,7 @@ async function startServer() {
         res.status(500).send({ error: 'Network error' });
       }
     })
+    */
   })
 
   const port = 1404;
