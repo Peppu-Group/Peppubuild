@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peppuphotos - Test</title>
+</head>
+
+<body>
+    <form id="formid" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <button type="submit">Submint</button>
+    </form>
+
+    <script>
+        var form = document.getElementById('formid');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget;
+            const url = `/uploadfile/${localStorage.getItem('oauth')}`;
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+
+        }
+    </script>
+</body>
+
+</html>

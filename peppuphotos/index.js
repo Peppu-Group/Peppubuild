@@ -1,6 +1,25 @@
-const upload = multer();
+var express = require('express');
+var multer = require("multer");
 const { OAuth2Client } = require('google-auth-library');
 const { google } = require('googleapis');
+const { Readable } = require('stream');
+require('dotenv').config();
+
+const app = express();
+const upload = multer();
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// index page
+app.get('/', function(req, res) {
+    res.render('index');
+});
+
+// auth page
+app.get('/auth', function(req, res) {
+    res.render('auth', {apikey: process.env.APIKEY});
+});
 
 /**
    * This function authenticates the user for their Google Drive account.
@@ -64,3 +83,7 @@ async function uploadPhoto(accessToken, filePath) {
       })
     }
   })
+
+  const port = 1423;
+  app.listen(port);
+  console.log(`started server in ${port}`)

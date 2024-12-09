@@ -4,7 +4,8 @@
   "description": "API to turn your drive into image cloud storage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/Peppu-Group/Peppubuild/issues"
   },
-  "homepage": "https://github.com/Peppu-Group/Peppubuild#readme"
+  "homepage": "https://github.com/Peppu-Group/Peppubuild#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "google-auth-library": "^9.15.0",
+    "googleapis": "^144.0.0",
+    "multer": "^1.4.5-lts.1",
+    "stream": "0.0.3"
+  }
 }

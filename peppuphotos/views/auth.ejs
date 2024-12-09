@@ -1,0 +1,65 @@
+<!--
+<html>
+
+<body>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            var setAuth = new Promise((resolve, reject) => {
+                // set oauth in localstorage
+                resolve(localStorage.setItem('oauth', response.credential));
+            });
+            setAuth.then(() => {
+                window.location.href = 'http://localhost:1423/'; //Will take you to home page.
+            })
+        }
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "<%=apikey%>",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"),
+                { theme: "outline", size: "large" }  // customization attributes
+            );
+            google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+    </script>
+    <div id="buttonDiv"></div>
+</body>
+
+</html>
+-->
+
+<html>
+
+<body>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+        window.onload = function () {
+        const client = google.accounts.oauth2.initTokenClient({
+            client_id: "566741135380-gh6kp01p6kt6kirthcr2c69gc6cr1242.apps.googleusercontent.com",
+            scope: 'profile email',
+            callback: (response) => {
+                console.log("Encoded JWT ID token: " + response.credential);
+                var setAuth = new Promise((resolve, reject) => {
+                    // set oauth in localstorage
+                    resolve(localStorage.setItem('oauth', response.credential));
+                });
+                setAuth.then(() => {
+                    window.location.href = 'http://localhost:1423/'; //Will take you to home page.
+                })
+            },
+        });
+        google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"),
+                { theme: "outline", size: "large" }  // customization attributes
+            );
+            google.accounts.id.prompt(); // also display the One Tap dialog
+    }
+    </script>
+    <div id="buttonDiv"></div>
+</body>
+
+</html>
