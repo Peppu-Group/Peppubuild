@@ -178,6 +178,7 @@ export default class PagesApp extends UI {
                     <title>${localStorage.getItem("projectTitle") ?? 'Peppubuild - Project'}</title>
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" rel="stylesheet">
+                    <link href="https://unpkg.com/pepputoken/dist/index.min.css" rel="stylesheet">
                     <link href="./style.css" rel="stylesheet">
                     <!-- VueJS development version -->
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
@@ -186,6 +187,9 @@ export default class PagesApp extends UI {
                 </head>
                 <body>
                 <div id="app">
+                <a href="https://www.peppubuild.com" class="built-with-peppubuild-btn">
+                    Built with Peppubuild
+                </a>
                     <router-view></router-view>
                 </div>
 
@@ -294,8 +298,8 @@ export default class PagesApp extends UI {
             confirmButtonText: "Download Artifacts",
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
-            swal("Publishing, please wait...", "We're publishing and updating your work, please wait", "info")
             if (result.isConfirmed) {
+                swal("Publishing, please wait...", "We're publishing and updating your work, please wait", "info")
                 this.manageProject().then(() => {
                     zip.generateAsync({ type: "blob" })
                         .then(function (blob) {
