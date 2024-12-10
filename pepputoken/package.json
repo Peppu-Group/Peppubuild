@@ -1,0 +1,13 @@
+{
+  "name": "pepputoken",
+  "version": "0.0.2",
+  "description": "Every website created with Peppubuild, contains a `<pepputoken> script and an ai token`. This is necessary to determine the payment status of the user and determine which ui buttons to disable.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "sass built.scss dist/index.min.css --style compressed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
