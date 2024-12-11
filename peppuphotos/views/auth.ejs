@@ -1,43 +1,66 @@
 <html>
-<style type="text/css">
-    .login-with-google-btn {
-        transition: background-color .3s, box-shadow .3s;
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://unpkg.com/pepputoken/dist/index.min.css" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet">
+        <title>Peppuphotos</title>
+    </head>
 
-        padding: 12px 16px 12px 42px;
-        border: none;
-        border-radius: 3px;
-        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-
-        color: #757575;
-        font-size: 14px;
-        font-weight: 500;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-
-        background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
-        background-color: white;
-        background-repeat: no-repeat;
-        background-position: 12px 11px;
-    }
-
-    .login-with-google-btn:hover {
-        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
-    }
-
-    .login-with-google-btn:active {
-        background-color: #eeeeee;
-    }
-
-    .login-with-google-btn:focus {
-        outline: none;
-        box-shadow:
-            0 -1px 0 rgba(0, 0, 0, .04),
-            0 2px 4px rgba(0, 0, 0, .25),
-            0 0 0 3px #c8dafc;
-    }
-</style>
-
-<body>
+<body id="i1zrui">
+    <a href="https://www.peppubuild.com" class="built-with-peppubuild-btn">
+        Built with Peppubuild</a>
+        <div class="navbar navbar-expand-lg nav-contain">
+          <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="https://peppubuild.com/favicon.ico" id="ikqx0f"/></a>
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a aria-current="page" href="/" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a aria-current="page" href="/upload" class="nav-link">Upload</a>
+                </li>
+                <li class="nav-item dropdown">
+                </li>
+              </ul>
+              <form class="d-flex">
+                <a href="/login" class="btn btn-dark">Login</a>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="gjs-row" id="i15bym">
+          <div class="gjs-cell" id="iiqux6">
+            <div class="gjs-row" id="iqe4zj">
+              <div class="gjs-cell">
+                <button type="button" class="login-with-google-btn" onclick="getToken();">
+                    Sign in with Google
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-container mar">
+          <a href="https://www.linkedin.com/company/peppubooks" class="bi bi-linkedin large"></a>
+          <a href="https://www.x.com/peppubuild" class="bi bi-twitter large"></a>
+          <a href="https://youtube.com/@peppubuild" class="bi bi-youtube large"></a>
+          <link class="bi bi-github large"/>
+        </div>
+        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center flex-container py-4 my-4 border-top">
+          <p>© 2024 Peppu Ventures. All rights reserved.
+          </p>
+          <div class="list-unstyled d-flex">
+            <li class="ms-3">
+            </li>
+          </div>
+        </div>
     <script src="https://accounts.google.com/gsi/client" onload="initTokenClient()" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function handleCredentialResponse(response) {
             var setAuth = new Promise((resolve, reject) => {
@@ -45,7 +68,7 @@
                 resolve(localStorage.setItem('oauth', response.credential));
             });
             setAuth.then(() => {
-                window.location.href = 'http://localhost:1423/'; //Will take you to home page.
+                window.location.href = 'http://localhost:1423/upload'; //Will take you to home page.
             })
         }
         function initTokenClient() {
@@ -59,7 +82,7 @@
                         console.log(response)
                     });
                     setAuth.then(() => {
-                        window.location.href = 'http://localhost:1423/'; //Will take you to home page.
+                        window.location.href = 'http://localhost:1423/upload'; //Will take you to home page.
                     })
                 },
             });
@@ -73,9 +96,5 @@
             tokenClient.requestAccessToken();
         }
     </script>
-    <button type="button" class="login-with-google-btn" onclick="getToken();">
-        Sign in with Google
-    </button>
-</body>
-
+      </body>
 </html>

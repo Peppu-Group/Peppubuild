@@ -1,0 +1,193 @@
+.container-fluid img {
+    width: 50px;
+    height: 25px;
+    margin-top: 0px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+    margin-left: 25px;
+}
+
+.nav-contain {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(227, 227, 227);
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+}
+
+.large {
+    font-size: 30px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    color: black;
+}
+
+.mar {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(227, 227, 227);
+}
+
+.mtop {
+    margin-top: 70px;
+}
+
+#ifwk {
+    width: 32px;
+}
+
+.col-10.col-sm-8.col-lg-6 {
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px #318308;
+}
+
+.fs-2.text-body-emphasis {
+    margin: 15px 0px 0px 0px;
+}
+
+.btn.btn-dark {
+    margin: 0px 0px 15px 0px;
+}
+
+.pb-2.border-bottom {
+    margin: 0px 0px 5vh 0px;
+}
+
+.row.g-4.py-5.row-cols-1.row-cols-lg-3 {
+    border-radius: 10px;
+    box-shadow: 0 0 5px 0 black;
+}
+
+#id22jm {
+    width: 32px;
+}
+
+.gjs-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .gjs-row {
+        flex-wrap: wrap;
+    }
+}
+
+.gjs-cell {
+    min-height: 75px;
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+
+#ic380k {
+    height: 100vh;
+}
+
+#ijb0u5 {
+    height: 70vh;
+    flex-direction: column-reverse;
+}
+
+#idfyio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn.btn-primary {
+    width: 25vw;
+    margin: 0px 10px 0px 10px;
+}
+
+.btn.btn-success {
+    width: 60vw;
+    margin: 0px 10px 0px 10px;
+}
+
+#iotld8 {
+    background-color: #000000;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+}
+
+#i871jk {
+    padding: 10px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#ikqx0f {
+    width: 32px;
+}
+
+#i15bym {
+    height: 80vh;
+}
+
+#iqe4zj {
+    width: 50vw;
+    height: 40vh;
+    border-radius: 15px;
+    box-shadow: 0 0 5px 0 black;
+}
+
+#iiqux6 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login-with-google-btn {
+    transition: background-color .3s, box-shadow .3s;
+
+    padding: 12px 16px 12px 42px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+
+    color: #757575;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 12px 11px;
+}
+
+.login-with-google-btn:hover {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
+}
+
+.login-with-google-btn:active {
+    background-color: #eeeeee;
+}
+
+.login-with-google-btn:focus {
+    outline: none;
+    box-shadow:
+        0 -1px 0 rgba(0, 0, 0, .04),
+        0 2px 4px rgba(0, 0, 0, .25),
+        0 0 0 3px #c8dafc;
+}
+
+.upload {
+    text-align: center;
+}
+
+#imgcontainer {
+    margin: 5vw;
+}

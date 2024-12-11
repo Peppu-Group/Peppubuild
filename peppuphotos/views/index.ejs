@@ -5,37 +5,136 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peppuphotos - Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/pepputoken/dist/index.min.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <title>Peppuphotos</title>
 </head>
 
-<body>
-    <form id="formid" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <button type="submit">Submint</button>
-    </form>
-
-    <script>
-        var form = document.getElementById('formid');
-
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            const form = e.currentTarget;
-            const url = `/uploadfile/${localStorage.getItem('oauth')}`;
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch(url, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                console.log(response);
-            } catch (error) {
-                console.error(error);
-            }
-
-        }
-    </script>
+<body id="igmc">
+    <a href="https://www.peppubuild.com" class="built-with-peppubuild-btn">
+        Built with Peppubuild</a>
+    <div id="iew5">
+        <div class="navbar navbar-expand-lg nav-contain">
+            <div class="container-fluid"><a href="/" class="navbar-brand"><img src="https://peppubuild.com/favicon.ico"
+                        id="ifwk" /></a><button type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" class="navbar-toggler"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a aria-current="page" href="/" class="nav-link active">Home</a></li>
+                        <li class="nav-item"><a aria-current="page" href="/upload" class="nav-link">Upload</a></li>
+                        <li class="nav-item dropdown"></li>
+                    </ul>
+                    <form class="d-flex"><a href="/login" class="btn btn-dark">Login</a></form>
+                </div>
+            </div>
+        </div>
+        <div class="mtop text-center mx-5 d-flex justify-content-center align-items-center flex-container">
+            <h1 id="i6vij">Upload your Image to the Cloud, Get a URL.</h1>
+        </div>
+        <div class="mx-5 text-center d-flex justify-content-center align-items-center flex-container">
+            <p id="iqtne">Photo Album from Peppubuild: Turn your Google Drive into a photo storage, share with
+                Peppubuild's API </p>
+        </div>
+        <div class="m-3 d-flex justify-content-center align-items-center flex-container"><a href="/login"
+                class="btn btn-dark">Start for Free</a></div>
+        <div class="my-3 m-5 d-flex justify-content-center align-items-center flex-container"><img
+                src="https://drive.google.com/thumbnail?id=1OT-3wNTmT_UYq1J2rbnkoHhKoio4Lx-O&sz=w1000" alt=""
+                class="col-10 col-sm-8 col-lg-6" /></div>
+        <div id="hanging-icons" class="container px-4 py-5">
+            <h2 class="pb-2 border-bottom">All Your Photos in One Place</h2>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                <div class="col d-flex align-items-start">
+                    <div
+                        class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                    </div>
+                    <div id="ig9ov">
+                        <h3 class="fs-2 text-body-emphasis">Integration with  Google</h3>
+                        <p id="id26c">Seamlessly connect your Google Drive to transform it into a dedicated image
+                            storage hub. No complex setups—just a few clicks to start organizing and accessing your
+                            images.</p><a href="/upload" class="btn btn-dark">Try Now</a>
+                    </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <div
+                        class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                    </div>
+                    <div>
+                        <h3 class="fs-2 text-body-emphasis">Smart Image Management</h3>
+                        <p id="i6fdo">Automatically sort, categorize, and tag your images for easy retrieval. Search by
+                            date, folder, or custom tags to find what you need in seconds.</p><a href="/upload"
+                            class="btn btn-dark">Try Now</a>
+                    </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <div
+                        class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                    </div>
+                    <div>
+                        <h3 class="fs-2 text-body-emphasis">Secure Sharing &amp; Access</h3>
+                        <p id="izof1">Share your images securely with customizable access permissions. Whether it’s a
+                            single photo or an entire album, you control who sees your content.</p><a href="/upload"
+                            class="btn btn-dark">Try Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ish0d">
+            <div id="accordionFlushExample" class="accordion accordion-flush container col-xxl-8 px-4 py-5">
+                <h2 class="pb-2 border-bottom">Frequently Asked Questions (FAQ)</h2>
+                <div class="accordion-item">
+                    <h2 id="flush-headingOne" class="accordion-header"><button type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"
+                            class="accordion-button collapsed">How do I use the API?</button></h2>
+                    <div id="flush-collapseOne" aria-labelledby="flush-headingOne"
+                        data-bs-parent="#accordionFlushExample" class="accordion-collapse collapse">
+                        <div class="accordion-body">The instructions on how to use this API and integrate it to your
+                            application can be found in the <a
+                                href="https://github.com/Peppu-Group/Peppubuild/tree/main/peppuphotos"
+                                id="ing5x6">Github repository (README)</a>.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 id="flush-headingTwo" class="accordion-header"><button type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo"
+                            class="accordion-button collapsed">Can I use the app without the API?</button></h2>
+                    <div id="flush-collapseTwo" aria-labelledby="flush-headingTwo"
+                        data-bs-parent="#accordionFlushExample" class="accordion-collapse collapse">
+                        <div class="accordion-body">Yes, you can use this application by navigating to <a href="/upload"
+                                id="i1ft98">upload</a> after login.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 id="flush-headingThree" class="accordion-header"><button type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseThree" aria-expanded="false"
+                            aria-controls="flush-collapseThree" class="accordion-button collapsed">Is this free for
+                            use?</button></h2>
+                    <div id="flush-collapseThree" aria-labelledby="flush-headingThree"
+                        data-bs-parent="#accordionFlushExample" class="accordion-collapse collapse">
+                        <div class="accordion-body">All paid users of <a href="https://peppubuild.com"
+                                id="i2q2kh">Peppubuild</a> have full access to this album tool. However, we're testing
+                            out and rolling features for users to tryout for free. </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-container mar"><a
+                href="https://www.linkedin.com/company/peppubooks" class="bi bi-linkedin large"></a><a
+                href="https://www.x.com/peppubuild" class="bi bi-twitter large"></a><a
+                href="https://youtube.com/@peppubuild" class="bi bi-youtube large"></a>
+            <link class="bi bi-github large" />
+        </div>
+        <div
+            class="d-flex flex-column flex-sm-row justify-content-center align-items-center flex-container py-4 my-4 border-top">
+            <p id="infdtp">© 2024 Peppu Ventures. All rights reserved.</p>
+            <div class="list-unstyled d-flex">
+                <li class="ms-3"></li>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

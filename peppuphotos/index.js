@@ -11,13 +11,19 @@ const upload = multer();
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
+app.use(express.static("public"))
+
 // index page
 app.get('/', function(req, res) {
     res.render('index');
 });
 
+app.get('/upload', function(req, res) {
+  res.render('upload');
+});
+
 // auth page
-app.get('/auth', function(req, res) {
+app.get('/login', function(req, res) {
     res.render('auth', {apikey: process.env.APIKEY});
 });
 
