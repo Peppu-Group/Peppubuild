@@ -16,60 +16,62 @@
 <body>
     <a href="https://www.peppubuild.com" class="built-with-peppubuild-btn">
         Built with Peppubuild</a>
-  <div class="navbar navbar-expand-lg nav-contain">
-    <div class="container-fluid">
-      <a href="/" class="navbar-brand"><img src="https://peppubuild.com/favicon.ico" id="id22jm"/></a>
-      <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a aria-current="page" href="/" class="nav-link active">Home</a>
-          </li>
-          <li class="nav-item">
-            <a aria-current="page" href="/upload" class="nav-link">Upload</a>
-          </li>
-          <li class="nav-item dropdown">
-          </li>
-        </ul>
-        <form class="d-flex">
-          <a href="/login" class="btn btn-dark">Login</a>
-        </form>
-      </div>
+    <div class="navbar navbar-expand-lg nav-contain">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="https://peppubuild.com/favicon.ico" id="id22jm" /></a>
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" href="/" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" href="/upload" class="nav-link">Upload</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a href="/login" class="btn btn-dark">Login</a>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="gjs-row" id="ic380k">
-    <div class="gjs-cell" id="i2fijv">
-      <div class="gjs-row" id="ijb0u5">
-        <div class="gjs-cell" id="idfyio">
-            <form id="formid" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" id="inputid" class="btn btn-success"/>
-                <button type="submit" id="iotld8">Upload</button>
-            </form>
+    <div class="gjs-row" id="ic380k">
+        <div class="gjs-cell" id="i2fijv">
+            <div class="gjs-row" id="ijb0u5">
+                <div class="gjs-cell" id="idfyio">
+                    <form id="formid" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="inputid" class="btn btn-success" />
+                        <button type="submit" id="iotld8">Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div id="imgcontainer">
+                <h1 class="upload">Uploaded Images</h1>
+            </div>
+            <div class="gjs-row" id="inoemg">
+                <div class="gjs-cell" id="iu2z08">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-container mar">
+                <a href="https://www.linkedin.com/company/peppubooks" class="bi bi-linkedin large"></a>
+                <a href="https://www.x.com/peppubuild" class="bi bi-twitter large"></a>
+                <a href="https://youtube.com/@peppubuild" class="bi bi-youtube large"></a>
+                <link class="bi bi-github large" />
+            </div>
+            <div
+                class="d-flex flex-column flex-sm-row justify-content-center align-items-center flex-container py-4 my-4 border-top">
+                <p id="i6mvag">© 2024 Peppubuild. All rights reserved.
+                </p>
+                <div class="list-unstyled d-flex">
+                    <li class="ms-3">
+                    </li>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="imgcontainer">
-        <h1 class="upload">Uploaded Images</h1>
-      </div>
-      <div class="gjs-row" id="inoemg">
-        <div class="gjs-cell" id="iu2z08">
-        </div>
-      </div>
-      <div class="d-flex justify-content-center align-items-center flex-container mar">
-        <a href="https://www.linkedin.com/company/peppubooks" class="bi bi-linkedin large"></a>
-        <a href="https://www.x.com/peppubuild" class="bi bi-twitter large"></a>
-        <a href="https://youtube.com/@peppubuild" class="bi bi-youtube large"></a>
-        <link class="bi bi-github large"/>
-      </div>
-      <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center flex-container py-4 my-4 border-top">
-        <p id="i6mvag">© 2024 Peppubuild. All rights reserved.
-        </p>
-        <div class="list-unstyled d-flex">
-          <li class="ms-3">
-          </li>
-        </div>
-      </div>
     </div>
-  </div>
 
     <script>
         var form = document.getElementById('formid');
@@ -78,41 +80,49 @@
             Swal.showLoading();
             e.preventDefault();
             const form = e.currentTarget;
-            const url = `/uploadfile/${localStorage.getItem('oauth')}`;
+            let oauth = localStorage.getItem('oauth')
+            const url = `/uploadfile/${oauth}`;
 
-            try {
-                const formData = new FormData(form);
-                document.getElementById('inputid').value = null;
-                await fetch(url, {
-                    method: 'POST',
-                    body: formData
-                }).then((res) => {
-                    res.json().then((response) => {
-                        Swal.fire({
-                            title: "Successful Upload!",
-                            text: "We've uploaded your image to your Google Drive.",
-                            icon: "success"
-                        })
-                        // https://drive.google.com/thumbnail?id=${response.id}&sz=w1000
-                        // send image link to drive folder.
-                        // add image link to local storage
-                        // display a little thumbnail and image link in uploaded files
+            if (!oauth) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "You're not logged in, you don't have access to upload",
+                    icon: "error"
+                })
+            } else {
+                try {
+                    const formData = new FormData(form);
+                    document.getElementById('inputid').value = null;
+                    await fetch(url, {
+                        method: 'POST',
+                        body: formData
+                    }).then((res) => {
+                        res.json().then((response) => {
+                            Swal.fire({
+                                title: "Successful Upload!",
+                                text: "We've uploaded your image to your Google Drive.",
+                                icon: "success"
+                            })
+                            // https://drive.google.com/thumbnail?id=${response.id}&sz=w1000
+                            // send image link to drive folder.
+                            // add image link to local storage
+                            // display a little thumbnail and image link in uploaded files
 
-                        const container = document
-                            .getElementById('imgcontainer');
+                            const container = document
+                                .getElementById('imgcontainer');
 
-                        container
-                            .innerHTML += `
+                            container
+                                .innerHTML += `
                             <div class="alert alert-success" role="alert">
                                 Image Link: https://drive.google.com/thumbnail?id=${response.id}&sz=w1000
                             </div>
                             `
+                        })
                     })
-                })
-            } catch (error) {
-                console.error(error);
+                } catch (error) {
+                    console.error(error);
+                }
             }
-
         }
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
