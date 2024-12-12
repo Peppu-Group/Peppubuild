@@ -24,7 +24,7 @@ app.get('/upload', function(req, res) {
 
 // auth page
 app.get('/login', function(req, res) {
-    res.render('auth', {apikey: process.env.APIKEY});
+    res.render('auth', {apikey: process.env.APIKEY, url: process.env.URL});
 });
 
 /**
