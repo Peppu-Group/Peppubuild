@@ -75,6 +75,8 @@ Have questions or need help? Reach out at contact@peppubuild.com.
 This project is licensed under the MIT License.
 
 ## Available APIs
-| API                                                | Description                                       |
-|----------------------------------------------------|---------------------------------------------------|
-| photodrive.peppubuild.com/uploadfile/:accesstoken  | Upload an image to your Google Drive's Home Page. |
+| API                                                | Description                                                 | Body (Params)                  |
+|----------------------------------------------------|-------------------------------------------------------------|-------------------------------   |
+| photodrive.peppubuild.com/uploadfile/:accesstoken  | Upload an image to your Google Drive's Home Page.           | None                             |
+| photodrive.peppubuild.com/permissions/:accesstoken | Change the permissions of your photos, restrict who can view| id: File Id, Role: role string   |
+| photodrive.peppubuild.com/tidy/:accesstoken        | Arrange similar images into different folders               |folderId, fileId, name:folder name |
