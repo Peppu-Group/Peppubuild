@@ -135,9 +135,11 @@
   * It calls routes in our server-side 'server.js'.
 */
 import { userAuth } from './js/firebase.js';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import SideBar from '../components/SideBar.vue';
-import templatesData from '../assets/templates.json'
+import templatesData from '../assets/templates.json';
+import swal from 'sweetalert';
+
 
 const serverUrl = 'https://server.peppubuild.com';
 export default {
@@ -158,7 +160,18 @@ export default {
       },
     }).then((res) => {
       res.json().then((response) => {
-        this.projects = response;
+        console.log(response)
+        if (response.status == 401) {
+          swal("Oops!", `You're not logged in`, "error").then(() => {
+            this.$router.push({ name: "Auth"})
+          })
+        } else if (response.status == 403) {
+          swal("Oops!", `You did not give Peppubuild access. Tick Select all before you click continue.`, "error").then(() => {
+            this.$router.push({ name: "Auth"})
+          })
+        }else {
+          this.projects = response;
+        }
       })
     })
   },

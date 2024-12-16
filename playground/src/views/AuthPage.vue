@@ -5,7 +5,7 @@
             <div class="wrapper">
                 <div class="form-wrapper sign-in">
                     <div class="formcenter">
-                        <img src="./img/logo.png" style="width: 50px; height: 50px"/>
+                        <img src="./img/logo.png" style="width: 50px; height: 50px" />
                         <h1 class="walltext">Welcome to Peppubuild</h1>
                     </div>
                     <div class="start">
@@ -92,16 +92,16 @@ export default {
          * This function uses signInWithPopup, to retrieve credential after login.
          * We store credential and user data in localStorage().
         */
-       async sendEmail(email, token) {
-        let userSignInMethods = await fetchSignInMethodsForEmail(userAuth, email)
-        if (userSignInMethods.length > 0) {
-            this.callVerify(token);
-        } else {
-            // call verify
-            this.sendWelcome(email);
-            this.callVerify(token);
-        }
-       },
+        async sendEmail(email, token) {
+            let userSignInMethods = await fetchSignInMethodsForEmail(userAuth, email)
+            if (userSignInMethods.length > 0) {
+                this.callVerify(token);
+            } else {
+                // call verify
+                this.sendWelcome(email);
+                this.callVerify(token);
+            }
+        },
         providerLogin(authProvider, provider) {
             signInWithPopup(userAuth, provider)
                 .then((result) => {
@@ -157,30 +157,24 @@ export default {
                     // verify token
 
                     // store token
-                    document.cookie = `pepputoken=${providerToken}; max-age=3300`;
+                    document.cookie = `pepputoken=${providerToken}; max-age=3000`;
                     resolve();
-                    var timeleft = 2000;
+                    const interval = 50 * 60 * 1000;
                     setInterval(async function () {
-                        if (timeleft <= 0) {
-                            // clearInterval(downloadTimer);
-                            alert('completed timer')
-                                return new Promise((resolve, reject) => {
-                                    userAuth.onAuthStateChanged((user) => {
-                                        if (user) {
-                                            user.getIdToken(true).then((accessToken) => {
-                                                resolve(document.cookie = `pepputoken=${accessToken}; max-age=3300`)
-                                            })
-                                        }
-                                        reject
+                        console.log('abc')
+                        return new Promise((resolve, reject) => {
+                            userAuth.onAuthStateChanged((user) => {
+                                if (user) {
+                                    user.getIdToken(true).then((accessToken) => {
+                                        resolve(document.cookie = `pepputoken=${accessToken}; max-age=3000`)
                                     })
-                                }).then(() => {
-                                    timeleft += 2000;
-                                })
-                        }
-                        console.log(`timeleft: ${timeleft -= 1}`) 
-                    }, 1000);
+                                }
+                                reject
+                            })
+                        })
+                    }, interval);
                 } else {
-                    reject();
+                    reject
                 }
             })
             storecookie
