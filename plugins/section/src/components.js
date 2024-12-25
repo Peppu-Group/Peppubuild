@@ -1,6 +1,18 @@
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
 
+  function randomID() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
+
   // accordion
   domc.addType('B-ACCORDIO', {
     model: {
@@ -104,6 +116,9 @@ export default (editor, opts = {}) => {
             ]
           }
         ]
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
 
@@ -370,6 +385,9 @@ export default (editor, opts = {}) => {
         }
         `
       },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
 
     view: {
@@ -406,7 +424,10 @@ export default (editor, opts = {}) => {
           margin: 10px 10px 10px 10px;
         }
         `
-      }
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
   });
 
@@ -476,7 +497,10 @@ export default (editor, opts = {}) => {
           margin-top: 70px;
         }
         `
-      }
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
   });
 
@@ -497,7 +521,10 @@ export default (editor, opts = {}) => {
           margin: 10px 10px 10px 10px;
         }
         `
-      }
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
   });
 
@@ -557,6 +584,9 @@ export default (editor, opts = {}) => {
           width: 18rem;
         }
         `
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
     view: {
@@ -623,7 +653,10 @@ export default (editor, opts = {}) => {
           height: 500;
         }
         `
-      }
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
     view: {
 
@@ -655,6 +688,8 @@ export default (editor, opts = {}) => {
       },
 
       init() {
+        this.set('attributes', { id: randomID() });
+
         const comps = this.components();
         const tChild = comps.length === 1 && comps.models[0];
         const chCnt = (tChild && tChild.is('textnode') && tChild.get('content')) || '';
@@ -667,6 +702,7 @@ export default (editor, opts = {}) => {
       __onTextChange() {
         this.components(this.get('text'));
       },
+
     },
 
     view: {
@@ -711,7 +747,10 @@ export default (editor, opts = {}) => {
           border-top: 1px solid #e3e3e3;
         }
         `
-      }
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
   });
 
@@ -754,6 +793,9 @@ export default (editor, opts = {}) => {
   </div>
 </div>  
         `
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
 
@@ -844,6 +886,9 @@ export default (editor, opts = {}) => {
             ]
           }
         ]
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
 
@@ -954,6 +999,9 @@ export default (editor, opts = {}) => {
           }
         ]
       },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
 
     view: {
@@ -1016,6 +1064,9 @@ export default (editor, opts = {}) => {
         }
         `
       },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
 
     view: {
@@ -1055,6 +1106,9 @@ export default (editor, opts = {}) => {
             ]
           },
         ]
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
 
@@ -1299,6 +1353,9 @@ export default (editor, opts = {}) => {
         }
         `
       },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
 
     view: {
@@ -1404,7 +1461,10 @@ export default (editor, opts = {}) => {
             ]
           }
         ]
-      }
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     }
   });
 
@@ -1440,6 +1500,9 @@ export default (editor, opts = {}) => {
             ]
           }
         ]
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
 
@@ -1477,6 +1540,9 @@ export default (editor, opts = {}) => {
         attributes: { class: 'form-control me-2', type: 'search', placeholder: 'Search', 'aria-label': 'Search' },
 
       },
+      init: function() {
+        this.set('attributes', { id: randomID() });
+      },
     },
 
     view: {
@@ -1498,6 +1564,9 @@ export default (editor, opts = {}) => {
         attributes: { class: 'form-control me-2', type: 'search', placeholder: 'Search', 'aria-label': 'Search' },
 
         traits: ['name', 'placeholder', { type: 'checkbox', name: 'required'}],
+      },
+      init: function() {
+        this.set('attributes', { id: randomID() });
       },
     },
   });
