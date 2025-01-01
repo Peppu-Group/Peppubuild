@@ -6,6 +6,7 @@ import HomePage from '../views/HomePage.vue'
 import LogPage from '../views/LogPage.vue'
 import AuthPage from '../views/AuthPage.vue'
 import DashboardPage from '../views/DashboardPage.vue'
+import TemplatesPage from '../views/TemplatesPage.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import CallBack from '../views/CallBack.vue'
 
@@ -45,6 +46,11 @@ const routes = [
         path: '/dashboard/projects',
         name: 'Dashboard',
         component: DashboardPage
+    },
+    {
+        path: '/dashboard/templates',
+        name: 'Templates',
+        component: TemplatesPage
     },
     {
         path: '/callback',

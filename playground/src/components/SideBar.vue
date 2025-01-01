@@ -20,12 +20,12 @@
       <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
         <li class="nav-item">
           <router-link to="/dashboard/projects" class="nav-link align-middle px-0">
-            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Get Started</span>
+            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/overview" class="nav-link align-middle px-0">
-            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Overview</span>
           </router-link>
         </li>
         <li>
@@ -50,8 +50,9 @@
           </ul>
         </li>
         <li>
-          <a href="#" class="nav-link px-0 align-middle" @click="inProgress()">
-            <i class="fs-4 bi-folder2"></i> <span class="ms-1 d-none d-sm-inline">Templates</span></a>
+          <router-link to="/dashboard/templates" class="nav-link px-0 align-middle">
+            <i class="fs-4 bi-folder2"></i> <span class="ms-1 d-none d-sm-inline">Templates</span>
+          </router-link>
         </li>
         <li>
           <a href="#" class="nav-link px-0 align-middle" @click="inProgress()">

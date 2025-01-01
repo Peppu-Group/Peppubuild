@@ -406,6 +406,11 @@ export default {
         // remove the buttons
         panelManager.removeButton("views", "open-layers");
         panelManager.removeButton("views", "open-tm");
+        /*
+        if (payment == false) {
+            panelManager.removeButton('options', 'export-template')
+        }
+        */
         this.edit = editor;
         this.peppuMethods = JSON.parse(localStorage.getItem('peppuMethods'))
     },

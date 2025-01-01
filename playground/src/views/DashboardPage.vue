@@ -4,6 +4,7 @@
       <SideBar />
       <div class="col py-3">
         <div class="dash-content" id="d-cont">
+          <PaymentStatus />
           <div id="i2sw">Manage your Projects
           </div>
           <section-one>
@@ -21,8 +22,7 @@
             <div id="inyx">
               <div class="action_btn">
                 <h2>Projects</h2>
-                <p class="project-deck"> Continue from where you left off. Please note that projects not saved will be
-                  lost.</p>
+                <p class="project-deck"> Continue from where you left off. Please note that projects have auto-save turned on.</p>
                 <div class="card text-center project-deck">
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
@@ -37,8 +37,7 @@
                       personalised AI, or build with a template</p>
                     <button type="button" class="action_btn btn btn-success" data-bs-toggle="modal"
                       data-bs-target="#exampleModal">New Project</button>
-                    <button type="button" class="action_btn btn btn-dark" @click="redirect()"
-                      >Connect Netlify</button>
+                    <button type="button" class="action_btn btn btn-dark" @click="redirect()">Connect Netlify</button>
                   </div>
                 </div>
                 <div class="row" v-if="projects">
@@ -51,7 +50,7 @@
                         <h2 class="card-title">{{ project.name.split('.').slice(0, -1).join('.') }}</h2>
                         <div class="card-footer">
                           <button @click="deleteProject(project.id)" class="btn btn-danger space">Delete</button>
-                          <button @click="projectWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
+                          <button @click="openWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
                             class="btn btn-primary">Continue</button>
                         </div>
                       </div>
@@ -77,7 +76,7 @@
             <!-- Modal -->
             <div class="modal fade" id="templateModal" tabindex="-1" aria-labelledby="templateModalLabel"
               aria-hidden="true">
-              <div class="modal-dialog">
+              <div class="modal-dialog modal-lg" v-if="templates">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="templateModalLabel">Recommended for you</h5>
@@ -86,16 +85,36 @@
                   <div class="modal-body">
                     <div class="container-fluid">
                       <div class="row">
-                        <div class="col-md-4" @click="templateProject('photography')" data-bs-dismiss="modal">
-                          <img src="../views/img/photography.png" style="height: 100px;width: 100px;" />
-                          Photography
+                        <div class="col-sm-6 col-lg-4" @click="openWorkspace(template.id, template.name)" data-bs-dismiss="modal"
+                          v-for="template in templates" :key="template.id">
+                          <img :src="template.properties.url" style="height: 200px;width: 200px; margin-top: 10px;" />
+                          {{ template.name.split('.').slice(0, -1).join('.') }}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-dialog" v-else>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="templateModalLabel">Recommended for you</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-4" data-bs-dismiss="modal">
+                          No Template to Show
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
@@ -137,52 +156,64 @@
 import { userAuth } from './js/firebase.js';
 import Swal from 'sweetalert2';
 import SideBar from '../components/SideBar.vue';
-import templatesData from '../assets/templates.json';
 import swal from 'sweetalert';
+import PaymentStatus from '@/components/PaymentStatus.vue';
 
+// users can use the create template function to create their template.
+// The templates button should be changed to 'create new template button'. The user
+// will name the template and it should be stored in google docs.
+// hence, templates will be fetched from gdrive using the v-if directive.
+// At publish, the template will be available in the template option.
+// this works with the template method, where id is template name
 
-const serverUrl = 'https://server.peppubuild.com';
+const serverUrl = 'http://localhost:1404';
 export default {
   name: 'DashboardPage',
-  components: { SideBar },
+  components: { SideBar, PaymentStatus },
 
   /**
     * On mounted, we call route /projects/:accessToken.
     * This returns and displays all projects.
   */
   async mounted() {
-    let accessToken = localStorage.getItem('oauth')
-    let url = `${serverUrl}/projects/${accessToken}`
-    await fetch(url, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      res.json().then((response) => {
-        console.log(response)
-        if (response.status == 401) {
-          swal("Oops!", `You're not logged in`, "error").then(() => {
-            this.$router.push({ name: "Auth"})
-          })
-        } else if (response.status == 403) {
-          swal("Oops!", `You did not give Peppubuild access. Tick Select all before you click continue.`, "error").then(() => {
-            this.$router.push({ name: "Auth"})
-          })
-        }else {
-          this.projects = response;
-        }
-      })
-    })
+    this.getFiles('project');
+    this.getFiles('template');
   },
   data() {
     return {
       projects: null,
-      templates: templatesData
+      templates: null
     };
   },
 
   methods: {
+    async getFiles(fileType) {
+      let accessToken = localStorage.getItem('oauth')
+      let url = `${serverUrl}/projects/${accessToken}/${fileType}`
+      await fetch(url, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        res.json().then((response) => {
+          if (response.status == 401) {
+            swal("Oops!", `You're not logged in`, "error").then(() => {
+              this.$router.push({ name: "Auth" })
+            })
+          } else if (response.status == 403) {
+            swal("Oops!", `You did not give Peppubuild access. Tick Select all before you click continue.`, "error").then(() => {
+              this.$router.push({ name: "Auth" })
+            })
+          } 
+          else if (fileType == 'template' && response.length) {
+            this.templates = response;
+          } else if (fileType == 'project') {
+            this.projects = response;
+          }
+        })
+      })
+    },
     /**
       * We call checkState(), to ensure user is still logged in.
     */
@@ -201,7 +232,7 @@ export default {
     /**
       * The projectWorkspace() function, loads our editor with the current project.
     */
-    async projectWorkspace(id, name) {
+    async openWorkspace(id, name) {
       // get content.
       // set the value of gjsProject.
       await this.checkState();
@@ -218,7 +249,6 @@ export default {
         body: JSON.stringify({ accessToken: accessToken }),
       }).then((res) => {
         res.json().then((response) => {
-          console.log(response)
           localStorage.setItem('projectTitle', response.title)
           localStorage.setItem('published', response.published)
           localStorage.setItem('gjsProject', JSON.stringify(response.project));
@@ -255,11 +285,10 @@ export default {
     /**
       * The emptyProject() function, allows you to create an empty project.
     */
-    async emptyProject() {
+    async publishFront(gjsProject) {
       let name = prompt('What will you like to name your project?');
       if (name) {
         localStorage.setItem('projectName', name);
-        let gjsProject = '{}';
         let accessToken = localStorage.getItem('oauth');
         let published = 'No';
         let title = 'Peppubuild - Project';
@@ -280,7 +309,6 @@ export default {
               localStorage.setItem('gjsProject', `{}`);
               localStorage.setItem('published', published);
               localStorage.setItem('projectTitle', title);
-              this.$router.push({ name: "Home", params: { id } });
             } else {
               Swal.fire({
                 icon: "error",
@@ -293,41 +321,19 @@ export default {
         })
       }
     },
+    async emptyProject() {
+      let gjsProject = '{}';
+      this.publishFront(gjsProject).then(() => {
+        let id = localStorage.getItem('projectId');
+        this.$router.push({ name: "Home", params: { id } });
+      })
+    },
     /**
       * The templateProject() function, allows you to create a project from a template.
     */
     async templateProject(id) {
-      let name = prompt('What will you like to name your project?');
-      if (name) {
-        localStorage.setItem('projectName', name);
-        let gjsProject = this.templates[id];
-        let accessToken = localStorage.getItem('oauth')
-        let url = `${serverUrl}/publishfront/${name}`
-        Swal.showLoading();
-        await fetch(url, {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken }),
-        }).then((res) => {
-          res.json().then((response) => {
-            if (res.status == 200) {
-              Swal.close();
-              localStorage.setItem('projectId', response.id);
-              localStorage.setItem('gjsProject', JSON.stringify(gjsProject))
-              this.$router.push({ name: "Home", params: { id: response.id } });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: response.error,
-                footer: '<a href="https://www.docs.peppubuild.com">Why do I have this issue?</a>'
-              });
-            }
-          })
-        })
-      }
+      console.log(this.templates[id])
+      this.publishFront(this.templates[id]);
     },
     /**
       * The aiProject() function, allows you to create a project with AI.
@@ -337,25 +343,25 @@ export default {
     },
 
     redirect() {
-    // We don't have access to netlify's server (CORS).
-    // We'll redirect to authorisation page, instead of axios.
-    let state = null
-    state = Math.random()
-    localStorage.setItem(state, true)
-    let clientId = 'k7RNYuUbYsS1Rb99qz74DMA1F1NWHUaW2fw5dSE-URI'
-    let redirectURI = 'https://app.peppubuild.com/callback'
-  
-    let uri =
-      'https://app.netlify.com/authorize?' +
-      'client_id=' +
-      clientId +
-      '&response_type=token' +
-      '&redirect_uri=' +
-      redirectURI +
-      '&state=' +
-      state
-    window.location.href = uri
-  }
+      // We don't have access to netlify's server (CORS).
+      // We'll redirect to authorisation page, instead of axios.
+      let state = null
+      state = Math.random()
+      localStorage.setItem(state, true)
+      let clientId = 'k7RNYuUbYsS1Rb99qz74DMA1F1NWHUaW2fw5dSE-URI'
+      let redirectURI = 'https://app.peppubuild.com/callback'
+
+      let uri =
+        'https://app.netlify.com/authorize?' +
+        'client_id=' +
+        clientId +
+        '&response_type=token' +
+        '&redirect_uri=' +
+        redirectURI +
+        '&state=' +
+        state
+      window.location.href = uri
+    }
   }
 }
 </script>
