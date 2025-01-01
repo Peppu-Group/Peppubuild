@@ -57,6 +57,24 @@ async function startServer() {
    * @param {number} Id - FileId
    * @param {string} accessToken - Oauth Access Token
   */
+  async function getContent(Id, accessToken) {
+    const service = driveAuth(accessToken);
+    try {
+      const file = await service.files.get({
+        fileId: Id,
+        alt: 'media',
+      });
+      let data = JSON.stringify(file.data);
+      let finaldata = JSON.parse(data)
+      // return finaldata.gjsProject.project;
+      return finaldata.gjsProject;
+      // return title and published here too.
+    } catch (err) {
+      // TODO(developer) - Handle error
+      return err;
+    }
+  }
+
   async function uploadPhoto(accessToken, filePath) {
     const service = driveAuth(accessToken);
     const requestBody = {
@@ -74,7 +92,6 @@ async function startServer() {
       });
       return file.data.id;
     } catch (err) {
-      console.log(err)
       throw err;
     }
   }
@@ -97,23 +114,7 @@ async function startServer() {
       })
     }
   })
-  async function getContent(Id, accessToken) {
-    const service = driveAuth(accessToken);
-    try {
-      const file = await service.files.get({
-        fileId: Id,
-        alt: 'media',
-      });
-      let data = JSON.stringify(file.data);
-      let finaldata = JSON.parse(data)
-      // return finaldata.gjsProject.project;
-      return finaldata.gjsProject;
-      // return title and published here too.
-    } catch (err) {
-      // TODO(developer) - Handle error
-      return err;
-    }
-  }
+
 
   /**
    * app.post('/clientdeploy/:pname', (req, res) => {})
@@ -166,6 +167,10 @@ async function startServer() {
     return data;
   }
 
+  /**
+    * This function authenticates the user for their Google Drive account.
+    * @param {string} accessToken - Oauth Access Token
+   */
   function driveAuth(accessToken) {
     const auth = new OAuth2Client({});
     auth.setCredentials({ access_token: accessToken })
@@ -178,12 +183,13 @@ async function startServer() {
    * @module listFiles()
    * @param {string} accessToken - Oauth Access Token
   */
-  async function listFiles(accessToken) {
+  async function listFiles(accessToken, value) {
     const service = driveAuth(accessToken);
     try {
       const res = await service.files.list({
+        q: `properties has { key='fileType' and value='${value}' }`,
         spaces: 'appDataFolder',
-        fields: 'nextPageToken, files(id, name)',
+        fields: 'nextPageToken, files(id, name, properties)',
         pageSize: 100,
       });
       return res.data.files;
@@ -237,10 +243,12 @@ async function startServer() {
   /**
    * Create File to store application's data on Google Drive (appDataFolder).
    * @module createFrontend()
-   * @param {string} projectName - Project Name
-   * @param {string} accessToken - Oauth AccessToken
+   * @param {string} projectName - Project Name.
+   * @param {string} accessToken - Oauth AccessToken.
+   * @param {string} classType - classType, either project or template.
+   * @param {string} imgurl - Image URL, Allows us add the image of template card.
   */
-  async function createFrontend(projectName, accessToken) {
+  async function createFrontend(projectName, accessToken, classType, imgurl) {
     const service = driveAuth(accessToken);
     const media = {
       mimeType: 'application/json',
@@ -248,6 +256,38 @@ async function startServer() {
     };
     const fileMetadata = {
       name: `${projectName}.json`,
+      parents: ['appDataFolder'],
+      properties: {
+        fileType: classType,
+        url: imgurl
+      }
+    };
+    try {
+      const file = await service.files.create({
+        resource: fileMetadata,
+        media: media,
+      })
+      // console.log(file.data.id)
+      return file.data.id;
+    } catch (err) {
+      // TODO(developer) - Handle error
+      return err;
+    }
+  }
+
+  /**
+   * Create File to store users template on Google Drive (appDataFolder).
+   * @module createTemplate()
+   * @param {string} accessToken - Oauth AccessToken
+  */
+  async function createTemplate(accessToken) {
+    const service = driveAuth(accessToken);
+    const media = {
+      mimeType: 'application/json',
+      // body: fs.createReadStream(`files/${projectName}.json`),
+    };
+    const fileMetadata = {
+      name: `template.json`,
       parents: ['appDataFolder'],
     };
     try {
@@ -357,9 +397,10 @@ async function startServer() {
    * @function
    * @param {string} token - Oauth Token
   */
-  app.get('/projects/:token', (req, res) => {
+  app.get('/projects/:token/:filetype', (req, res) => {
     let accessToken = req.params.token;
-    listFiles(accessToken).then((response) => {
+    let fileType =  req.params.filetype;
+    listFiles(accessToken, fileType).then((response) => {
       res.send(response)
     })
   })
@@ -432,8 +473,9 @@ async function startServer() {
     let accessToken = req.body.accessToken;
     let title = req.body.title;
     let published = req.body.published;
+    let imgurl = 'na';
 
-    createFrontend(projectName, accessToken).then((id) => {
+    createFrontend(projectName, accessToken, 'project', imgurl).then((id) => {
       // Step 3 - Update with empty project
       updateDB(gjsProject, id, accessToken, published, title);
       res.send({ id: id });
@@ -459,6 +501,35 @@ async function startServer() {
       }
     })
     */
+  })
+
+  /**
+   * app.post('/publishfront/:name', (req, res) => {})
+   * Route to publish file to Namescheap
+   * @function
+   * @memberof updateDB()
+   * @memberof createTemplate()
+   * @name Publish_Project
+  */
+  // create frontend project
+  /// TODO: Import the necessary functions here like createFrontend etc.
+  app.put('/template/:name', (req, res) => {
+    let projectName = req.params.name;
+    // let projectName = req.body.projectName;
+    // let projectType = req.body.projectType;
+    // let tartgetPath = path.join(CURR_DIR, projectName);
+
+    let gjsProject = req.body.gjsProject;
+    let accessToken = req.body.accessToken;
+    let title = req.body.title;
+    let published = req.body.published;
+    let imgurl = req.body.url;
+
+    createFrontend(projectName, accessToken, 'template', imgurl).then((id) => {
+      // Step 3 - Update with empty project
+      updateDB(gjsProject, id, accessToken, published, title);
+      res.send({ id: id });
+    });
   })
 
   const port = 1404;

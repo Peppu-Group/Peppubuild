@@ -171,7 +171,7 @@ async function createFolder(accessToken, name) {
  *  If available, move file into folder.
  *  If not, create folder and move file into folder.
  */
-app.post('/permissions/:accesstoken', (req, res) => {
+app.post('/tidy/:accesstoken', (req, res) => {
   let folderId = req.body.folderId;
   let fileId = req.body.fileId;
   let name = req.body.name;

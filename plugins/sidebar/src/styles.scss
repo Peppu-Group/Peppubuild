@@ -4,6 +4,8 @@ $prefix: 'gjs-' !default;
 /* Main color */
 $mainColor: #34A853;
 
+
+
 :root {
     --border-color: rgba(0, 0, 0, 0.15);
     --background-color: #3c4a49;
@@ -351,6 +353,17 @@ $mainColor: #34A853;
 
 .add-page {
     background: $mainColor;
+    color: white;
+    font-size: 12px;
+    padding: 8px 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+.add-template {
+    background: black;
     color: white;
     font-size: 12px;
     padding: 8px 5px;

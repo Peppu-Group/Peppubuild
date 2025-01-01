@@ -31,7 +31,8 @@ export default class PagesApp extends UI {
         this.getProject = this.getProject.bind(this);
         this.openDelete = this.openDelete.bind(this);
         this.deleteProject = this.deleteProject.bind(this);
-        this.readText = this.readText.bind(this)
+        this.readText = this.readText.bind(this);
+        this.templatePublish = this.templatePublish.bind(this);
 
         /* Set initial app state */
         this.state = {
@@ -288,7 +289,30 @@ export default class PagesApp extends UI {
             })
         } catch { swal("Error", "An error occurred", "error") }
         */
-
+        // IF PAYMENT STATUS IS UNPAID
+        if (payment == false) {
+            window.FlutterwaveCheckout({
+                public_key: process.env.VUE_APP_PUBLICKEY,
+                tx_ref: 'titanic-48981487343MDI0NzMx',
+                amount: 5000,
+                currency: 'NGN',
+                payment_options: 'card, bank, ussd',
+                redirect_url: '/dashboard/projects',
+                meta: {
+                    consumer_id: 23,
+                    consumer_mac: '92a3-912ba-1192a',
+                },
+                customer: {
+                    email: 'ugochi.ukpai@peppubuild.com',
+                    name: 'Ugochi Ukpai',
+                },
+                customizations: {
+                    title: 'Peppubuild',
+                    description: 'Payment for Peppubuild Pro',
+                    logo: 'https://www.peppubuild.com/logo.png',
+                },
+            });
+        }
         Swal.fire({
             title: "How would you like to publish your work?",
             icon: "info",
@@ -442,6 +466,47 @@ export default class PagesApp extends UI {
         }
     }
 
+    async templatePublish() {
+        Swal.fire({
+            title: "Are you sure? You can't edit template after this step.",
+            text: "To make your templates more appealing, you need an image snapshot of the template. Add an image url when requested.",
+            icon: "info",
+            confirmButtonText: "Convert to Template",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                const { editor } = this;
+                const projectdata = editor.getProjectData();
+                let gjsProject = JSON.stringify(projectdata);
+                let title = localStorage.getItem("projectTitle");
+                let accessToken = localStorage.getItem('oauth');
+                let name = prompt('What will you like to name your template');
+                let url = prompt('Add an Image URL for your template');
+                if (!url) {
+                    swal("Error", "We cannot proceed if there's no image", "error")
+                }
+                if (name) {
+                    try {
+                        fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/template/${name}`, {
+                            method: "PUT", // or 'PUT'
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ name: name, accessToken: accessToken, gjsProject: gjsProject, title: title, url: url }),
+                        }).then(() => {
+                            swal("Success", "We've successfully converted your project to a template.", "success")
+                                .then(() => {
+                                    window.location.href = 'https://app.peppubuild.com/dashboard/projects';
+                                })
+                        })
+                    } catch {
+                        swal("Error", "An error occurred.", "error")
+                    }
+                }
+            }
+        })
+    }
+
     async getProject(id) {
         const { editor } = this;
         let data = await fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/project/${id}`).then(response => { return response.json() });
@@ -557,6 +622,9 @@ export default class PagesApp extends UI {
                 <div class="add-page">
                     ${editor.I18n.t('peppu-sidebar.pages.new')}
                 </div>
+                <div class="add-template">
+                    Convert to Template
+                </div>
                 <div class="add-project">
                     ${editor.I18n.t('peppu-sidebar.project.publish')}
                 </div>
@@ -566,6 +634,7 @@ export default class PagesApp extends UI {
             </div>`);
         cont.find('.add-page').on('click', this.addPage);
         cont.find('.add-project').on('click', this.addProject);
+        cont.find('.add-template').on('click', this.templatePublish);
         cont.find('.sm').on('change', this.handleNameInput);
         cont.find('.add-title').on('click', this.addTitle);
         cont.find('.bm').on('change', this.handleTitle);
