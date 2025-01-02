@@ -1,454 +1,456 @@
-{
-    "photography": {
-        "assets": [
-            {
-                "type": "image",
-                "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH+SURBVHgB7ZY7SFtRGMf/372JjaRdOziVdunSLo30MbRTl9KUYouQQKFbC+LsJpl0cBB1EFzioEbQ4HNxyCDiAzQ6KSqKiqCCwSxKfMTz+cVXNETx6M2NQ35wz73n3PP4n/N95zuHdgexSEARcgCnEsIOKTS5vQhmq0O7AziQSjkRcG0g4J/7O1oyyw3YxDFkollwiLQReZvIEWKGuNNA0PUNA3iM0NuhP248EOdhMXujJfuBQEBBE/J0/k7IQrlgBYw9JqyIw8XAvC7mHWVFw1F/eB62CLhZ2bL4QoPiZHjG179x9Y9Nu4BeEajRJOfku9Cv/7BfwCUlRGj2dJY15kvAOVTpaS8LnH7Z4wPZOeajUgc0IUYbM9Yu8myQi8BvGPxF7PxEoys4yFmtLUAktE75uyOZpR9CP18kYUZk673EXSG8t8wHJny9qwxVp9NGVvK5pU5IpvEMmlgmoLTtx2c58iqgx4L+LmAeh0HpaMYolvS1PHe3fbptvb4TEn08u+o8DDkvVtXTopq8BCJOXU6U+hv1hmK2C0jNnDn5ddLfM5zK2yiAk8xUq47407Svb+Si9B6BSGNIQaLjrETLjgQZwbnyrq3MOvqhmCgq/cYzR5I0IYPFZY03pSDGMJaUaYzNlHdt39af/gooVE35whFYRJ6O44KAgoCCgDQnxB2n5LriKVYAAAAASUVORK5CYII=",
-                "unitDim": "px",
-                "height": 32,
-                "width": 32,
-                "name": "32x32-google.png"
-            },
-            {
-                "type": "image",
-                "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH+SURBVHgB7ZY7SFtRGMf/372JjaRdOziVdunSLo30MbRTl9KUYouQQKFbC+LsJpl0cBB1EFzioEbQ4HNxyCDiAzQ6KSqKiqCCwSxKfMTz+cVXNETx6M2NQ35wz73n3PP4n/N95zuHdgexSEARcgCnEsIOKTS5vQhmq0O7AziQSjkRcG0g4J/7O1oyyw3YxDFkollwiLQReZvIEWKGuNNA0PUNA3iM0NuhP248EOdhMXujJfuBQEBBE/J0/k7IQrlgBYw9JqyIw8XAvC7mHWVFw1F/eB62CLhZ2bL4QoPiZHjG179x9Y9Nu4BeEajRJOfku9Cv/7BfwCUlRGj2dJY15kvAOVTpaS8LnH7Z4wPZOeajUgc0IUYbM9Yu8myQi8BvGPxF7PxEoys4yFmtLUAktE75uyOZpR9CP18kYUZk673EXSG8t8wHJny9qwxVp9NGVvK5pU5IpvEMmlgmoLTtx2c58iqgx4L+LmAeh0HpaMYolvS1PHe3fbptvb4TEn08u+o8DDkvVtXTopq8BCJOXU6U+hv1hmK2C0jNnDn5ddLfM5zK2yiAk8xUq47407Svb+Si9B6BSGNIQaLjrETLjgQZwbnyrq3MOvqhmCgq/cYzR5I0IYPFZY03pSDGMJaUaYzNlHdt39af/gooVE35whFYRJ6O44KAgoCCgDQnxB2n5LriKVYAAAAASUVORK5CYII=",
-                "unitDim": "px",
-                "height": 32,
-                "width": 32,
-                "name": "32x32-google.png"
-            },
-            {
-                "type": "image",
-                "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH+SURBVHgB7ZY7SFtRGMf/372JjaRdOziVdunSLo30MbRTl9KUYouQQKFbC+LsJpl0cBB1EFzioEbQ4HNxyCDiAzQ6KSqKiqCCwSxKfMTz+cVXNETx6M2NQ35wz73n3PP4n/N95zuHdgexSEARcgCnEsIOKTS5vQhmq0O7AziQSjkRcG0g4J/7O1oyyw3YxDFkollwiLQReZvIEWKGuNNA0PUNA3iM0NuhP248EOdhMXujJfuBQEBBE/J0/k7IQrlgBYw9JqyIw8XAvC7mHWVFw1F/eB62CLhZ2bL4QoPiZHjG179x9Y9Nu4BeEajRJOfku9Cv/7BfwCUlRGj2dJY15kvAOVTpaS8LnH7Z4wPZOeajUgc0IUYbM9Yu8myQi8BvGPxF7PxEoys4yFmtLUAktE75uyOZpR9CP18kYUZk673EXSG8t8wHJny9qwxVp9NGVvK5pU5IpvEMmlgmoLTtx2c58iqgx4L+LmAeh0HpaMYolvS1PHe3fbptvb4TEn08u+o8DDkvVtXTopq8BCJOXU6U+hv1hmK2C0jNnDn5ddLfM5zK2yiAk8xUq47407Svb+Si9B6BSGNIQaLjrETLjgQZwbnyrq3MOvqhmCgq/cYzR5I0IYPFZY03pSDGMJaUaYzNlHdt39af/gooVE35whFYRJ6O44KAgoCCgDQnxB2n5LriKVYAAAAASUVORK5CYII=",
-                "unitDim": "px",
-                "height": 32,
-                "width": 32,
-                "name": "32x32-google.png"
-            }
-        ],
-        "styles": [
-            {
-                "selectors": [],
-                "selectorsAdd": ".container-fluid img",
-                "style": {
-                    "width": "50px",
-                    "height": "30px"
+[{
+        "properties": {"url": "https://www.peppubuild.com/logo.png"},
+        "name": "photography.json",
+        "value": {
+            "assets": [
+                {
+                    "type": "image",
+                    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH+SURBVHgB7ZY7SFtRGMf/372JjaRdOziVdunSLo30MbRTl9KUYouQQKFbC+LsJpl0cBB1EFzioEbQ4HNxyCDiAzQ6KSqKiqCCwSxKfMTz+cVXNETx6M2NQ35wz73n3PP4n/N95zuHdgexSEARcgCnEsIOKTS5vQhmq0O7AziQSjkRcG0g4J/7O1oyyw3YxDFkollwiLQReZvIEWKGuNNA0PUNA3iM0NuhP248EOdhMXujJfuBQEBBE/J0/k7IQrlgBYw9JqyIw8XAvC7mHWVFw1F/eB62CLhZ2bL4QoPiZHjG179x9Y9Nu4BeEajRJOfku9Cv/7BfwCUlRGj2dJY15kvAOVTpaS8LnH7Z4wPZOeajUgc0IUYbM9Yu8myQi8BvGPxF7PxEoys4yFmtLUAktE75uyOZpR9CP18kYUZk673EXSG8t8wHJny9qwxVp9NGVvK5pU5IpvEMmlgmoLTtx2c58iqgx4L+LmAeh0HpaMYolvS1PHe3fbptvb4TEn08u+o8DDkvVtXTopq8BCJOXU6U+hv1hmK2C0jNnDn5ddLfM5zK2yiAk8xUq47407Svb+Si9B6BSGNIQaLjrETLjgQZwbnyrq3MOvqhmCgq/cYzR5I0IYPFZY03pSDGMJaUaYzNlHdt39af/gooVE35whFYRJ6O44KAgoCCgDQnxB2n5LriKVYAAAAASUVORK5CYII=",
+                    "unitDim": "px",
+                    "height": 32,
+                    "width": 32,
+                    "name": "32x32-google.png"
                 },
-                "group": "cmp:B-NAVBAR"
-            },
-            {
-                "selectors": [
-                    "#ik87m"
-                ],
-                "style": {
-                    "display": "inline-block",
-                    "width": "48px",
-                    "height": "48px"
+                {
+                    "type": "image",
+                    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH+SURBVHgB7ZY7SFtRGMf/372JjaRdOziVdunSLo30MbRTl9KUYouQQKFbC+LsJpl0cBB1EFzioEbQ4HNxyCDiAzQ6KSqKiqCCwSxKfMTz+cVXNETx6M2NQ35wz73n3PP4n/N95zuHdgexSEARcgCnEsIOKTS5vQhmq0O7AziQSjkRcG0g4J/7O1oyyw3YxDFkollwiLQReZvIEWKGuNNA0PUNA3iM0NuhP248EOdhMXujJfuBQEBBE/J0/k7IQrlgBYw9JqyIw8XAvC7mHWVFw1F/eB62CLhZ2bL4QoPiZHjG179x9Y9Nu4BeEajRJOfku9Cv/7BfwCUlRGj2dJY15kvAOVTpaS8LnH7Z4wPZOeajUgc0IUYbM9Yu8myQi8BvGPxF7PxEoys4yFmtLUAktE75uyOZpR9CP18kYUZk673EXSG8t8wHJny9qwxVp9NGVvK5pU5IpvEMmlgmoLTtx2c58iqgx4L+LmAeh0HpaMYolvS1PHe3fbptvb4TEn08u+o8DDkvVtXTopq8BCJOXU6U+hv1hmK2C0jNnDn5ddLfM5zK2yiAk8xUq47407Svb+Si9B6BSGNIQaLjrETLjgQZwbnyrq3MOvqhmCgq/cYzR5I0IYPFZY03pSDGMJaUaYzNlHdt39af/gooVE35whFYRJ6O44KAgoCCgDQnxB2n5LriKVYAAAAASUVORK5CYII=",
+                    "unitDim": "px",
+                    "height": 32,
+                    "width": 32,
+                    "name": "32x32-google.png"
+                },
+                {
+                    "type": "image",
+                    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAH+SURBVHgB7ZY7SFtRGMf/372JjaRdOziVdunSLo30MbRTl9KUYouQQKFbC+LsJpl0cBB1EFzioEbQ4HNxyCDiAzQ6KSqKiqCCwSxKfMTz+cVXNETx6M2NQ35wz73n3PP4n/N95zuHdgexSEARcgCnEsIOKTS5vQhmq0O7AziQSjkRcG0g4J/7O1oyyw3YxDFkollwiLQReZvIEWKGuNNA0PUNA3iM0NuhP248EOdhMXujJfuBQEBBE/J0/k7IQrlgBYw9JqyIw8XAvC7mHWVFw1F/eB62CLhZ2bL4QoPiZHjG179x9Y9Nu4BeEajRJOfku9Cv/7BfwCUlRGj2dJY15kvAOVTpaS8LnH7Z4wPZOeajUgc0IUYbM9Yu8myQi8BvGPxF7PxEoys4yFmtLUAktE75uyOZpR9CP18kYUZk673EXSG8t8wHJny9qwxVp9NGVvK5pU5IpvEMmlgmoLTtx2c58iqgx4L+LmAeh0HpaMYolvS1PHe3fbptvb4TEn08u+o8DDkvVtXTopq8BCJOXU6U+hv1hmK2C0jNnDn5ddLfM5zK2yiAk8xUq47407Svb+Si9B6BSGNIQaLjrETLjgQZwbnyrq3MOvqhmCgq/cYzR5I0IYPFZY03pSDGMJaUaYzNlHdt39af/gooVE35whFYRJ6O44KAgoCCgDQnxB2n5LriKVYAAAAASUVORK5CYII=",
+                    "unitDim": "px",
+                    "height": 32,
+                    "width": 32,
+                    "name": "32x32-google.png"
                 }
-            },
-            {
-                "selectors": [
-                    "btn"
-                ],
-                "style": {
-                    "background-color": "green"
-                }
-            },
-            {
-                "selectors": [
-                    "navbar",
-                    "navbar-expand-lg",
-                    "fixed-top"
-                ],
-                "style": {
-                    "box-shadow": "0 0 5px 0 black "
-                }
-            }
-        ],
-        "pages": [
-            {
-                "frames": [
-                    {
-                        "component": {
-                            "type": "wrapper",
-                            "stylable": [
-                                "background",
-                                "background-color",
-                                "background-image",
-                                "background-repeat",
-                                "background-attachment",
-                                "background-position",
-                                "background-size"
-                            ],
-                            "attributes": {
-                                "id": "ifsf"
-                            },
-                            "components": [
-                                {
-                                    "type": "B-NAVBAR",
-                                    "classes": [
-                                        "navbar",
-                                        "navbar-expand-lg",
-                                        "fixed-top"
-                                    ],
-                                    "attributes": {},
-                                    "components": [
-                                        {
-                                            "classes": [
-                                                "container-fluid"
-                                            ],
-                                            "components": [
-                                                {
-                                                    "tagName": "button",
-                                                    "classes": [
-                                                        "navbar-toggler"
-                                                    ],
-                                                    "attributes": {
-                                                        "type": "button",
-                                                        "data-bs-toggle": "collapse",
-                                                        "data-bs-target": "#navbarSupportedContent"
-                                                    },
-                                                    "components": [
-                                                        {
-                                                            "tagName": "span",
-                                                            "classes": [
-                                                                "navbar-toggler-icon"
-                                                            ]
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "type": "icon",
-                                                    "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" > <path fill=\"currentColor\" d=\"M13.18 19c.17.72.46 1.39.85 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v6.18c-.5-.11-1-.18-1.5-.18c-.17 0-.33 0-.5.03V5H5v14zm-1.97-3.17l-1.96-2.36L6.5 17h6.53c.11-1.46.7-2.78 1.61-3.81l-.68-.9zM19 13.5V12l-2.25 2.25L19 16.5V15a2.5 2.5 0 0 1 2.5 2.5c0 .4-.09.78-.26 1.12l1.09 1.09c.42-.63.67-1.39.67-2.21c0-2.21-1.79-4-4-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5c0-.4.09-.78.26-1.12l-1.09-1.09c-.42.63-.67 1.39-.67 2.21c0 2.21 1.79 4 4 4V23l2.25-2.25L19 18.5z\"/> </svg> ",
-                                                    "style": "",
-                                                    "attributes": {
-                                                        "data-type": "icon",
-                                                        "id": "ik87m"
-                                                    }
-                                                },
-                                                {
-                                                    "classes": [
-                                                        "collapse",
-                                                        "navbar-collapse"
-                                                    ],
-                                                    "attributes": {
-                                                        "id": "navbarSupportedContent"
-                                                    },
-                                                    "components": [
-                                                        {
-                                                            "tagName": "ul",
-                                                            "classes": [
-                                                                "navbar-nav",
-                                                                "me-auto",
-                                                                "mb-2",
-                                                                "mb-lg-0"
-                                                            ],
-                                                            "components": [
-                                                                {
-                                                                    "tagName": "li",
-                                                                    "classes": [
-                                                                        "nav-item"
-                                                                    ],
-                                                                    "components": [
-                                                                        {
-                                                                            "type": "link",
-                                                                            "classes": [
-                                                                                "nav-link",
-                                                                                "active"
-                                                                            ],
-                                                                            "attributes": {
-                                                                                "aria-current": "page",
-                                                                                "href": "/"
-                                                                            },
-                                                                            "components": [
-                                                                                {
-                                                                                    "type": "textnode",
-                                                                                    "content": "Home"
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "tagName": "li",
-                                                                    "classes": [
-                                                                        "nav-item"
-                                                                    ],
-                                                                    "components": [
-                                                                        {
-                                                                            "type": "link",
-                                                                            "classes": [
-                                                                                "nav-link"
-                                                                            ],
-                                                                            "attributes": {
-                                                                                "aria-current": "page",
-                                                                                "href": "/contact"
-                                                                            },
-                                                                            "components": [
-                                                                                {
-                                                                                    "type": "textnode",
-                                                                                    "content": "Contact"
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "tagName": "li",
-                                                                    "classes": [
-                                                                        "nav-item",
-                                                                        "dropdown"
-                                                                    ],
-                                                                    "components": [
-                                                                        {
-                                                                            "type": "link",
-                                                                            "classes": [
-                                                                                "nav-link",
-                                                                                "dropdown-toggle"
-                                                                            ],
-                                                                            "attributes": {
-                                                                                "id": "navbarDropdown",
-                                                                                "href": "#",
-                                                                                "role": "button",
-                                                                                "data-bs-toggle": "dropdown"
-                                                                            },
-                                                                            "components": [
-                                                                                {
-                                                                                    "type": "textnode",
-                                                                                    "content": "Pages"
-                                                                                }
-                                                                            ]
-                                                                        },
-                                                                        {
-                                                                            "tagName": "ul",
-                                                                            "classes": [
-                                                                                "dropdown-menu"
-                                                                            ],
-                                                                            "attributes": {
-                                                                                "aria-labelledby": "navbarDropdown"
-                                                                            },
-                                                                            "components": [
-                                                                                {
-                                                                                    "tagName": "li",
-                                                                                    "components": [
-                                                                                        {
-                                                                                            "type": "link",
-                                                                                            "classes": [
-                                                                                                "dropdown-item"
-                                                                                            ],
-                                                                                            "attributes": {
-                                                                                                "href": "/features"
-                                                                                            },
-                                                                                            "components": [
-                                                                                                {
-                                                                                                    "type": "textnode",
-                                                                                                    "content": "Features"
-                                                                                                }
-                                                                                            ]
-                                                                                        }
-                                                                                    ]
-                                                                                },
-                                                                                {
-                                                                                    "tagName": "li"
-                                                                                },
-                                                                                {
-                                                                                    "tagName": "li",
-                                                                                    "components": [
-                                                                                        {
-                                                                                            "tagName": "hr",
-                                                                                            "void": true,
-                                                                                            "classes": [
-                                                                                                "dropdown-divider"
-                                                                                            ]
-                                                                                        }
-                                                                                    ]
-                                                                                },
-                                                                                {
-                                                                                    "tagName": "li",
-                                                                                    "components": [
-                                                                                        {
-                                                                                            "type": "link",
-                                                                                            "classes": [
-                                                                                                "dropdown-item"
-                                                                                            ],
-                                                                                            "attributes": {
-                                                                                                "href": "/work"
-                                                                                            },
-                                                                                            "components": [
-                                                                                                {
-                                                                                                    "type": "textnode",
-                                                                                                    "content": "Our Work"
-                                                                                                }
-                                                                                            ]
-                                                                                        }
-                                                                                    ]
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "tagName": "form",
-                                                            "classes": [
-                                                                "d-flex"
-                                                            ],
-                                                            "components": [
-                                                                {
-                                                                    "tagName": "input",
-                                                                    "void": true,
-                                                                    "classes": [
-                                                                        "form-control",
-                                                                        "me-2"
-                                                                    ],
-                                                                    "attributes": {
-                                                                        "type": "search",
-                                                                        "placeholder": "Search",
-                                                                        "aria-label": "Search"
-                                                                    }
-                                                                },
-                                                                {
-                                                                    "type": "B-BUTTON",
-                                                                    "classes": [
-                                                                        "btn"
-                                                                    ],
-                                                                    "attributes": {
-                                                                        "type": "button"
-                                                                    },
-                                                                    "components": [
-                                                                        {
-                                                                            "type": "textnode",
-                                                                            "content": "Send"
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "B-HERO",
-                                    "classes": [
-                                        "container",
-                                        "col-xxl-8",
-                                        "px-4",
-                                        "py-5"
-                                    ],
-                                    "attributes": {},
-                                    "components": [
-                                        {
-                                            "classes": [
-                                                "row",
-                                                "flex-lg-row-reverse",
-                                                "align-items-center",
-                                                "g-5",
-                                                "py-5"
-                                            ],
-                                            "components": [
-                                                {
-                                                    "classes": [
-                                                        "col-10",
-                                                        "col-sm-8",
-                                                        "col-lg-6",
-                                                        "himg"
-                                                    ],
-                                                    "components": [
-                                                        {
-                                                            "type": "image",
-                                                            "resizable": {
-                                                                "ratioDefault": 1
-                                                            },
-                                                            "classes": [
-                                                                "d-block",
-                                                                "mx-lg-auto",
-                                                                "img-fluid"
-                                                            ],
-                                                            "attributes": {
-                                                                "src": "https://fakeimg.pl/600x400?text=Replace+image",
-                                                                "alt": ""
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "classes": [
-                                                        "col-lg-6"
-                                                    ],
-                                                    "components": [
-                                                        {
-                                                            "tagName": "h1",
-                                                            "type": "text",
-                                                            "classes": [
-                                                                "display-5",
-                                                                "fw-bold",
-                                                                "text-body-emphasis",
-                                                                "lh-1",
-                                                                "mb-3"
-                                                            ],
-                                                            "components": [
-                                                                {
-                                                                    "type": "textnode",
-                                                                    "content": "Alie's Photo-Studio"
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "tagName": "p",
-                                                            "type": "text",
-                                                            "classes": [
-                                                                "lead"
-                                                            ],
-                                                            "components": [
-                                                                {
-                                                                    "type": "textnode",
-                                                                    "content": "Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins."
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "classes": [
-                                                                "d-grid",
-                                                                "gap-2",
-                                                                "d-md-flex",
-                                                                "justify-content-md-start"
-                                                            ],
-                                                            "components": [
-                                                                {
-                                                                    "type": "B-BUTTON",
-                                                                    "classes": [
-                                                                        "btn",
-                                                                        "btn-primary"
-                                                                    ],
-                                                                    "attributes": {
-                                                                        "type": "button"
-                                                                    },
-                                                                    "components": [
-                                                                        {
-                                                                            "type": "textnode",
-                                                                            "content": "Send"
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        "id": "jyVxBgd1toPItOcz"
+            ],
+            "styles": [
+                {
+                    "selectors": [],
+                    "selectorsAdd": ".container-fluid img",
+                    "style": {
+                        "width": "50px",
+                        "height": "30px"
+                    },
+                    "group": "cmp:B-NAVBAR"
+                },
+                {
+                    "selectors": [
+                        "#ik87m"
+                    ],
+                    "style": {
+                        "display": "inline-block",
+                        "width": "48px",
+                        "height": "48px"
                     }
-                ],
-                "id": "index"
-            }
-        ]
-    }
-}
+                },
+                {
+                    "selectors": [
+                        "btn"
+                    ],
+                    "style": {
+                        "background-color": "green"
+                    }
+                },
+                {
+                    "selectors": [
+                        "navbar",
+                        "navbar-expand-lg",
+                        "fixed-top"
+                    ],
+                    "style": {
+                        "box-shadow": "0 0 5px 0 black "
+                    }
+                }
+            ],
+            "pages": [
+                {
+                    "frames": [
+                        {
+                            "component": {
+                                "type": "wrapper",
+                                "stylable": [
+                                    "background",
+                                    "background-color",
+                                    "background-image",
+                                    "background-repeat",
+                                    "background-attachment",
+                                    "background-position",
+                                    "background-size"
+                                ],
+                                "attributes": {
+                                    "id": "ifsf"
+                                },
+                                "components": [
+                                    {
+                                        "type": "B-NAVBAR",
+                                        "classes": [
+                                            "navbar",
+                                            "navbar-expand-lg",
+                                            "fixed-top"
+                                        ],
+                                        "attributes": {},
+                                        "components": [
+                                            {
+                                                "classes": [
+                                                    "container-fluid"
+                                                ],
+                                                "components": [
+                                                    {
+                                                        "tagName": "button",
+                                                        "classes": [
+                                                            "navbar-toggler"
+                                                        ],
+                                                        "attributes": {
+                                                            "type": "button",
+                                                            "data-bs-toggle": "collapse",
+                                                            "data-bs-target": "#navbarSupportedContent"
+                                                        },
+                                                        "components": [
+                                                            {
+                                                                "tagName": "span",
+                                                                "classes": [
+                                                                    "navbar-toggler-icon"
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "type": "icon",
+                                                        "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" > <path fill=\"currentColor\" d=\"M13.18 19c.17.72.46 1.39.85 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v6.18c-.5-.11-1-.18-1.5-.18c-.17 0-.33 0-.5.03V5H5v14zm-1.97-3.17l-1.96-2.36L6.5 17h6.53c.11-1.46.7-2.78 1.61-3.81l-.68-.9zM19 13.5V12l-2.25 2.25L19 16.5V15a2.5 2.5 0 0 1 2.5 2.5c0 .4-.09.78-.26 1.12l1.09 1.09c.42-.63.67-1.39.67-2.21c0-2.21-1.79-4-4-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5c0-.4.09-.78.26-1.12l-1.09-1.09c-.42.63-.67 1.39-.67 2.21c0 2.21 1.79 4 4 4V23l2.25-2.25L19 18.5z\"/> </svg> ",
+                                                        "style": "",
+                                                        "attributes": {
+                                                            "data-type": "icon",
+                                                            "id": "ik87m"
+                                                        }
+                                                    },
+                                                    {
+                                                        "classes": [
+                                                            "collapse",
+                                                            "navbar-collapse"
+                                                        ],
+                                                        "attributes": {
+                                                            "id": "navbarSupportedContent"
+                                                        },
+                                                        "components": [
+                                                            {
+                                                                "tagName": "ul",
+                                                                "classes": [
+                                                                    "navbar-nav",
+                                                                    "me-auto",
+                                                                    "mb-2",
+                                                                    "mb-lg-0"
+                                                                ],
+                                                                "components": [
+                                                                    {
+                                                                        "tagName": "li",
+                                                                        "classes": [
+                                                                            "nav-item"
+                                                                        ],
+                                                                        "components": [
+                                                                            {
+                                                                                "type": "link",
+                                                                                "classes": [
+                                                                                    "nav-link",
+                                                                                    "active"
+                                                                                ],
+                                                                                "attributes": {
+                                                                                    "aria-current": "page",
+                                                                                    "href": "/"
+                                                                                },
+                                                                                "components": [
+                                                                                    {
+                                                                                        "type": "textnode",
+                                                                                        "content": "Home"
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tagName": "li",
+                                                                        "classes": [
+                                                                            "nav-item"
+                                                                        ],
+                                                                        "components": [
+                                                                            {
+                                                                                "type": "link",
+                                                                                "classes": [
+                                                                                    "nav-link"
+                                                                                ],
+                                                                                "attributes": {
+                                                                                    "aria-current": "page",
+                                                                                    "href": "/contact"
+                                                                                },
+                                                                                "components": [
+                                                                                    {
+                                                                                        "type": "textnode",
+                                                                                        "content": "Contact"
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tagName": "li",
+                                                                        "classes": [
+                                                                            "nav-item",
+                                                                            "dropdown"
+                                                                        ],
+                                                                        "components": [
+                                                                            {
+                                                                                "type": "link",
+                                                                                "classes": [
+                                                                                    "nav-link",
+                                                                                    "dropdown-toggle"
+                                                                                ],
+                                                                                "attributes": {
+                                                                                    "id": "navbarDropdown",
+                                                                                    "href": "#",
+                                                                                    "role": "button",
+                                                                                    "data-bs-toggle": "dropdown"
+                                                                                },
+                                                                                "components": [
+                                                                                    {
+                                                                                        "type": "textnode",
+                                                                                        "content": "Pages"
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            {
+                                                                                "tagName": "ul",
+                                                                                "classes": [
+                                                                                    "dropdown-menu"
+                                                                                ],
+                                                                                "attributes": {
+                                                                                    "aria-labelledby": "navbarDropdown"
+                                                                                },
+                                                                                "components": [
+                                                                                    {
+                                                                                        "tagName": "li",
+                                                                                        "components": [
+                                                                                            {
+                                                                                                "type": "link",
+                                                                                                "classes": [
+                                                                                                    "dropdown-item"
+                                                                                                ],
+                                                                                                "attributes": {
+                                                                                                    "href": "/features"
+                                                                                                },
+                                                                                                "components": [
+                                                                                                    {
+                                                                                                        "type": "textnode",
+                                                                                                        "content": "Features"
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        "tagName": "li"
+                                                                                    },
+                                                                                    {
+                                                                                        "tagName": "li",
+                                                                                        "components": [
+                                                                                            {
+                                                                                                "tagName": "hr",
+                                                                                                "void": true,
+                                                                                                "classes": [
+                                                                                                    "dropdown-divider"
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        "tagName": "li",
+                                                                                        "components": [
+                                                                                            {
+                                                                                                "type": "link",
+                                                                                                "classes": [
+                                                                                                    "dropdown-item"
+                                                                                                ],
+                                                                                                "attributes": {
+                                                                                                    "href": "/work"
+                                                                                                },
+                                                                                                "components": [
+                                                                                                    {
+                                                                                                        "type": "textnode",
+                                                                                                        "content": "Our Work"
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "tagName": "form",
+                                                                "classes": [
+                                                                    "d-flex"
+                                                                ],
+                                                                "components": [
+                                                                    {
+                                                                        "tagName": "input",
+                                                                        "void": true,
+                                                                        "classes": [
+                                                                            "form-control",
+                                                                            "me-2"
+                                                                        ],
+                                                                        "attributes": {
+                                                                            "type": "search",
+                                                                            "placeholder": "Search",
+                                                                            "aria-label": "Search"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "type": "B-BUTTON",
+                                                                        "classes": [
+                                                                            "btn"
+                                                                        ],
+                                                                        "attributes": {
+                                                                            "type": "button"
+                                                                        },
+                                                                        "components": [
+                                                                            {
+                                                                                "type": "textnode",
+                                                                                "content": "Send"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "B-HERO",
+                                        "classes": [
+                                            "container",
+                                            "col-xxl-8",
+                                            "px-4",
+                                            "py-5"
+                                        ],
+                                        "attributes": {},
+                                        "components": [
+                                            {
+                                                "classes": [
+                                                    "row",
+                                                    "flex-lg-row-reverse",
+                                                    "align-items-center",
+                                                    "g-5",
+                                                    "py-5"
+                                                ],
+                                                "components": [
+                                                    {
+                                                        "classes": [
+                                                            "col-10",
+                                                            "col-sm-8",
+                                                            "col-lg-6",
+                                                            "himg"
+                                                        ],
+                                                        "components": [
+                                                            {
+                                                                "type": "image",
+                                                                "resizable": {
+                                                                    "ratioDefault": 1
+                                                                },
+                                                                "classes": [
+                                                                    "d-block",
+                                                                    "mx-lg-auto",
+                                                                    "img-fluid"
+                                                                ],
+                                                                "attributes": {
+                                                                    "src": "https://fakeimg.pl/600x400?text=Replace+image",
+                                                                    "alt": ""
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "classes": [
+                                                            "col-lg-6"
+                                                        ],
+                                                        "components": [
+                                                            {
+                                                                "tagName": "h1",
+                                                                "type": "text",
+                                                                "classes": [
+                                                                    "display-5",
+                                                                    "fw-bold",
+                                                                    "text-body-emphasis",
+                                                                    "lh-1",
+                                                                    "mb-3"
+                                                                ],
+                                                                "components": [
+                                                                    {
+                                                                        "type": "textnode",
+                                                                        "content": "Alie's Photo-Studio"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "tagName": "p",
+                                                                "type": "text",
+                                                                "classes": [
+                                                                    "lead"
+                                                                ],
+                                                                "components": [
+                                                                    {
+                                                                        "type": "textnode",
+                                                                        "content": "Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins."
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "classes": [
+                                                                    "d-grid",
+                                                                    "gap-2",
+                                                                    "d-md-flex",
+                                                                    "justify-content-md-start"
+                                                                ],
+                                                                "components": [
+                                                                    {
+                                                                        "type": "B-BUTTON",
+                                                                        "classes": [
+                                                                            "btn",
+                                                                            "btn-primary"
+                                                                        ],
+                                                                        "attributes": {
+                                                                            "type": "button"
+                                                                        },
+                                                                        "components": [
+                                                                            {
+                                                                                "type": "textnode",
+                                                                                "content": "Send"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "id": "jyVxBgd1toPItOcz"
+                        }
+                    ],
+                    "id": "index"
+                }
+            ]
+        }
+}]

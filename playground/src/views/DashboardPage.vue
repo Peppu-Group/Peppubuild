@@ -22,7 +22,8 @@
             <div id="inyx">
               <div class="action_btn">
                 <h2>Projects</h2>
-                <p class="project-deck"> Continue from where you left off. Please note that projects have auto-save turned on.</p>
+                <p class="project-deck"> Continue from where you left off. Please note that projects have auto-save turned
+                  on.</p>
                 <div class="card text-center project-deck">
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
@@ -50,7 +51,7 @@
                         <h2 class="card-title">{{ project.name.split('.').slice(0, -1).join('.') }}</h2>
                         <div class="card-footer">
                           <button @click="deleteProject(project.id)" class="btn btn-danger space">Delete</button>
-                          <button @click="openWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
+                          <button @click="projectWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
                             class="btn btn-primary">Continue</button>
                         </div>
                       </div>
@@ -85,8 +86,8 @@
                   <div class="modal-body">
                     <div class="container-fluid">
                       <div class="row">
-                        <div class="col-sm-6 col-lg-4" @click="openWorkspace(template.id, template.name)" data-bs-dismiss="modal"
-                          v-for="template in templates" :key="template.id">
+                        <div class="col-sm-6 col-lg-4" @click="openWorkspace(template.id, template.value)"
+                          data-bs-dismiss="modal" v-for="template in templates" :key="template.id">
                           <img :src="template.properties.url" style="height: 200px;width: 200px; margin-top: 10px;" />
                           {{ template.name.split('.').slice(0, -1).join('.') }}
                         </div>
@@ -158,6 +159,7 @@ import Swal from 'sweetalert2';
 import SideBar from '../components/SideBar.vue';
 import swal from 'sweetalert';
 import PaymentStatus from '@/components/PaymentStatus.vue';
+import templatesData from '../assets/templates.json';
 
 // users can use the create template function to create their template.
 // The templates button should be changed to 'create new template button'. The user
@@ -178,11 +180,19 @@ export default {
   async mounted() {
     this.getFiles('project');
     this.getFiles('template');
+    let json = templatesData;
+    for (let i = 0; i < json.length; i++) {
+      let obj = json[i];
+
+      this.templates.push(obj)
+      console.log(this.templates)
+    }
+
   },
   data() {
     return {
       projects: null,
-      templates: null
+      templates: []
     };
   },
 
@@ -205,9 +215,12 @@ export default {
             swal("Oops!", `You did not give Peppubuild access. Tick Select all before you click continue.`, "error").then(() => {
               this.$router.push({ name: "Auth" })
             })
-          } 
+          }
           else if (fileType == 'template' && response.length) {
-            this.templates = response;
+            for (let i = 0; i < response.length; i++) {
+              let obj = response[i];
+              this.templates.push(obj)
+            }
           } else if (fileType == 'project') {
             this.projects = response;
           }
@@ -232,30 +245,54 @@ export default {
     /**
       * The projectWorkspace() function, loads our editor with the current project.
     */
-    async openWorkspace(id, name) {
+   async projectWorkspace(id, name) {
+        Swal.showLoading();
+        let url = `${serverUrl}/project/${id}`
+        localStorage.setItem('projectId', id);
+        localStorage.setItem('projectName', name);
+        let accessToken = localStorage.getItem('oauth')
+        await fetch(url, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ accessToken: accessToken }),
+        }).then((res) => {
+          res.json().then((response) => {
+            localStorage.setItem('projectTitle', response.title)
+            localStorage.setItem('published', response.published)
+            localStorage.setItem('gjsProject', JSON.stringify(response.project));
+            Swal.close();
+            // add publishfront to actually create project
+            this.$router.push({ name: "Home", params: { id } });
+          })
+        })
+   },
+    async openWorkspace(id, value) {
+      id = id || 0;
+      value = value || 0;
+      let name = prompt('What will you like to name your project?');
+      if (name) {
+        if (id == 0) {
+          this.publishFront(JSON.stringify(value), name);
+      } else if (value == 0) {
+        let url = `${serverUrl}/project/${id}`
+        let accessToken = localStorage.getItem('oauth')
+        await fetch(url, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ accessToken: accessToken }),
+        }).then((res) => {
+          res.json().then((response) => {
+            this.publishFront(JSON.stringify(response.project), name);
+          })
+        })
+      }
+      }
       // get content.
       // set the value of gjsProject.
-      await this.checkState();
-      Swal.showLoading();
-      let url = `${serverUrl}/project/${id}`
-      localStorage.setItem('projectId', id);
-      localStorage.setItem('projectName', name);
-      let accessToken = localStorage.getItem('oauth')
-      await fetch(url, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ accessToken: accessToken }),
-      }).then((res) => {
-        res.json().then((response) => {
-          localStorage.setItem('projectTitle', response.title)
-          localStorage.setItem('published', response.published)
-          localStorage.setItem('gjsProject', JSON.stringify(response.project));
-          Swal.close();
-          this.$router.push({ name: "Home", params: { id } });
-        })
-      })
     },
     /**
       * The deleteProject() function, takes the id of the project, calls /pdelete/:id and deletes it..
@@ -285,9 +322,7 @@ export default {
     /**
       * The emptyProject() function, allows you to create an empty project.
     */
-    async publishFront(gjsProject) {
-      let name = prompt('What will you like to name your project?');
-      if (name) {
+    async publishFront(gjsProject, name) {
         localStorage.setItem('projectName', name);
         let accessToken = localStorage.getItem('oauth');
         let published = 'No';
@@ -306,9 +341,10 @@ export default {
               Swal.close();
               let id = response.id
               localStorage.setItem('projectId', id);
-              localStorage.setItem('gjsProject', `{}`);
+              localStorage.setItem('gjsProject', gjsProject);
               localStorage.setItem('published', published);
               localStorage.setItem('projectTitle', title);
+              this.$router.push({ name: "Home", params: { id } });
             } else {
               Swal.fire({
                 icon: "error",
@@ -319,14 +355,13 @@ export default {
             }
           })
         })
-      }
     },
     async emptyProject() {
       let gjsProject = '{}';
-      this.publishFront(gjsProject).then(() => {
-        let id = localStorage.getItem('projectId');
-        this.$router.push({ name: "Home", params: { id } });
-      })
+      let name = prompt('What will you like to name your project?');
+      if (name) {
+        this.publishFront(gjsProject, name);
+      }
     },
     /**
       * The templateProject() function, allows you to create a project from a template.
