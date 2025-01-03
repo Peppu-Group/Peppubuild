@@ -117,9 +117,7 @@ export default (editor, opts = {}) => {
           }
         ]
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -131,7 +129,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'navbar navbar-expand-lg nav-contain' },
+        attributes: { class: 'navbar navbar-expand-lg nav-contain', id: `${randomID}` },
         components: [{
           tagName: 'div',
           attributes: { class: 'container-fluid' },
@@ -146,7 +144,7 @@ export default (editor, opts = {}) => {
             },
             {
               tagName: 'button',
-              attributes: { class: 'navbar-toggler', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#navbarSupportedContent" },
+              attributes: { id: `${randomID}`, class: 'navbar-toggler', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#navbarSupportedContent" },
               components: [{
                 tagName: 'span',
                 attributes: { class: 'navbar-toggler-icon' },
@@ -285,7 +283,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'navbar fixed-bottom navbar-expand-lg nav-contain' },
+        attributes: { id: `${randomID}`, class: 'navbar fixed-bottom navbar-expand-lg nav-contain' },
         components: [{
           tagName: 'div',
           attributes: { class: 'container-fluid' },
@@ -385,9 +383,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -402,7 +398,7 @@ export default (editor, opts = {}) => {
         draggable: true,
         droppable: true,
         resizable: true,
-        attributes: { class: 'd-flex justify-content-center align-items-center flex-container' },
+        attributes: { id: `${randomID}`, class: 'd-flex justify-content-center align-items-center flex-container' },
         components: [
           {
             tagName: 'h2',
@@ -425,9 +421,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
   });
 
@@ -439,7 +433,7 @@ export default (editor, opts = {}) => {
             type: 'B-NAVBAR',
           },
           {
-          attributes: { class: 'mtop text-center mx-5 d-flex justify-content-center align-items-center flex-container' },
+          attributes: { id: `${randomID}`, class: 'mtop text-center mx-5 d-flex justify-content-center align-items-center flex-container' },
           components: [
           {
             tagName: 'h1',
@@ -498,9 +492,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
   });
 
@@ -511,7 +503,7 @@ export default (editor, opts = {}) => {
         draggable: true,
         droppable: true,
         resizable: true,
-        attributes: { class: 'd-flex flex-container' },
+        attributes: { id: `${randomID}`, class: 'd-flex flex-container' },
         components: [
         ],
         styles: `
@@ -522,9 +514,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
   });
 
@@ -537,7 +527,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'card' },
+        attributes: { id: `${randomID}`, class: 'card' },
         components: [
           {
             type: 'image',
@@ -585,9 +575,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
     view: {
 
@@ -599,7 +587,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'container col-xxl-8 px-4 py-5' },
+        attributes: { id: `${randomID}`, class: 'container col-xxl-8 px-4 py-5' },
         components: [{
           tagName: 'div',
           attributes: { class: 'row flex-lg-row-reverse align-items-center g-5 py-5' },
@@ -654,9 +642,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
     view: {
 
@@ -670,7 +656,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'button',
-        attributes: { type: 'button', class: 'btn btn-dark mx-3', href: '#'},
+        attributes: { id: `${randomID}`, type: 'button', class: 'btn btn-dark mx-3', href: '#'},
         text: 'Search',
         traits: [
           {
@@ -714,7 +700,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'd-flex justify-content-center align-items-center flex-container mar' },
+        attributes: { id: `${randomID}`, class: 'd-flex justify-content-center align-items-center flex-container mar' },
         components: [
           {
             type: 'link',
@@ -748,9 +734,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
   });
 
@@ -794,9 +778,7 @@ export default (editor, opts = {}) => {
 </div>  
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -809,7 +791,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'col-6 col-md-2 mb-3' },
+        attributes: { id: `${randomID}`, class: 'col-6 col-md-2 mb-3' },
         components: [
           {
             tagName: 'h5',
@@ -887,9 +869,7 @@ export default (editor, opts = {}) => {
           }
         ]
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -902,7 +882,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'footer',
-        attributes: { class: 'container py-5' },
+        attributes: { id: `${randomID}`, class: 'container py-5' },
         components: [
           {
             tagName: 'div',
@@ -999,9 +979,7 @@ export default (editor, opts = {}) => {
           }
         ]
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -1014,7 +992,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'col d-flex align-items-start' },
+        attributes: { id: `${randomID}`, class: 'col d-flex align-items-start' },
         components: [
           {
             tagName: 'div',
@@ -1064,9 +1042,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -1079,7 +1055,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: 'hanging-icons', class: 'container px-4 py-5' },
+        attributes: { id: `${randomID}`, class: 'container px-4 py-5' },
         components: [
           {
             tagName: 'h2',
@@ -1107,9 +1083,7 @@ export default (editor, opts = {}) => {
           },
         ]
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -1353,9 +1327,7 @@ export default (editor, opts = {}) => {
         }
         `
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -1368,7 +1340,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'col' },
+        attributes: { id: `${randomID}`, class: 'col' },
         components: [
           {
             tagName: 'div',
@@ -1462,9 +1434,7 @@ export default (editor, opts = {}) => {
           }
         ]
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     }
   });
 
@@ -1473,7 +1443,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'container col-sm-8 px-4 py-5' },
+        attributes: { id: `${randomID}`, class: 'container col-sm-8 px-4 py-5' },
         components: [
           {
             tagName: 'h2',
@@ -1501,9 +1471,7 @@ export default (editor, opts = {}) => {
           }
         ]
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -1540,9 +1508,7 @@ export default (editor, opts = {}) => {
         attributes: { class: 'form-control me-2', type: 'search', placeholder: 'Search', 'aria-label': 'Search' },
 
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
 
     view: {
@@ -1565,9 +1531,7 @@ export default (editor, opts = {}) => {
 
         traits: ['name', 'placeholder', { type: 'checkbox', name: 'required'}],
       },
-      init: function() {
-        this.set('attributes', { id: randomID() });
-      },
+      
     },
   });
   
