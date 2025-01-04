@@ -330,9 +330,9 @@ export default {
                     const files = ev.dataTransfer ? ev.dataTransfer.files : ev.target.files;
                     Swal.showLoading();
                     var formData = new FormData();
-                    editor.on('asset', () => { 
+                    editor.on('asset', () => {
                         Swal.close();
-                     });
+                    });
                     for (var i in files) {
                         formData.append('file', files[i]) //containing all the selected images from local
                     }
@@ -377,8 +377,9 @@ export default {
                 ],
             }
         });
-        editor.on('block:drag:stop', async () => {
+        editor.on('block:drag:stop', async (model) => {
             await this.checkState();
+            model.addAttributes({ id: this.randomID() });
         })
         var logoCont = document.querySelector('.gjs-logo-cont');
         document.querySelector('.gjs-logo-version').innerHTML = 'Pages';
@@ -415,6 +416,17 @@ export default {
         this.peppuMethods = JSON.parse(localStorage.getItem('peppuMethods'))
     },
     methods: {
+        randomID() {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+            return result;
+        },
         popen() {
             if (this.edit.Commands.isActive('peppu:open')) {
                 this.edit.Commands.stop('peppu:open');

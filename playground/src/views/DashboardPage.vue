@@ -4,7 +4,6 @@
       <SideBar />
       <div class="col py-3">
         <div class="dash-content" id="d-cont">
-          <PaymentStatus />
           <div id="i2sw">Manage your Projects
           </div>
           <section-one>
@@ -158,7 +157,6 @@ import { userAuth } from './js/firebase.js';
 import Swal from 'sweetalert2';
 import SideBar from '../components/SideBar.vue';
 import swal from 'sweetalert';
-import PaymentStatus from '@/components/PaymentStatus.vue';
 import templatesData from '../assets/templates.json';
 
 // users can use the create template function to create their template.
@@ -168,10 +166,10 @@ import templatesData from '../assets/templates.json';
 // At publish, the template will be available in the template option.
 // this works with the template method, where id is template name
 
-const serverUrl = 'http://localhost:1404';
+const serverUrl = 'https://server.peppubuild.com';
 export default {
   name: 'DashboardPage',
-  components: { SideBar, PaymentStatus },
+  components: { SideBar },
 
   /**
     * On mounted, we call route /projects/:accessToken.

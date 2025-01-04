@@ -27,7 +27,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ template.name.split('.').slice(0, -1).join('.') }}</h5>
                                                 <button @click="deleteProject(template.id)" class="btn btn-danger space">Delete</button>
-                                                <button class="btn btn-primary space">Publish</button>
+                                                <button @click="dpublishTemplate(template.id)" class="btn btn-primary space">Publish</button>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@ import SideBar from '../components/SideBar.vue';
 // read templates from templates.json page attached to file.
 // next, add this.templates.push, to add general (published) templates to recommended templates.
 // publish template will take user email and gjs project data. After review, it'll be added to templates.json page or rejected.
-const serverUrl = 'http://localhost:1404';
+const serverUrl = 'https://server.peppubuild.com';
 export default {
     name: 'TemplatesPage',
     components: { SideBar},
@@ -107,6 +107,13 @@ export default {
           }
         })
       }
+    },
+    async publishTemplate() {
+        // collect gjsProject json
+        // send gjsProject json to googlesheet. Also collect img url.
+        // don't proceed, except user has given their contact email.
+        // after storing in googlesheet, send user flash message that they're template is being processed and they'll get approval or decline message in 48 hrs.
+        // let them know that their request can't go through without a valid means of communication.
     }
     }
 }
