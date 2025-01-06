@@ -1,18 +1,6 @@
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
 
-  function randomID() {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
-    }
-    return result;
-  }
-
   // accordion
   domc.addType('B-ACCORDIO', {
     model: {
@@ -129,7 +117,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { class: 'navbar navbar-expand-lg nav-contain', id: `${randomID}` },
+        attributes: { class: 'navbar navbar-expand-lg nav-contain' },
         components: [{
           tagName: 'div',
           attributes: { class: 'container-fluid' },
@@ -144,7 +132,7 @@ export default (editor, opts = {}) => {
             },
             {
               tagName: 'button',
-              attributes: { id: `${randomID}`, class: 'navbar-toggler', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#navbarSupportedContent" },
+              attributes: { class: 'navbar-toggler', type: 'button', 'data-bs-toggle': "collapse", 'data-bs-target': "#navbarSupportedContent" },
               components: [{
                 tagName: 'span',
                 attributes: { class: 'navbar-toggler-icon' },
@@ -283,7 +271,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'navbar fixed-bottom navbar-expand-lg nav-contain' },
+        attributes: { class: 'navbar fixed-bottom navbar-expand-lg nav-contain' },
         components: [{
           tagName: 'div',
           attributes: { class: 'container-fluid' },
@@ -398,7 +386,7 @@ export default (editor, opts = {}) => {
         draggable: true,
         droppable: true,
         resizable: true,
-        attributes: { id: `${randomID}`, class: 'd-flex justify-content-center align-items-center flex-container' },
+        attributes: { class: 'd-flex justify-content-center align-items-center flex-container' },
         components: [
           {
             tagName: 'h2',
@@ -433,7 +421,7 @@ export default (editor, opts = {}) => {
             type: 'B-NAVBAR',
           },
           {
-          attributes: { id: `${randomID}`, class: 'mtop text-center mx-5 d-flex justify-content-center align-items-center flex-container' },
+          attributes: { class: 'mtop text-center mx-5 d-flex justify-content-center align-items-center flex-container' },
           components: [
           {
             tagName: 'h1',
@@ -503,7 +491,7 @@ export default (editor, opts = {}) => {
         draggable: true,
         droppable: true,
         resizable: true,
-        attributes: { id: `${randomID}`, class: 'd-flex flex-container' },
+        attributes: { class: 'd-flex flex-container' },
         components: [
         ],
         styles: `
@@ -527,7 +515,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'card' },
+        attributes: { class: 'card' },
         components: [
           {
             type: 'image',
@@ -587,7 +575,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'container col-xxl-8 px-4 py-5' },
+        attributes: { class: 'container col-xxl-8 px-4 py-5' },
         components: [{
           tagName: 'div',
           attributes: { class: 'row flex-lg-row-reverse align-items-center g-5 py-5' },
@@ -656,26 +644,20 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'button',
-        attributes: { id: `${randomID}`, type: 'button', class: 'btn btn-dark mx-3', href: '#'},
-        text: 'Search',
-        traits: [
-          {
-            name: 'text',
-            changeProp: true,
-          }, {
-            type: 'select',
-            name: 'type',
-            options: [
-              { value: 'button' },
-              { value: 'submit' },
-              { value: 'reset' },
-            ]
-          }]
+        type: 'text',
+          components: [
+            {
+              type: 'link',
+              attributes: { href: '#', class: 'btn btn-primary' },
+              components: [{
+                type: 'textnode',
+                content: 'Sign up today'
+              }]
+            },
+          ]
       },
 
       init() {
-        this.set('attributes', { id: randomID() });
-
         const comps = this.components();
         const tChild = comps.length === 1 && comps.models[0];
         const chCnt = (tChild && tChild.is('textnode') && tChild.get('content')) || '';
@@ -696,11 +678,158 @@ export default (editor, opts = {}) => {
     },
   });
 
+  // Bootstrap Button
+  domc.addType('B-Profile', {
+    model: {
+      defaults: {
+        components: `
+        <div class="container mt-5">
+    
+    <div class="row d-flex justify-content-center">
+        
+        <div class="col-md-12">
+            
+            <div class="card p-3 py-4 contain">
+                
+                <div class="text-center">
+                    <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                </div>
+                
+                <div class="text-center mt-3">
+                    <span class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
+                    <h5 class="mt-2 mb-0">Alexender Schidmt</h5>
+                    <span>UI/UX Designer</span>
+                    
+                    <div class="px-4 mt-1">
+                        <p class="fonts">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    </div>
+                    
+                     <ul class="social-list">
+                        <li><i class="bi bi-facebook"></i></li>
+                        <li><i class="bi bi-dribbble"></i></li>
+                        <li><i class="bi bi-instagram"></i></li>
+                        <li><i class="bi bi-linkedin"></i></li>
+                        <li><i class="bi bi-google"></i></li>
+                    </ul>
+                    
+                    <div class="buttons">
+                        
+                        <button class="btn btn-outline-primary px-4">Message</button>
+                        <button class="btn btn-primary px-4 ms-3">Contact</button>
+                    </div>
+                    
+                    
+                </div>
+                
+               
+                
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+        `,
+        styles: `
+        body{
+          background:#eee;
+      }
+
+      .contain {
+        height: 100vh;
+      }
+      
+      .card{
+          border:none;
+      
+          position:relative;
+          overflow:hidden;
+          border-radius:8px;
+          cursor:pointer;
+      }
+      
+      .card:before{
+          
+          content:"";
+          position:absolute;
+          left:0;
+          top:0;
+          width:4px;
+          height:100%;
+          background-color:#E1BEE7;
+          transform:scaleY(1);
+          transition:all 0.5s;
+          transform-origin: bottom
+      }
+      
+      .card:after{
+          
+          content:"";
+          position:absolute;
+          left:0;
+          top:0;
+          width:4px;
+          height:100%;
+          background-color:#8E24AA;
+          transform:scaleY(0);
+          transition:all 0.5s;
+          transform-origin: bottom
+      }
+      
+      .card:hover::after{
+          transform:scaleY(1);
+      }
+      
+      
+      .fonts{
+          font-size:11px;
+      }
+      
+      .social-list{
+          display:flex;
+          list-style:none;
+          justify-content:center;
+          padding:0;
+      }
+      
+      .social-list li{
+          padding:10px;
+          color:#8E24AA;
+          font-size:19px;
+      }
+      
+      
+      .buttons button:nth-child(1){
+             border:1px solid #8E24AA !important;
+             color:#8E24AA;
+             height:40px;
+      }
+      
+      .buttons button:nth-child(1):hover{
+             border:1px solid #8E24AA !important;
+             color:#fff;
+             height:40px;
+             background-color:#8E24AA;
+      }
+      
+      .buttons button:nth-child(2){
+             border:1px solid #8E24AA !important;
+             background-color:#8E24AA;
+             color:#fff;
+              height:40px;
+      }`
+      },
+    }
+  });
+
   domc.addType('B-Socials', {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'd-flex justify-content-center align-items-center flex-container mar' },
+        attributes: { class: 'd-flex justify-content-center align-items-center flex-container mar' },
         components: [
           {
             type: 'link',
@@ -791,7 +920,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'col-6 col-md-2 mb-3' },
+        attributes: { class: 'col-6 col-md-2 mb-3' },
         components: [
           {
             tagName: 'h5',
@@ -882,7 +1011,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'footer',
-        attributes: { id: `${randomID}`, class: 'container py-5' },
+        attributes: { class: 'container py-5' },
         components: [
           {
             tagName: 'div',
@@ -992,7 +1121,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'col d-flex align-items-start' },
+        attributes: { class: 'col d-flex align-items-start' },
         components: [
           {
             tagName: 'div',
@@ -1055,7 +1184,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'container px-4 py-5' },
+        attributes: { class: 'container px-4 py-5' },
         components: [
           {
             tagName: 'h2',
@@ -1340,7 +1469,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'col' },
+        attributes: { class: 'col' },
         components: [
           {
             tagName: 'div',
@@ -1443,7 +1572,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: {
         tagName: 'div',
-        attributes: { id: `${randomID}`, class: 'container col-sm-8 px-4 py-5' },
+        attributes: { class: 'container col-sm-8 px-4 py-5' },
         components: [
           {
             tagName: 'h2',

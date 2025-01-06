@@ -65,6 +65,13 @@ export default (editor, opts = {}) => {
     content: {type: 'B-Pages'}
   });
 
+  bm.add('Profile Page', {
+    label: 'Profile Page',
+    category: 'Pages',
+    media: ``,
+    content: {type: 'B-Profile'}
+  })
+
   bm.add('Flex Container', {
     label: 'Flex Container',
     category: 'Orientation',
