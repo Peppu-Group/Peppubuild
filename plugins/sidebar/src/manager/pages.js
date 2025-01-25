@@ -290,6 +290,7 @@ export default class PagesApp extends UI {
         } catch { swal("Error", "An error occurred", "error") }
         */
         // IF PAYMENT STATUS IS UNPAID
+        /* 
         if (payment == false) {
             window.FlutterwaveCheckout({
                 public_key: process.env.VUE_APP_PUBLICKEY,
@@ -313,6 +314,7 @@ export default class PagesApp extends UI {
                 },
             });
         }
+        */
         Swal.fire({
             title: "How would you like to publish your work?",
             icon: "info",
