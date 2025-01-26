@@ -5,6 +5,10 @@ export default {
             placeholder: 'page name',
             new: 'New Page +',
         },
+        product: {
+            placeholder: 'product name',
+            new: 'Create New Product +'
+        },
         project: {
             placeholder: 'project name',
             publish: 'Publish Project +',

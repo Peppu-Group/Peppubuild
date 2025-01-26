@@ -1,4 +1,4 @@
-import { PagesApp, SettingsApp } from './manager';
+import { PagesApp, SettingsApp, ProductApp } from './manager';
 import commands from './commands';
 import en from './locale/en';
 
@@ -151,6 +151,7 @@ export default (editor, opts = {}) => {
     // Init and add dashboard object to editor
     editor.PagesApp = new PagesApp(editor, options);
     editor.SettingsApp = new SettingsApp(editor, options);
+    editor.ProductApp = new ProductApp(editor, options)
 
     // Load commands
     commands(editor, options);

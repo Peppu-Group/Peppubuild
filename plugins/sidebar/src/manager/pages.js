@@ -33,6 +33,7 @@ export default class PagesApp extends UI {
         this.deleteProject = this.deleteProject.bind(this);
         this.readText = this.readText.bind(this);
         this.templatePublish = this.templatePublish.bind(this);
+        this.addProduct = this.addProduct.bind(this);
 
         /* Set initial app state */
         this.state = {
@@ -468,6 +469,24 @@ export default class PagesApp extends UI {
         }
     }
 
+    addProduct() {
+        // show form to create product name, images, categories, and description.
+        // the image form can use peppu image to send images to drive, or store images in images folder, in root of file.
+        // store data as json format for each product in a .json file and read from it.
+        // for preview, this data can be stored in reddis or localstorage
+        // you can call the data in the .json file, to place images from different categories accross the page.
+        const { editor } = this;
+        const mdl = editor.Modal;
+        mdl.setTitle('Project Manager');
+        mdl.setContent(editor.ProductApp.render());
+        mdl.open();
+    }
+
+    listProducts() {
+        // show list of all products and an edit button and delete button.
+        // effect these changes in localstorage or reddis.
+    }
+
     async templatePublish() {
         Swal.fire({
             title: "Are you sure? You can't edit template after this step.",
@@ -624,11 +643,14 @@ export default class PagesApp extends UI {
                 <div class="add-page">
                     ${editor.I18n.t('peppu-sidebar.pages.new')}
                 </div>
-                <div class="add-template">
+                <div class="template add-template">
                     Convert to Template
                 </div>
                 <div class="add-project">
                     ${editor.I18n.t('peppu-sidebar.project.publish')}
+                </div>
+                <div class="products add-template">
+                    ${editor.I18n.t('peppu-sidebar.product.new')}
                 </div>
                 <div class="project">
                     ${this.renderProject()}
@@ -636,7 +658,8 @@ export default class PagesApp extends UI {
             </div>`);
         cont.find('.add-page').on('click', this.addPage);
         cont.find('.add-project').on('click', this.addProject);
-        cont.find('.add-template').on('click', this.templatePublish);
+        cont.find('.template').on('click', this.templatePublish);
+        cont.find('.products').on('click', this.addProduct);
         cont.find('.sm').on('change', this.handleNameInput);
         cont.find('.add-title').on('click', this.addTitle);
         cont.find('.bm').on('change', this.handleTitle);

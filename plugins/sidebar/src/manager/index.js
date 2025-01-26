@@ -1,4 +1,5 @@
 import PagesApp from "./pages";
+import ProductApp from "./products";
 import SettingsApp from "./settings";
 
-export { PagesApp, SettingsApp };
+export { PagesApp, SettingsApp, ProductApp };
