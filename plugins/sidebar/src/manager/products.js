@@ -21,6 +21,7 @@ export default class ProductApp extends UI {
     update() {
         const { $el } = this;
         $el?.find('#settings').html(this.renderSettings());
+        $el?.find('#settings').html(this.renderSettings());
         $el?.find('#generate').on('click', this.handleThumbnail);
         $el?.find('input#thumbnail').on('change', this.handleThumbnailInput);
     }
@@ -93,14 +94,75 @@ export default class ProductApp extends UI {
         })
     }
 
-    handleThumbnail(e) {
-        const { editor, $el, opts } = this;
-        editor.runCommand('take-screenshot', {
-            clb(dataUrl) {
-                $el?.find('img').attr('src', dataUrl);
-                opts.onThumbnail(dataUrl, $el?.find('input.thumbnail'));
-            }
-        })
+    handleThumbnail() {
+        const { editor } = this;
+        const mdl = editor.Modal;
+        mdl.setTitle('Project Manager');
+        mdl.setContent(this.renderProducts());
+    }
+
+    renderProducts() {
+        return `<div class="app">
+        <div class="contents">
+            <div class="site-wrapper-header">
+                <div
+                    class="site-screenshot-header header"
+                    data-sort="id"
+                >
+                    Product Info
+                </div>
+                <div
+                    class="site-info header"
+                    data-sort="id"
+                ></div>
+                <div
+                    class="site-update-time header"
+                    data-sort="updated_at"
+                >
+                    Category
+                </div>
+                <div
+                    class="site-actions header"
+                    data-sort="id"
+                >
+                    Actions
+                </div>
+            </div>
+            <div id="site-list">
+                ${this.renderProductsInfo()}
+            </div>
+        </div>
+    </div>`
+    }
+
+    renderProductsInfo() {
+        // get products from product state and render with forEach loop
+        return `
+    <div 
+        class="site-wrapper" 
+        title="sites">
+        <div class="site-screenshot">
+            <img src="https://www.peppubuild.com/logo.png" alt="" />
+        </div>
+        <div class="site-info">
+            <h2>
+                Product Name
+            </h2>
+            <div class="site-meta">
+                Product
+            </div>
+        </div>
+        <div class="site-update-time">
+            My category
+        </div>
+        <div class="site-actions">
+            <i class="caret-icon fa fa-pencil edit" title="edit"></i>
+            <i class="caret-icon fa fa-trash-o delete" title="delete"></i>
+            <button>Add product to editor</button>
+        </div>
+    </div> 
+    </div>   
+        `
     }
 
     handleThumbnailInput(e) {
@@ -134,6 +196,7 @@ export default class ProductApp extends UI {
         this.$el?.remove();
 
         const cont = $(`<div class="app">
+            <button id='vwproducts' class='add-template'> View Products</button>
             <div class="formbold-main-wrapper">
                 <!-- Author: FormBold Team -->
                 <!-- Learn More: https://formbold.com -->
@@ -190,7 +253,7 @@ export default class ProductApp extends UI {
                 
             </div>`);
         cont.find('#save').on('click', this.handleSave);
-        cont.find('#generate').on('click', this.handleThumbnail);
+        cont.find('#vwproducts').on('click', this.handleThumbnail);
         cont.find('input#thumbnail').on('change', this.handleThumbnailInput);
 
         this.$el = cont;
