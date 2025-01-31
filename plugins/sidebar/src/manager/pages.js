@@ -448,13 +448,14 @@ export default class PagesApp extends UI {
         let title = localStorage.getItem("projectTitle");
         let published = localStorage.getItem("published");
         let accessToken = localStorage.getItem('oauth');
+        let products = localStorage.getItem('products');
         try {
             fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/save/${id}`, {
                 method: "PUT", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ accessToken: accessToken, gjsProject: gjsProject, title: title, published: published }),
+                body: JSON.stringify({ accessToken: accessToken, gjsProject: gjsProject, title: title, products: products, published: published }),
             }).then((response) => {
                 if (!response.ok) {
                     swal("Error", "You're not logged in", "error").then(() => {
@@ -501,6 +502,7 @@ export default class PagesApp extends UI {
                 let gjsProject = JSON.stringify(projectdata);
                 let title = localStorage.getItem("projectTitle");
                 let accessToken = localStorage.getItem('oauth');
+                let products = localStorage.getItem('products');
                 let name = prompt('What will you like to name your template');
                 let url = prompt('Add an Image URL for your template');
                 if (!url) {
@@ -513,7 +515,7 @@ export default class PagesApp extends UI {
                             headers: {
                                 "Content-Type": "application/json",
                             },
-                            body: JSON.stringify({ name: name, accessToken: accessToken, gjsProject: gjsProject, title: title, url: url }),
+                            body: JSON.stringify({ name: name, accessToken: accessToken, gjsProject: gjsProject, products: products, title: title, url: url }),
                         }).then(() => {
                             swal("Success", "We've successfully converted your project to a template.", "success")
                                 .then(() => {

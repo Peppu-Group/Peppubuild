@@ -280,28 +280,6 @@ async function startServer() {
    * @module createTemplate()
    * @param {string} accessToken - Oauth AccessToken
   */
-  async function createTemplate(accessToken) {
-    const service = driveAuth(accessToken);
-    const media = {
-      mimeType: 'application/json',
-      // body: fs.createReadStream(`files/${projectName}.json`),
-    };
-    const fileMetadata = {
-      name: `template.json`,
-      parents: ['appDataFolder'],
-    };
-    try {
-      const file = await service.files.create({
-        resource: fileMetadata,
-        media: media,
-      })
-      // console.log(file.data.id)
-      return file.data.id;
-    } catch (err) {
-      // TODO(developer) - Handle error
-      return err;
-    }
-  }
 
   /**
    * Update the project file created on Google Drive (appDataFolder), with gjs JSON.
@@ -310,7 +288,7 @@ async function startServer() {
    * @param {string} Id - FileId
    * @param {string} accessToken - Oauth AccessToken
   */
-  async function updateDB(project, Id, accessToken, published, title) {
+  async function updateDB(project, Id, accessToken, published, title, products) {
     const service = driveAuth(accessToken);
     const media = {
       mimeType: 'application/json',
@@ -319,7 +297,8 @@ async function startServer() {
         "gjsProject": {
             "project": ${project},
             "published": "${published}",
-            "title": "${title}"
+            "title": "${title}",
+            "products": ${products}
         }
     }`
     };
@@ -418,6 +397,7 @@ async function startServer() {
     let accessToken = req.body.accessToken;
     let gjsProject = req.body.gjsProject;
     let title = req.body.title;
+    let products = req.body.products;
     let published = req.body.published;
 
     const service = driveAuth(accessToken);
@@ -428,7 +408,8 @@ async function startServer() {
         "gjsProject": {
             "project": ${gjsProject},
             "published": "${published}",
-            "title": "${title}"
+            "title": "${title}",
+            "products": ${products}
         }
     }`
     };
@@ -473,11 +454,12 @@ async function startServer() {
     let accessToken = req.body.accessToken;
     let title = req.body.title;
     let published = req.body.published;
+    let products = req.body.products;
     let imgurl = 'na';
 
     createFrontend(projectName, accessToken, 'project', imgurl).then((id) => {
       // Step 3 - Update with empty project
-      updateDB(gjsProject, id, accessToken, published, title);
+      updateDB(gjsProject, id, accessToken, published, title, products);
       res.send({ id: id });
     });
     /* 
@@ -523,11 +505,12 @@ async function startServer() {
     let accessToken = req.body.accessToken;
     let title = req.body.title;
     let published = req.body.published;
+    let products = req.body.products
     let imgurl = req.body.url;
 
     createFrontend(projectName, accessToken, 'template', imgurl).then((id) => {
       // Step 3 - Update with empty project
-      updateDB(gjsProject, id, accessToken, published, title);
+      updateDB(gjsProject, id, accessToken, published, title, products);
       res.send({ id: id });
     });
   })

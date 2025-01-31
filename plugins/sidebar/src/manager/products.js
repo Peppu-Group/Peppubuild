@@ -83,14 +83,8 @@ export default class ProductApp extends UI {
                     })
                     // save in local storage
                     let products = JSON.parse(localStorage.getItem(products));
-                    if (!products) {
-                        products = []
-                        products.push(`${key}: ${value}`)
-                        localStorage.setItem('products', products);
-                    } else {
-                        products.push(`${key}: ${value}`)
-                        localStorage.setItem('products', products);
-                    }
+                    products.push(`${key}: ${value}`)
+                    localStorage.setItem('products', products);
                 } // run save and show success
             });
             // send image using photodrive.
