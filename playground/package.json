@@ -12,7 +12,7 @@
     "core-js": "^3.8.3",
     "file-saver": "^2.0.5",
     "firebase": "^10.13.1",
-    "grapesjs": "^0.22.1",
+    "grapesjs": "^0.22.4",
     "grapesjs-icons": "0.0.4",
     "grapesjs-rulers": "^1.0.8",
     "jszip": "^3.10.1",

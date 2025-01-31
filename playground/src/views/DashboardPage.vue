@@ -259,6 +259,7 @@ export default {
           res.json().then((response) => {
             localStorage.setItem('projectTitle', response.title)
             localStorage.setItem('published', response.published)
+            localStorage.setItem('products', response.products)
             localStorage.setItem('gjsProject', JSON.stringify(response.project));
             Swal.close();
             // add publishfront to actually create project
@@ -325,14 +326,15 @@ export default {
         let accessToken = localStorage.getItem('oauth');
         let published = 'No';
         let title = 'Peppubuild - Project';
-        let url = `${serverUrl}/publishfront/${name}`
+        let url = `${serverUrl}/publishfront/${name}`;
+        let products = [];
         Swal.showLoading();
         await fetch(url, {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken, title: title, published: published }),
+          body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken, title: title, products: products, published: published }),
         }).then((res) => {
           res.json().then((response) => {
             if (res.status == 200) {
@@ -342,6 +344,7 @@ export default {
               localStorage.setItem('gjsProject', gjsProject);
               localStorage.setItem('published', published);
               localStorage.setItem('projectTitle', title);
+              localStorage.setItem('products', products);
               this.$router.push({ name: "Home", params: { id } });
             } else {
               Swal.fire({

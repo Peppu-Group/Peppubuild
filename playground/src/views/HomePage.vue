@@ -29,6 +29,12 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="symbols-tab" data-bs-toggle="tab" data-bs-target="#symbols" type="button"
+                        role="tab" aria-controls="symbols" aria-selected="false">
+                        Symbols
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="trait-tab" data-bs-toggle="tab" data-bs-target="#trait" type="button"
                         role="tab" aria-controls="trait" aria-selected="false">
                         Layers
@@ -44,6 +50,24 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="style" role="tabpanel" aria-labelledby="style-tab">
                     <div id="properties-container"></div>
+                </div>
+                <div class="tab-pane fade show active" id="symbols" role="tabpanel" aria-labelledby="symbols-tab">
+                    <div v-for="symbol in symbols" :key="symbol.getId()">
+                        <div class="gjs-block gjs-one-bg gjs-four-color-h fa fa-list symbols__symbol"
+                            @click="createInstance(symbol)">
+                            <div title="Unlink all instances and delete Symbol" class="symbols__remove"
+                                @click='deleteInstance(symbol)'>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="symbols__num">
+                                {{ symbol.getName() }}: {{
+                                    getInstancesLength(symbol) }} </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="trait" role="tabpanel" aria-labelledby="trait-tab">
                     <div id="layers-containe"></div>
@@ -77,15 +101,33 @@
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css');
 
 @import './css/style.css';
+
+.symbols__num {
+    font-size: 12px;
+}
+
+.symbols__symbol {
+    position: relative;
+}
+
+.symbols__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
 </style>
 
 <script>
-import grapesjs from 'grapesjs'
+import { grapesjs } from 'grapesjs'
 import grapesjsIcons from 'grapesjs-icons';
 import { userAuth } from './js/firebase.js';
 import Swal from 'sweetalert2';
 const serverUrl = 'https://server.peppubuild.com';
 
+// var idx = 0;
 const options = {
     // see https://icon-sets.iconify.design/
     collections: [
@@ -104,12 +146,14 @@ export default {
     */
     data() {
         return {
-            edit: "",
-            peppuMethods: ""
+            edit: [],
+            peppuMethods: "",
+            symbols: []
         }
     },
     mounted() {
         // initialize grapesjs
+        console.log(window.ayx)
         if (window.innerWidth <= '1050') {
             alert('Screen too small for Peppubuild, please use a larger screen.')
         }
@@ -404,6 +448,45 @@ export default {
             active: false
         }]);
 
+        panelViews.get("buttons").add([{
+            attributes: {
+                title: "Create symbol"
+            },
+            label: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16">
+            <path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.5.5 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244z"/>
+            </svg>`,
+            command(editor) {
+                const selected = editor.getSelected();
+                if (!selected) return alert('Select a component first!');
+
+                const info = editor.Components.getSymbolInfo(selected);
+                if (info.isSymbol) return alert('Selected component is already a symbol!');
+
+                // add symbol to views panel
+                editor.Components.addSymbol(selected);
+
+                /*
+                const editMenuDiv = document.createElement('button');
+                let symbol = editor.Components.addSymbol(selected);
+
+                editMenuDiv.innerHTML = `${symbol.getName()}: ${editor.Components.getSymbolInfo(symbol).instances.length}`;
+                editMenuDiv.className = 'btn btn-success';
+                editMenuDiv.onclick = function () {
+                    // editor.Components.addSymbol(selected);
+                    editor.getWrapper().append(symbol, { at: 0 });
+
+                }
+                const panels = editor.Panels.getPanel('views-container')
+                panels.set('appendContent', editMenuDiv).trigger('change:appendContent')
+                */
+            },
+            id: "symbol-button",
+            active: false
+        }]);
+
+        const data = JSON.parse(localStorage.getItem("init"));
+        console.log({ data });
+        if (data) editor.loadData(data);
         // remove the buttons
         panelManager.removeButton("views", "open-layers");
         panelManager.removeButton("views", "open-tm");
@@ -412,10 +495,41 @@ export default {
             panelManager.removeButton('options', 'export-template')
         }
         */
-        this.edit = editor;
         this.peppuMethods = JSON.parse(localStorage.getItem('peppuMethods'))
+        this.edit = editor;
+        editor.on('symbol', this.updateMainSymbolsList);
+
+    },
+    unmounted() {
+        this.edit.off('symbol', this.updateMainSymbolsList);
     },
     methods: {
+        getInstancesLength(symbolMain) {
+            return this.edit.Components.getSymbolInfo(symbolMain).instances.length;
+        },
+        deleteInstance(symbolMain) {
+            grapesjs.editors.forEach((editor) => {
+                editor.Components.detachSymbol(symbolMain);
+            })
+            return symbolMain.remove();
+        },
+        createInstance(symbolMain) {
+            grapesjs.editors.forEach((editor) => {
+                const instance = editor.Components.addSymbol(symbolMain);
+
+                editor.addComponents([
+                    instance
+                ]);
+            })
+            /*
+            
+             */
+            // editor.getWrapper().append(instance, { at: 0 });
+        },
+        updateMainSymbolsList() {
+            this.symbols = this.edit.Components.getSymbols();
+            console.log(this.symbols)
+        },
         randomID() {
             let result = '';
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
