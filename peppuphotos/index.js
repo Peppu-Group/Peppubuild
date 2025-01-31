@@ -116,7 +116,7 @@ app.post('/permissions/:accesstoken', (req, res) => {
   }
 })
 
-function replaceParent(folderId, fileId, accessToken) {
+async function replaceParent(folderId, fileId, accessToken) {
   const service = driveAuth(accessToken);
   try {
     // Retrieve the existing parents to remove
