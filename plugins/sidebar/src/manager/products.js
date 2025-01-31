@@ -1,4 +1,5 @@
 import UI from '../utils/ui';
+import Swal from 'sweetalert2';
 
 export default class ProductApp extends UI {
     constructor(editor, opts = {}) {
@@ -48,9 +49,10 @@ export default class ProductApp extends UI {
     }
 
     handleSave() {
+        Swal.showLoading();
         const form = document.getElementById('productForm');
 
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             // Access the target of the event, which is the form
@@ -62,35 +64,53 @@ export default class ProductApp extends UI {
             const url = `https://photodrive.peppubuild.com/uploadfile/${oauth}`;
 
             formData.forEach(async (value, key) => {
-                if (value == null) {
-                    Swal.fire({
-                        title: "Error During Upload!",
-                        text: "One or more information are missing, upload did not complete.",
-                        icon: "error"
-                    })
-                } else {
-                    // send image to drive.
-                    await fetch(url, {
-                        method: 'POST',
-                        body: image
-                    }).then((res) => {
-                        if (res.ok) {
-                            Swal.fire({
-                                title: "Successful Upload!",
-                                text: "We've uploaded your product successfully.",
-                                icon: "success"
-                            })
-                        }
-                    })
-                    // save in local storage
-                    let products = JSON.parse(localStorage.getItem(products));
-                    products.push(`${key}: ${value}`)
-                    localStorage.setItem('products', products);
-                } // run save and show success
+                if (value === '' || (value && value.name === '')) {
+                    hasEmptyField = true; // Mark that there's an empty field
+                }
             });
-            // send image using photodrive.
-            // reset form on submit.
-            // send success or fail message, using try catch
+            const imgdata = new FormData();
+            imgdata.append('file', image)
+            if (hasEmptyField) {
+                Swal.fire({
+                    title: "Error During Upload!",
+                    text: "One or more information are missing, upload did not complete.",
+                    icon: "error"
+                })
+            } else {
+                // send image using photodrive.
+                await fetch(url, {
+                    method: 'POST',
+                    body: imgdata
+                }).then((res) => {
+                    if (res.ok) {
+                        res.json().then((res) => {
+                        // save in local storage
+                        let products = JSON.parse(localStorage.getItem('products')) || [];
+                        const name = formData.get('name');
+                        const description = formData.get('description');
+                        const category = formData.get('category');
+                        // const file = formData.get('file');
+                        let newProduct = {name: name, description: description, category: category, file: res.id};
+                        products.push(newProduct)
+                        localStorage.setItem('products', JSON.stringify(products));
+                        })
+                        Swal.fire({
+                            title: "Successful Upload!",
+                            text: "We've uploaded your product successfully.",
+                            icon: "success"
+                        }).then(() => {
+                            // reset form on submit.
+                            document.getElementById("productForm").reset();
+                        })
+                    } else {
+                        Swal.fire({
+                            title: "Error During Upload!",
+                            text: "We've encountered an error while uploading your product",
+                            icon: "error"
+                        })
+                    }
+                })
+            }
         })
     }
 
@@ -232,12 +252,9 @@ export default class ProductApp extends UI {
                                 </label>
 
                                 <div class="formbold-mb-5 formbold-file-input">
-                                    <input type="file" name="file" id="file" />
                                     <label for="file">
                                         <div>
-                                            <span class="formbold-drop-file"> Drop files here </span>
-                                            <span class="formbold-or"> Or </span>
-                                            <span class="formbold-browse"> Browse </span>
+                                        <input type="file" name="file" id="file" class="formbold-drop-file"/>
                                         </div>
                                     </label>
                                 </div>
