@@ -1,5 +1,6 @@
 var express = require('express');
 var multer = require("multer");
+var cors = require('cors');
 const { OAuth2Client } = require('google-auth-library');
 const { google } = require('googleapis');
 const { Readable } = require('stream');
@@ -10,7 +11,7 @@ const upload = multer();
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
-
+app.use(cors())
 app.use(express.static("public"))
 
 // index page
