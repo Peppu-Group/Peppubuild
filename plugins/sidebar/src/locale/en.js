@@ -7,7 +7,7 @@ export default {
         },
         product: {
             placeholder: 'product name',
-            new: 'Create New Product +'
+            new: 'Manage Products +'
         },
         project: {
             placeholder: 'project name',

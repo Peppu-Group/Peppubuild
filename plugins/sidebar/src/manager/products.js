@@ -22,7 +22,7 @@ export default class ProductApp extends UI {
     update() {
         const { $el } = this;
         $el?.find('#settings').html(this.renderSettings());
-        $el?.find('#settings').html(this.renderSettings());
+        $el?.find('#site-list').html(this.renderProductsInfo());
         $el?.find('#generate').on('click', this.handleThumbnail);
         $el?.find('input#thumbnail').on('change', this.handleThumbnailInput);
     }
@@ -157,32 +157,33 @@ export default class ProductApp extends UI {
 
     renderProductsInfo() {
         // get products from product state and render with forEach loop
-        return `
-    <div 
-        class="site-wrapper" 
-        title="sites">
-        <div class="site-screenshot">
-            <img src="https://www.peppubuild.com/logo.png" alt="" />
-        </div>
-        <div class="site-info">
-            <h2>
-                Product Name
-            </h2>
-            <div class="site-meta">
-                Product
+        let productslocal = JSON.parse(localStorage.getItem('products'));
+
+        return productslocal.map((product, i) => `
+        <div>
+            <div key="${i}" class="site-wrapper" title="products">
+                <div class="site-screenshot">
+                    <img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" alt="" />
+                </div>
+                <div class="site-info">
+                    <h2>
+                        ${product.name}
+                    </h2>
+                    <div class="site-meta">
+                        ${product.description}
+                    </div>
+                </div>
+                <div class="site-update-time">
+                        ${product.category}
+                </div>
+                <div class="site-actions">
+                    <i class="caret-icon fa fa-pencil edit" title="edit"></i>
+                    <i class="caret-icon fa fa-trash-o delete" title="delete"></i>
+                    <button>Add product to editor</button>
+                </div>
             </div>
-        </div>
-        <div class="site-update-time">
-            My category
-        </div>
-        <div class="site-actions">
-            <i class="caret-icon fa fa-pencil edit" title="edit"></i>
-            <i class="caret-icon fa fa-trash-o delete" title="delete"></i>
-            <button>Add product to editor</button>
-        </div>
-    </div> 
-    </div>   
-        `
+        </div>  
+        `).join("");
     }
 
     handleThumbnailInput(e) {
