@@ -1,12 +1,13 @@
 import UI from '../utils/ui';
 import Swal from 'sweetalert2';
+import e from 'cors';
 
 export default class ProductApp extends UI {
     constructor(editor, opts = {}) {
         super(editor, opts);
         this.handleSave = this.handleSave.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleThumbnail = this.handleThumbnail.bind(this);
-        this.handleThumbnailInput = this.handleThumbnailInput.bind(this);
 
         /* Set initial app state */
         this.state = {
@@ -23,13 +24,11 @@ export default class ProductApp extends UI {
         const { $el } = this;
         $el?.find('#settings').html(this.renderSettings());
         console.log($el?.find('#vwproducts'))
-        
+
         console.log($el?.find('#site-list'))
-        
+
         // Add new event listener with delegation
         $el?.find('#site-list').on('click', '.delete', this.handleDelete);
-        $el?.find('#generate').on('click', this.handleThumbnail);
-        $el?.find('input#thumbnail').on('change', this.handleThumbnailInput);
     }
 
     onRender() {
@@ -54,7 +53,13 @@ export default class ProductApp extends UI {
     }
 
     handleDelete(e) {
-        console.log('abc')
+        const productIndex = e.currentTarget.dataset.id;
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        products.splice(productIndex, 1);
+        localStorage.setItem('products', JSON.stringify(products));
+
+        // Re-attach event handlers after updating content
+        this.update();
     }
 
     handleSave() {
@@ -93,15 +98,15 @@ export default class ProductApp extends UI {
                 }).then((res) => {
                     if (res.ok) {
                         res.json().then((res) => {
-                        // save in local storage
-                        let products = JSON.parse(localStorage.getItem('products')) || [];
-                        const name = formData.get('name');
-                        const description = formData.get('description');
-                        const category = formData.get('category');
-                        // const file = formData.get('file');
-                        let newProduct = {name: name, description: description, category: category, file: res.id};
-                        products.push(newProduct)
-                        localStorage.setItem('products', JSON.stringify(products));
+                            // save in local storage
+                            let products = JSON.parse(localStorage.getItem('products')) || [];
+                            const name = formData.get('name');
+                            const description = formData.get('description');
+                            const category = formData.get('category');
+                            // const file = formData.get('file');
+                            let newProduct = { name: name, description: description, category: category, file: res.id };
+                            products.push(newProduct)
+                            localStorage.setItem('products', JSON.stringify(products));
                         })
                         Swal.fire({
                             title: "Successful Upload!",
@@ -125,6 +130,10 @@ export default class ProductApp extends UI {
 
     handleThumbnail() {
         this.$el?.find('#vwproducts').html(this.renderProducts());
+        const element = document.getElementById("productForm");
+        if (element) {
+            element.remove();
+        }
     }
 
     renderProducts() {
@@ -160,15 +169,18 @@ export default class ProductApp extends UI {
         </div>
     </div>`;
 
-    // Call update after rendering products
-    setTimeout(() => this.update(), 0);
-        
-    return content;
+        // Call update after rendering products
+        setTimeout(() => this.update(), 0);
+
+        return content;
     }
 
     renderProductsInfo() {
         // get products from product state and render with forEach loop
         let productslocal = JSON.parse(localStorage.getItem('products'));
+        if (!productslocal || productslocal.length == 0) {
+            return `<h2>You have no product to display, add some first</h2>`
+        }
 
         return productslocal.map((product, i) => `
         <div>
@@ -283,7 +295,6 @@ export default class ProductApp extends UI {
             </div>`);
         cont.find('#save').on('click', this.handleSave);
         cont.find('#vwproducts').on('click', this.handleThumbnail);
-        cont.find('input#thumbnail').on('change', this.handleThumbnailInput);
 
         this.$el = cont;
         return cont;
