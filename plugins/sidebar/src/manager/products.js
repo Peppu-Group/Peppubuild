@@ -22,7 +22,12 @@ export default class ProductApp extends UI {
     update() {
         const { $el } = this;
         $el?.find('#settings').html(this.renderSettings());
-        $el?.find('#site-list').html(this.renderProductsInfo());
+        console.log($el?.find('#vwproducts'))
+        
+        console.log($el?.find('#site-list'))
+        
+        // Add new event listener with delegation
+        $el?.find('#site-list').on('click', '.delete', this.handleDelete);
         $el?.find('#generate').on('click', this.handleThumbnail);
         $el?.find('input#thumbnail').on('change', this.handleThumbnailInput);
     }
@@ -48,13 +53,17 @@ export default class ProductApp extends UI {
         return data;
     }
 
+    handleDelete(e) {
+        console.log('abc')
+    }
+
     handleSave() {
         Swal.showLoading();
         const form = document.getElementById('productForm');
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
-
+            let hasEmptyField = true;
             // Access the target of the event, which is the form
             const formData = new FormData(e.target); // Get all form data
 
@@ -115,15 +124,12 @@ export default class ProductApp extends UI {
     }
 
     handleThumbnail() {
-        const { editor } = this;
-        const mdl = editor.Modal;
-        mdl.setTitle('Project Manager');
-        mdl.setContent(this.renderProducts());
+        this.$el?.find('#vwproducts').html(this.renderProducts());
     }
 
     renderProducts() {
-        return `<div class="app">
-        <div class="contents">
+        const content = `<div class="table">
+        <div class="contents" id="renderproducts">
             <div class="site-wrapper-header">
                 <div
                     class="site-screenshot-header header"
@@ -148,11 +154,16 @@ export default class ProductApp extends UI {
                     Actions
                 </div>
             </div>
-            <div id="site-list">
+            <div id="site-list" class="productlist">
                 ${this.renderProductsInfo()}
             </div>
         </div>
-    </div>`
+    </div>`;
+
+    // Call update after rendering products
+    setTimeout(() => this.update(), 0);
+        
+    return content;
     }
 
     renderProductsInfo() {
