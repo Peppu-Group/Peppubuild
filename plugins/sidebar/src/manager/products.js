@@ -68,7 +68,7 @@ export default class ProductApp extends UI {
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
-            let hasEmptyField = true;
+            let hasEmptyField = false;
             // Access the target of the event, which is the form
             const formData = new FormData(e.target); // Get all form data
 
@@ -92,38 +92,47 @@ export default class ProductApp extends UI {
                 })
             } else {
                 // send image using photodrive.
-                await fetch(url, {
-                    method: 'POST',
-                    body: imgdata
-                }).then((res) => {
-                    if (res.ok) {
-                        res.json().then((res) => {
-                            // save in local storage
-                            let products = JSON.parse(localStorage.getItem('products')) || [];
-                            const name = formData.get('name');
-                            const description = formData.get('description');
-                            const category = formData.get('category');
-                            // const file = formData.get('file');
-                            let newProduct = { name: name, description: description, category: category, file: res.id };
-                            products.push(newProduct)
-                            localStorage.setItem('products', JSON.stringify(products));
-                        })
-                        Swal.fire({
-                            title: "Successful Upload!",
-                            text: "We've uploaded your product successfully.",
-                            icon: "success"
-                        }).then(() => {
-                            // reset form on submit.
-                            document.getElementById("productForm").reset();
-                        })
-                    } else {
-                        Swal.fire({
-                            title: "Error During Upload!",
-                            text: "We've encountered an error while uploading your product",
-                            icon: "error"
-                        })
-                    }
-                })
+                try {
+                    await fetch(url, {
+                        signal: AbortSignal.timeout(10000),
+                        method: 'POST',
+                        body: imgdata
+                    }).then((res) => {
+                        if (res.ok) {
+                            res.json().then((res) => {
+                                // save in local storage
+                                let products = JSON.parse(localStorage.getItem('products')) || [];
+                                const name = formData.get('name');
+                                const description = formData.get('description');
+                                const category = formData.get('category');
+                                // const file = formData.get('file');
+                                let newProduct = { name: name, description: description, category: category, file: res.id };
+                                products.push(newProduct)
+                                localStorage.setItem('products', JSON.stringify(products));
+                            })
+                            Swal.fire({
+                                title: "Successful Upload!",
+                                text: "We've uploaded your product successfully.",
+                                icon: "success"
+                            }).then(() => {
+                                // reset form on submit.
+                                document.getElementById("productForm").reset();
+                            })
+                        } else {
+                            Swal.fire({
+                                title: "Error During Upload!",
+                                text: "We've encountered an error while uploading your product",
+                                icon: "error"
+                            })
+                        }
+                    })
+                } catch {
+                    Swal.fire({
+                        title: "Error During Upload!",
+                        text: "We've encountered an error while uploading your product",
+                        icon: "error"
+                    })
+                }
             }
         })
     }
