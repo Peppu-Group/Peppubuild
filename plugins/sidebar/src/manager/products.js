@@ -25,10 +25,10 @@ export default class ProductApp extends UI {
         $el?.find('#settings').html(this.renderSettings());
 
         // Add new event listener with delete delegation
-        $el?.find('#site-list').on('click', '.delete', this.handleDelete);
+        $el?.find('#site-list').on('click', '.delete', (e) => this.handleDelete(e));
 
         // Add new event listener to add product to editor
-        $el?.find('#site-list').on('click', '.add-editor', this.productEditor);
+        $el?.find('#site-list').on('click', '.add-editor', (e) => this.productEditor(e));
     }
 
     onRender() {
@@ -54,7 +54,7 @@ export default class ProductApp extends UI {
     }
 
     handleDelete(e) {
-        const productIndex = e.currentTarget.dataset.id;
+        const productIndex = e.target.getAttribute('data-id'); 
         let products = JSON.parse(localStorage.getItem('products')) || [];
         products.splice(productIndex, 1);
         localStorage.setItem('products', JSON.stringify(products));
@@ -63,13 +63,14 @@ export default class ProductApp extends UI {
         this.update();
     }
 
-    productEditor() {
+    productEditor(e) {
         const { editor } = this;
-
+        const productIndex = e.target.getAttribute('data-id');
         editor.addComponents({
-            type: 'collection'
+            type: 'collection',
+            productIndex: productIndex // Render only the product at index 2
         })
-        // this.update()
+        this.update()
     }
 
     handleSave() {
@@ -84,8 +85,8 @@ export default class ProductApp extends UI {
 
             var image = formData.get('file');
 
-            let oauth = localStorage.getItem('oauth')
-            const url = `https://photodrive.peppubuild.com/uploadfile/${oauth}`;
+            let oauth = 'ya29.a0AXeO80Se5TG6MyJ9uOrhEGeKAxuhAl9CXJC4C7Zfk5CpfXYbvIZKGN5B_qiOVj2MpoYPoKk_lXOD7JyBgOrtzpK7cXeSoHDTvWqa9ZUBV7sT_nUaEkWjEHs70cXEpVUNF29mvHeaua1lWyz6jrirc-cPbs_9iRcEzuB2afeWSlcaCgYKAVsSARESFQHGX2Mi-47-KAlILGfc71150h6Okw0178'
+            const url = `http://localhost:1423/uploadfile/${oauth}`;
 
             formData.forEach(async (value, key) => {
                 if (value === '' || (value && value.name === '')) {
@@ -220,8 +221,8 @@ export default class ProductApp extends UI {
                 </div>
                 <div class="site-actions">
                     <i class="caret-icon fa fa-pencil edit" title="edit"></i>
-                    <i class="caret-icon fa fa-trash-o delete" title="delete"></i>
-                    <button class='add-editor'>Add product to editor</button>
+                    <i class="caret-icon fa fa-trash-o delete" title="delete" data-id="${i}"></i>
+                    <button class='add-editor' data-id="${i}">Add product to editor</button>
                 </div>
             </div>
         </div>  
