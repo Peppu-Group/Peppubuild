@@ -1,6 +1,5 @@
 import UI from '../utils/ui';
 import Swal from 'sweetalert2';
-import e from 'cors';
 
 export default class ProductApp extends UI {
     constructor(editor, opts = {}) {
@@ -8,6 +7,7 @@ export default class ProductApp extends UI {
         this.handleSave = this.handleSave.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleThumbnail = this.handleThumbnail.bind(this);
+        this.productEditor = this.productEditor.bind(this);
 
         /* Set initial app state */
         this.state = {
@@ -23,16 +23,16 @@ export default class ProductApp extends UI {
     update() {
         const { $el } = this;
         $el?.find('#settings').html(this.renderSettings());
-        console.log($el?.find('#vwproducts'))
 
-        console.log($el?.find('#site-list'))
-
-        // Add new event listener with delegation
+        // Add new event listener with delete delegation
         $el?.find('#site-list').on('click', '.delete', this.handleDelete);
+
+        // Add new event listener to add product to editor
+        $el?.find('#site-list').on('click', '.add-editor', this.productEditor);
     }
 
     onRender() {
-        const { setState } = this;
+        const { setState, $el, model } = this;
         setState({
             loading: true
         });
@@ -40,6 +40,7 @@ export default class ProductApp extends UI {
         setState({
             loading: false
         });
+
     }
 
     renameProject(fileName, newName) {
@@ -60,6 +61,15 @@ export default class ProductApp extends UI {
 
         // Re-attach event handlers after updating content
         this.update();
+    }
+
+    productEditor() {
+        const { editor } = this;
+
+        editor.addComponents({
+            type: 'collection'
+        })
+        // this.update()
     }
 
     handleSave() {
@@ -211,7 +221,7 @@ export default class ProductApp extends UI {
                 <div class="site-actions">
                     <i class="caret-icon fa fa-pencil edit" title="edit"></i>
                     <i class="caret-icon fa fa-trash-o delete" title="delete"></i>
-                    <button>Add product to editor</button>
+                    <button class='add-editor'>Add product to editor</button>
                 </div>
             </div>
         </div>  

@@ -399,7 +399,6 @@ export default class PagesApp extends UI {
                                                 window.open(`https://${response.data.subdomain}.netlify.app`);
                                             })
                                             // add response in page so user knows it was published.
-                                            console.log(response)
                                         }).catch(function (error) {
                                             if (error.response.status === 422) {
                                                 swal("Error!", "The site name is already taken, website can't be deployed", "error")
@@ -459,7 +458,7 @@ export default class PagesApp extends UI {
             }).then((response) => {
                 if (!response.ok) {
                     swal("Error", "You're not logged in", "error").then(() => {
-                        window.location.href = 'https://app.peppubuild.com/dashboard/projects';
+                        // window.location.href = 'https://app.peppubuild.com/dashboard/projects';
                     })
                 }
             })

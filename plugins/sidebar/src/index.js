@@ -1,5 +1,6 @@
 import { PagesApp, SettingsApp, ProductApp } from './manager';
 import commands from './commands';
+import loadComponents from './components';
 import en from './locale/en';
 
 export default (editor, opts = {}) => {
@@ -53,6 +54,9 @@ export default (editor, opts = {}) => {
         en,
         ...options.i18n,
     });
+
+    // Add components
+    loadComponents(editor, options);
 
 
     editor.Panels.addButton('options', [
