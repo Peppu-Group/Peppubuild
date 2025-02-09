@@ -401,7 +401,7 @@ export default {
                 }
             },
             // Add peppu and other plugins.
-            plugins: ['peppu-sidebar', 'peppu-blocks', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
+            plugins: ['peppu-sidebar', 'peppubuild-custom-code', 'peppu-blocks', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
             pluginsOpts: {
                 'peppu-sidebar': { /* Test here your options  */ },
                 'peppu-bootstrap': {},
@@ -414,7 +414,8 @@ export default {
             canvas: {
                 styles: [
                     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
-                    "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+                    "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css",
+                    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
                 ],
                 scripts: [
                     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
@@ -425,6 +426,64 @@ export default {
             await this.checkState();
             model.addAttributes({ id: this.randomID() });
         })
+        editor.on('load', () => {
+    const traitManager = editor.TraitManager;
+
+    // Extend Trait Manager with a custom button type
+    traitManager.addType('custom-button', {
+        createInput({ trait }) {
+            const el = document.createElement('button');
+            el.innerHTML = trait.get('label') || 'Click me';
+            el.style.padding = '5px 10px';
+            el.style.border = '1px solid #ccc';
+            el.style.background = '#f5f5f5';
+            el.style.cursor = 'pointer';
+
+            el.onclick = () => {
+                const selected = editor.getSelected();
+                if (!selected) {
+                    alert('Please select an element first.');
+                    return;
+                }
+
+                const attrName = prompt('Enter attribute name:');
+                if (!attrName) return;
+
+                const attrValue = prompt(`Enter value for "${attrName}":`);
+                if (attrValue === null) return;
+
+                selected.addAttributes({ [attrName]: attrValue });
+
+                // Add the new attribute as an editable trait
+                selected.get('traits').add({
+                    type: 'text',
+                    name: attrName,
+                    label: attrName,
+                });
+
+                editor.TraitManager.render(); // Refresh the traits panel
+            };
+
+            return el;
+        }
+    });
+
+    // Enable the custom trait for all components
+    editor.on('component:selected', (model) => {
+        if (!model.get('traits').find(trait => trait.get('type') === 'custom-button')) {
+            model.get('traits').add({
+                type: 'custom-button',
+                label: 'Add Attribute',
+                full: true
+            });
+
+            editor.TraitManager.render();
+        }
+    });
+});
+
+
+
         var logoCont = document.querySelector('.gjs-logo-cont');
         document.querySelector('.gjs-logo-version').innerHTML = 'Pages';
         var logoPanel = document.querySelector('.gjs-pn-commands');
