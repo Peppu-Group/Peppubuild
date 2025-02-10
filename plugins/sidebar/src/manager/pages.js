@@ -136,42 +136,31 @@ export default class PagesApp extends UI {
     }
 
     manageProject() {
+        const { editor } = this;
         return new Promise((resolve, reject) => {
-            const pages = JSON.parse(localStorage.getItem('gjsProject'))
-            let editor = grapesjs.init({
-                headless: true,
-                pageManager: {
-                    pages: pages.pages
-                },
-                plugins: [peppu_blocks, grapesjs_blocks_basic, grapesjs_plugin_forms],
-
-            });
+            // const pages = JSON.parse(localStorage.getItem('gjsProject'))
 
             function getCss() {
-                let css = ''
-                for (const style of pages.styles) {
-                    if (style.selectorsAdd) {
-                        const cssRule = editor.Css.setRule(style.selectorsAdd, style.style, {
-                            atRuleType: style.atRuleType,
-                            atRuleParams: style.mediaText
-                        })
-                        css += cssRule.toCSS();
+                let allCSS = '';
 
-                    } else {
-                        const cssRule = editor.Css.setRule(style.selectors, style.style, {
-                            atRuleType: style.atRuleType,
-                            atRuleParams: style.mediaText
-                        })
-                        css += cssRule.toCSS();
-                    }
-                }
-                return css
+                // Get all pages
+                const pages = editor.Pages.getAll();
+            
+                pages.forEach((page) => {
+                    // Activate the page to retrieve its styles
+                    editor.Pages.select(page);
+                    
+                    // Get CSS for the currently active page
+                    allCSS += `/* CSS for page: ${page.get('name')} */\n`;
+                    allCSS += editor.getCss() + '\n\n';
+                });
+            
+                return allCSS;
             }
 
             // let cssstreams = Readable.from(getCss())
             // await client.uploadFrom(cssstreams, `style.css`);
             zip.file("style.css", cssbeautify(getCss()));
-
             let indexhtml = `
                 <!DOCTYPE html>
                 <html>

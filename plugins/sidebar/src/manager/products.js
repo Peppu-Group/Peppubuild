@@ -85,8 +85,8 @@ export default class ProductApp extends UI {
 
             var image = formData.get('file');
 
-            let oauth = 'ya29.a0AXeO80Se5TG6MyJ9uOrhEGeKAxuhAl9CXJC4C7Zfk5CpfXYbvIZKGN5B_qiOVj2MpoYPoKk_lXOD7JyBgOrtzpK7cXeSoHDTvWqa9ZUBV7sT_nUaEkWjEHs70cXEpVUNF29mvHeaua1lWyz6jrirc-cPbs_9iRcEzuB2afeWSlcaCgYKAVsSARESFQHGX2Mi-47-KAlILGfc71150h6Okw0178'
-            const url = `http://localhost:1423/uploadfile/${oauth}`;
+            let oauth = localStorage.getItem('oauth')
+            const url = `https://photodrive.peppubuild.com/uploadfile/${oauth}`;
 
             formData.forEach(async (value, key) => {
                 if (value === '' || (value && value.name === '')) {

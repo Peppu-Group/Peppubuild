@@ -1,46 +1,111 @@
 export default (editor, opts = {}) => {
     const domc = editor.DomComponents;
 
-    // Add the custom component
     domc.addType('collection', {
         model: {
             defaults: {
-                category: 'SET-1',
-                productIndex: 0 // Default value if not provided
+                category: 'SET-1',  
+                productIndex: 0,    
+                attributeType: 'name',
+                traits: [
+                    {
+                        type: 'text',
+                        label: 'Category',
+                        name: 'category',
+                        changeProp: true
+                    },
+                    {
+                        type: 'select',
+                        label: 'Attribute',
+                        name: 'attributeType',
+                        options: [
+                            { value: 'name', name: 'Product Name' },
+                            { value: 'price', name: 'Price' },
+                            { value: 'description', name: 'Description' },
+                            { value: 'image', name: 'Image' }
+                        ],
+                        changeProp: true
+                    },
+                    {
+                        type: 'number',
+                        label: 'Product Index',
+                        name: 'productIndex',
+                        min: 0,
+                        changeProp: true
+                    }
+                ]
             },
-            // Customize the export HTML
             toHTML() {
                 const category = this.get('category');
-                return `<div class="product-container">{ VAR-TO-REPLACE-${category} }</div>`;
+                const productIndex = this.get('productIndex');
+                const attributeType = this.get('attributeType');
+    
+                // Get products from localStorage
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                const product = products[productIndex];
+    
+                if (!product) {
+                    return `<p>Product not found in ${category}</p>`;
+                }
+    
+                // Return the actual value in the exported HTML
+                switch (attributeType) {
+                    case 'name':
+                        return `<h5>${product.name}</h5>`;
+                    case 'price':
+                        return `<p>$${product.price}</p>`;
+                    case 'description':
+                        return `<p>${product.description}</p>`;
+                    case 'image':
+                        return `<img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" alt="${product.name}" style="width:100%;" />`;
+                    default:
+                        return `<p>Invalid Attribute</p>`;
+                }
             }
         },
         view: {
+            init() {
+                this.listenTo(this.model, 'change:attributeType change:productIndex change:category', this.updateContent);
+            },
             onRender() {
-                const { $el, model } = this;
+                this.updateContent();
+            },
+            updateContent() {
+                const { model, $el } = this;
                 const category = model.get('category');
-                const productIndex = model.get('productIndex'); // Get specific product index
-                $el.empty();
-                // eg. you can make some ajax request and then...
-
+                const attributeType = model.get('attributeType');
+                const productIndex = model.get('productIndex');
+    
                 // Get products from localStorage
                 const products = JSON.parse(localStorage.getItem('products')) || [];
-
-                // Get the specific product
                 const product = products[productIndex];
-
-                // Generate Bootstrap card for the specific product
-                const cardHtml = `
-                <div class="card m-2" style="width: 18rem;">
-                    <img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" class="card-img-top" alt="${product.name}">
-                    <div class="card-body">
-                        <h5 class="card-title">${product.name}</h5>
-                        <p class="card-text">${product.description}</p>
-                        <button class="btn btn-primary" data-index="${productIndex}">View Product</button>
-                    </div>
-                </div>
-                `;
-
-                $el.append(cardHtml); // Append only the specific product card
+    
+                if (!product) {
+                    $el.html(`<p>Product not found in ${category}</p>`);
+                    return;
+                }
+    
+                // Display the selected attribute
+                let content = '';
+                switch (attributeType) {
+                    case 'name':
+                        content = `<h5>${product.name}</h5>`;
+                        break;
+                    case 'price':
+                        content = `<p>$${product.price}</p>`;
+                        break;
+                    case 'description':
+                        content = `<p>${product.description}</p>`;
+                        break;
+                    case 'image':
+                        content = `<img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" alt="${product.name}" style="width:100%;" />`;
+                        break;
+                    default:
+                        content = `<p>Invalid Attribute</p>`;
+                        break;
+                }
+    
+                $el.html(content);
             }
         }
     });
