@@ -80,6 +80,7 @@ export default class ProductApp extends UI {
                 <input id="edit-name" class="swal2-input" value="${product.name}" placeholder="Product Name">
                 <input id="edit-description" class="swal2-input" value="${product.description}" placeholder="Product Description">
                 <input id="edit-category" class="swal2-input" value="${product.category}" placeholder="Product Category">
+                <input id="edit-price" class="swal2-input" value="${product.price}" placeholder="Product Price">
             `,
             showCancelButton: true,
             confirmButtonText: 'Save',
@@ -87,17 +88,19 @@ export default class ProductApp extends UI {
                 return {
                     updatedName: document.getElementById('edit-name').value,
                     updatedDescription: document.getElementById('edit-description').value,
-                    updatedCategory: document.getElementById('edit-category').value
+                    updatedCategory: document.getElementById('edit-category').value,
+                    updatedPrice: document.getElementById('edit-price').value
                 };
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                const { updatedName, updatedDescription, updatedCategory } = result.value;
+                const { updatedName, updatedDescription, updatedCategory, updatedPrice } = result.value;
 
                 // Update product details
                 products[productIndex].name = updatedName;
                 products[productIndex].description = updatedDescription;
                 products[productIndex].category = updatedCategory;
+                products[productIndex].price = updatedPrice;
 
                 // Save updated products to local storage
                 localStorage.setItem('products', JSON.stringify(products));
@@ -167,15 +170,16 @@ export default class ProductApp extends UI {
                                 const name = formData.get('name');
                                 const description = formData.get('description');
                                 const category = formData.get('category');
+                                const price = formData.get('price');
                                 // const file = formData.get('file');
-                                let newProduct = { name: name, description: description, category: category, file: res.id };
+                                let newProduct = { name: name, description: description, category: category, file: res.id, price: price };
                                 products.push(newProduct)
                                 localStorage.setItem('products', JSON.stringify(products));
                             })
                             Swal.fire({
                                 title: "Successful Upload!",
                                 text: `We've uploaded your product successfully. 
-                                 Now, click on the 'view product' button to add to the editor.`,
+                                 Now, click on the 'view products' button to add to the editor.`,
                                 icon: "success"
                             }).then(() => {
                                 // reset form on submit.
@@ -216,12 +220,20 @@ export default class ProductApp extends UI {
                     class="site-screenshot-header header"
                     data-sort="id"
                 >
-                    Product Info
+                    Image
                 </div>
                 <div
                     class="site-info header"
                     data-sort="id"
-                ></div>
+                >
+                Product Info
+                </div>
+                <div
+                    class="site-price header"
+                    data-sort="id"
+                >
+                Price
+                </div>
                 <div
                     class="site-update-time header"
                     data-sort="updated_at"
@@ -268,13 +280,20 @@ export default class ProductApp extends UI {
                         ${product.description}
                     </div>
                 </div>
+                <div class="site-price">
+                    ${product.price}
+                </div>
                 <div class="site-update-time">
-                        ${product.category}
+                    ${product.category}
                 </div>
                 <div class="site-actions">
+                    <h2>
                     <i class="caret-icon fa fa-pencil edit" title="edit" data-id="${i}"></i>
                     <i class="caret-icon fa fa-trash-o delete" title="delete" data-id="${i}"></i>
-                    <button class='add-editor' data-id="${i}">Add product to editor</button>
+                    </h2>
+                    <div class="site-meta">
+                        <button class='add-editor' data-id="${i}">Add product to editor</button>
+                    </div>
                 </div>
             </div>
         </div>  
@@ -319,6 +338,14 @@ export default class ProductApp extends UI {
                 <div class="formbold-form-wrapper">
                     <form id='productForm'>
                             <div class="formbold-mb-5">
+                                <label for="name" class="formbold-form-label">
+                                    Product Name
+                                </label>
+                                <input type="text" name="name" id="name" placeholder="Enter your product's name"
+                                    class="formbold-form-input" />
+                            </div>
+
+                            <div class="formbold-mb-5">
                                 <label for="description" class="formbold-form-label">
                                     Product Description
                                 </label>
@@ -327,10 +354,10 @@ export default class ProductApp extends UI {
                             </div>
 
                             <div class="formbold-mb-5">
-                                <label for="name" class="formbold-form-label">
-                                    Product Name
+                                <label for="price" class="formbold-form-label">
+                                    Product Price
                                 </label>
-                                <input type="text" name="name" id="name" placeholder="Enter your product's name"
+                                <input type="number" name="price" id="description" placeholder="Enter your product's price"
                                     class="formbold-form-input" />
                             </div>
 

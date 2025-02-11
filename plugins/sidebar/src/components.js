@@ -22,6 +22,7 @@ export default (editor, opts = {}) => {
                             { value: 'name', name: 'Product Name' },
                             { value: 'price', name: 'Price' },
                             { value: 'description', name: 'Description' },
+                            { value: 'category', name: 'Category' },
                             { value: 'image', name: 'Image' }
                         ],
                         changeProp: true
@@ -56,6 +57,8 @@ export default (editor, opts = {}) => {
                         return `<p>$${product.price}</p>`;
                     case 'description':
                         return `<p>${product.description}</p>`;
+                    case 'category':
+                        return `<p>${product.category}</p>`;
                     case 'image':
                         return `<img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" alt="${product.name}" style="width:100%;" />`;
                     default:
@@ -96,6 +99,9 @@ export default (editor, opts = {}) => {
                         break;
                     case 'description':
                         content = `<p>${product.description}</p>`;
+                        break;
+                    case 'category':
+                        content = `<p>${product.category}</p>`;
                         break;
                     case 'image':
                         content = `<img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" alt="${product.name}" style="width:100%;" />`;
