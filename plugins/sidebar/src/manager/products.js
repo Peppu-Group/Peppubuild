@@ -27,6 +27,9 @@ export default class ProductApp extends UI {
         // Add new event listener with delete delegation
         $el?.find('#site-list').on('click', '.delete', (e) => this.handleDelete(e));
 
+        // Add new event listener with edit delegation
+        $el?.find('#site-list').on('click', '.edit', (e) => this.handleEdit(e));
+
         // Add new event listener to add product to editor
         $el?.find('#site-list').on('click', '.add-editor', (e) => this.productEditor(e));
     }
@@ -54,13 +57,56 @@ export default class ProductApp extends UI {
     }
 
     handleDelete(e) {
-        const productIndex = e.target.getAttribute('data-id'); 
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-        products.splice(productIndex, 1);
-        localStorage.setItem('products', JSON.stringify(products));
+        if (this.opts.confirmDeleteProject()) {
+            const productIndex = e.target.getAttribute('data-id');
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            products.splice(productIndex, 1);
+            localStorage.setItem('products', JSON.stringify(products));
 
-        // Re-attach event handlers after updating content
-        this.update();
+            // Re-attach event handlers after updating content
+            this.update();
+        }
+    }
+    handleEdit(e) {
+        const productIndex = e.target.getAttribute('data-id');
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        const product = products[productIndex];
+
+        // Show a SweetAlert2 modal with a form to edit the product (without file input)
+        Swal.fire({
+            title: 'Edit Product',
+            html: `
+                <h6>You can't edit your product's image (photo), delete the product instead</h6>
+                <input id="edit-name" class="swal2-input" value="${product.name}" placeholder="Product Name">
+                <input id="edit-description" class="swal2-input" value="${product.description}" placeholder="Product Description">
+                <input id="edit-category" class="swal2-input" value="${product.category}" placeholder="Product Category">
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            preConfirm: () => {
+                return {
+                    updatedName: document.getElementById('edit-name').value,
+                    updatedDescription: document.getElementById('edit-description').value,
+                    updatedCategory: document.getElementById('edit-category').value
+                };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const { updatedName, updatedDescription, updatedCategory } = result.value;
+
+                // Update product details
+                products[productIndex].name = updatedName;
+                products[productIndex].description = updatedDescription;
+                products[productIndex].category = updatedCategory;
+
+                // Save updated products to local storage
+                localStorage.setItem('products', JSON.stringify(products));
+
+                // Force immediate UI update
+                this.$el.find(`#site-list`).html(this.renderProductsInfo());
+                this.update(); // Ensure event handlers remain attached
+            }
+        });
     }
 
     productEditor(e) {
@@ -220,7 +266,7 @@ export default class ProductApp extends UI {
                         ${product.category}
                 </div>
                 <div class="site-actions">
-                    <i class="caret-icon fa fa-pencil edit" title="edit"></i>
+                    <i class="caret-icon fa fa-pencil edit" title="edit" data-id="${i}"></i>
                     <i class="caret-icon fa fa-trash-o delete" title="delete" data-id="${i}"></i>
                     <button class='add-editor' data-id="${i}">Add product to editor</button>
                 </div>

@@ -20,7 +20,7 @@ export default (editor, opts = {}) => {
 
             // Confirm delete project
             confirmDeleteProject() {
-                return confirm('Are you sure to delete this project')
+                return confirm('Are you sure to delete this?')
             },
 
             // Confirm delete page
