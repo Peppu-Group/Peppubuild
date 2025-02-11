@@ -116,6 +116,11 @@ export default class ProductApp extends UI {
             type: 'collection',
             productIndex: productIndex // Render only the product at index 2
         })
+        Swal.fire('Added to Editor', 
+        `Your product has successfully been added to the bottom of the editor, you can drag it to any location of 
+        your choice. The default property added is the name, you can duplicate it and change to image, description,  
+        or price, using the properties tab`, 
+        'success');
         this.update()
     }
 
@@ -169,7 +174,8 @@ export default class ProductApp extends UI {
                             })
                             Swal.fire({
                                 title: "Successful Upload!",
-                                text: "We've uploaded your product successfully.",
+                                text: `We've uploaded your product successfully. 
+                                 Now, click on the 'view product' button to add to the editor.`,
                                 icon: "success"
                             }).then(() => {
                                 // reset form on submit.
