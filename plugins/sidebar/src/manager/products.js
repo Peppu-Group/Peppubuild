@@ -119,89 +119,102 @@ export default class ProductApp extends UI {
             type: 'collection',
             productIndex: productIndex // Render only the product at index 2
         })
-        Swal.fire('Added to Editor', 
-        `Your product has successfully been added to the bottom of the editor, you can drag it to any location of 
+        Swal.fire('Added to Editor',
+            `Your product has successfully been added to the bottom of the editor, you can drag it to any location of 
         your choice. The default property added is the name, you can duplicate it and change to image, description,  
-        or price, using the properties tab`, 
-        'success');
+        or price, using the properties tab`,
+            'success');
         this.update()
     }
 
     handleSave() {
+        ///// Products won't save until added to editor. Trigger save now, on each product add.
         Swal.showLoading();
         const form = document.getElementById('productForm');
 
-        form.addEventListener('submit', async function (e) {
+        // Remove any previous event listeners before adding a new one
+        form.removeEventListener('submit', this.submitHandler);
+
+        // Define and store the event handler to avoid duplicate bindings
+        this.submitHandler = async (e) => {
             e.preventDefault();
             let hasEmptyField = false;
-            // Access the target of the event, which is the form
-            const formData = new FormData(e.target); // Get all form data
-
+            const formData = new FormData(e.target);
             var image = formData.get('file');
-
-            let oauth = localStorage.getItem('oauth')
+            let oauth = localStorage.getItem('oauth');
             const url = `https://photodrive.peppubuild.com/uploadfile/${oauth}`;
 
-            formData.forEach(async (value, key) => {
+            formData.forEach((value) => {
                 if (value === '' || (value && value.name === '')) {
-                    hasEmptyField = true; // Mark that there's an empty field
+                    hasEmptyField = true;
                 }
             });
+
             const imgdata = new FormData();
-            imgdata.append('file', image)
+            imgdata.append('file', image);
+
             if (hasEmptyField) {
                 Swal.fire({
                     title: "Error During Upload!",
-                    text: "One or more information are missing, upload did not complete.",
+                    text: "One or more fields are empty. Upload did not complete.",
                     icon: "error"
-                })
-            } else {
-                // send image using photodrive.
-                try {
-                    await fetch(url, {
-                        signal: AbortSignal.timeout(10000),
-                        method: 'POST',
-                        body: imgdata
-                    }).then((res) => {
-                        if (res.ok) {
-                            res.json().then((res) => {
-                                // save in local storage
-                                let products = JSON.parse(localStorage.getItem('products')) || [];
-                                const name = formData.get('name');
-                                const description = formData.get('description');
-                                const category = formData.get('category');
-                                const price = formData.get('price');
-                                // const file = formData.get('file');
-                                let newProduct = { name: name, description: description, category: category, file: res.id, price: price };
-                                products.push(newProduct)
-                                localStorage.setItem('products', JSON.stringify(products));
-                            })
-                            Swal.fire({
-                                title: "Successful Upload!",
-                                text: `We've uploaded your product successfully. 
-                                 Now, click on the 'view products' button to add to the editor.`,
-                                icon: "success"
-                            }).then(() => {
-                                // reset form on submit.
-                                document.getElementById("productForm").reset();
-                            })
-                        } else {
-                            Swal.fire({
-                                title: "Error During Upload!",
-                                text: "We've encountered an error while uploading your product",
-                                icon: "error"
-                            })
-                        }
-                    })
-                } catch {
+                });
+                return;
+            }
+
+            try {
+                const res = await fetch(url, {
+                    signal: AbortSignal.timeout(10000),
+                    method: 'POST',
+                    body: imgdata
+                });
+
+                if (res.ok) {
+                    const responseData = await res.json();
+                    let products = JSON.parse(localStorage.getItem('products')) || [];
+                    const name = formData.get('name');
+                    const description = formData.get('description');
+                    const category = formData.get('category');
+                    const price = formData.get('price');
+
+                    let newProduct = {
+                        name,
+                        description,
+                        category,
+                        file: responseData.id,
+                        price
+                    };
+
+                    products.push(newProduct);
+                    localStorage.setItem('products', JSON.stringify(products));
+
+                    Swal.fire({
+                        title: "Successful Upload!",
+                        text: `We've uploaded your product successfully. 
+                               Now, click on the 'view products' button to add to the editor.`,
+                        icon: "success"
+                    }).then(() => {
+                        form.reset(); // ✅ Ensure the form resets properly
+                    });
+
+                } else {
                     Swal.fire({
                         title: "Error During Upload!",
                         text: "We've encountered an error while uploading your product",
                         icon: "error"
-                    })
+                    });
                 }
+            } catch {
+                Swal.fire({
+                    title: "Error During Upload!",
+                    text: "We've encountered an error while uploading your product",
+                    icon: "error"
+                });
             }
-        })
+        };
+
+        // Attach the event listener correctly without duplication
+        form.addEventListener('submit', this.submitHandler);
     }
 
     handleThumbnail() {
