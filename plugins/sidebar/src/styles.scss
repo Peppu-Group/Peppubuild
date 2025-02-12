@@ -57,6 +57,9 @@ $mainColor: #34A853;
 
     .table {
         background: rgb(49, 47, 47);
+        width: 100%;
+        /* Ensures the table takes full width */
+        border-collapse: collapse;
     }
 }
 

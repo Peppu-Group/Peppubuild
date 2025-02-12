@@ -223,10 +223,21 @@ export default class ProductApp extends UI {
         if (element) {
             element.remove();
         }
+        if (editor.Modal.isOpen()) {
+            document.addEventListener("DOMContentLoaded", function() {
+                const tableContainer = document.querySelector(".table-container");
+                tableContainer.addEventListener("scroll", function() {
+                    const scrollLeft = tableContainer.scrollLeft;
+                    document.querySelectorAll("th").forEach(th => th.style.transform = `translateX(${scrollLeft}px)`);
+                });
+            });
+            
+        }
     }
 
     renderProducts() {
-        const content = `<div class="table">
+        const content = `<div class="table-container">
+        <div class="table">
         <div class="contents" id="renderproducts">
             <div class="site-wrapper-header">
                 <div
@@ -264,6 +275,7 @@ export default class ProductApp extends UI {
                 ${this.renderProductsInfo()}
             </div>
         </div>
+    </div>
     </div>`;
 
         // Call update after rendering products

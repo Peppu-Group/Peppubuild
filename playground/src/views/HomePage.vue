@@ -153,7 +153,6 @@ export default {
     },
     mounted() {
         // initialize grapesjs
-        console.log(window.ayx)
         if (window.innerWidth <= '1050') {
             alert('Screen too small for Peppubuild, please use a larger screen.')
         }
