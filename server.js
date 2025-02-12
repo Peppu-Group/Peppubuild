@@ -58,7 +58,7 @@ if (!globalThis.fetch) {
   });
   /**
    * app.get('/ai', async (req, res) => {
-    const genAI = new GoogleGenerativeAI("AIzaSyDr8p0ildhc3-_KHqd_RU9oSqrROdKPpOo");
+    const genAI = new GoogleGenerativeAI("");
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = "Explain how AI works";
