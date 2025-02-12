@@ -39,10 +39,6 @@
       color: #34a853
     }
 
-    .app .table {
-      background: rgb(49, 47, 47);
-    }
-
     .app button {
       cursor: pointer;
       background-color: #424242;
@@ -65,6 +61,10 @@
       background: #34a853;
       color: #fff;
       border-color: rgba(0, 0, 0, 0)
+    }
+
+    .app .table {
+      background: #312f2f
     }
 
     .primary-button {
@@ -722,14 +722,14 @@
           'peppu-sidebar': { /* Test here your options  */ }
         },
         canvas: {
-                styles: [
-                    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
-                    "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
-                ],
-                scripts: [
-                    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-                ],
-            }
+          styles: [
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+            "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+          ],
+          scripts: [
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          ],
+        }
       });
       const pn = editor.Panels;
       pn.addButton('views', {
