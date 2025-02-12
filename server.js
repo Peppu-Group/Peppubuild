@@ -7,6 +7,7 @@ exports.__esModule = true;
 exports.startServer = void 0;
 
 // Modules import
+// const { GoogleGenerativeAI } = require("@google/generative-ai");
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -47,9 +48,26 @@ async function startServer() {
 
   app.use(cookieParser())
 
+  // Ensure fetch is available globally:
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch;
+}
+
   process.on('uncaughtException', function (err) {
     console.log('Caught exception: ', err);
   });
+  /**
+   * app.get('/ai', async (req, res) => {
+    const genAI = new GoogleGenerativeAI("AIzaSyDr8p0ildhc3-_KHqd_RU9oSqrROdKPpOo");
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = "Explain how AI works";
+
+    const result = await model.generateContent(prompt);
+    res.send(result.response.text())
+   })
+   */
+   
   /**
    * This function retrieves the gjs JSON content, which forms our website page, from Google's Drive (appDataFolder).
    * @module getContent()

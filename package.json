@@ -11,6 +11,7 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "basic-ftp": "^5.0.5",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
@@ -34,7 +35,8 @@
     "replace-in-file": "^7.0.1",
     "serverless-http": "^3.2.0",
     "stream": "^0.0.2",
-    "tmp": "^0.2.3"
+    "tmp": "^0.2.3",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "release-it": "^16.3.0"

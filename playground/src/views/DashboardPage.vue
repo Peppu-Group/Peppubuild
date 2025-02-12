@@ -259,7 +259,7 @@ export default {
           res.json().then((response) => {
             localStorage.setItem('projectTitle', response.title)
             localStorage.setItem('published', response.published)
-            localStorage.setItem('products', response.products)
+            localStorage.setItem('products', response.products || '[]')
             localStorage.setItem('gjsProject', JSON.stringify(response.project));
             Swal.close();
             // add publishfront to actually create project
