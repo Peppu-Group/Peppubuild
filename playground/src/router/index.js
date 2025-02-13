@@ -3,7 +3,6 @@ import { createWebHistory, createRouter } from 'vue-router'
 import SideBar from '@/components/SideBar.vue'
 
 import HomePage from '../views/HomePage.vue'
-import LogPage from '../views/LogPage.vue'
 import AuthPage from '../views/AuthPage.vue'
 import DashboardPage from '../views/DashboardPage.vue'
 import TemplatesPage from '../views/TemplatesPage.vue'
@@ -32,10 +31,6 @@ const routes = [
             } else 
                 next()
         },
-    },
-    {
-        path: '/dashboard/overview',
-        component: LogPage
     },
     {
         path: '/auth',
