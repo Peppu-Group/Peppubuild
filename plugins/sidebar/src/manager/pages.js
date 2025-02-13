@@ -167,6 +167,7 @@ export default class PagesApp extends UI {
 
                 <head>
                     <title>${localStorage.getItem("projectTitle") ?? 'Peppubuild - Project'}</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css" rel="stylesheet">
                     <link href="https://unpkg.com/pepputoken/dist/index.min.css" rel="stylesheet">
