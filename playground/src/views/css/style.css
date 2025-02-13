@@ -159,7 +159,6 @@ auth starts here
     box-shadow: 0 0 50px rgb(225, 215, 215);
     border-radius: 20px;
     padding: 40px;
-    overflow: hidden;
     margin: 0 1rem;
 }
 .walltext {
@@ -610,11 +609,6 @@ img:hover {
 Grapes
 ################
 */
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
   .sidenav {
     position: fixed;
     top: 0;
