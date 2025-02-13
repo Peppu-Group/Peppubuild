@@ -117,7 +117,7 @@ export default class ProductApp extends UI {
         const productIndex = e.target.getAttribute('data-id');
         editor.addComponents({
             type: 'collection',
-            productIndex: productIndex // Render only the product at index 2
+            productIndex: productIndex // Render only the product at index
         })
         Swal.fire('Added to Editor',
             `Your product has successfully been added to the bottom of the editor, you can drag it to any location of 
@@ -222,16 +222,6 @@ export default class ProductApp extends UI {
         const element = document.getElementById("productForm");
         if (element) {
             element.remove();
-        }
-        if (editor.Modal.isOpen()) {
-            document.addEventListener("DOMContentLoaded", function() {
-                const tableContainer = document.querySelector(".table-container");
-                tableContainer.addEventListener("scroll", function() {
-                    const scrollLeft = tableContainer.scrollLeft;
-                    document.querySelectorAll("th").forEach(th => th.style.transform = `translateX(${scrollLeft}px)`);
-                });
-            });
-            
         }
     }
 

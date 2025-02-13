@@ -45,11 +45,12 @@ export default (editor, opts = {}) => {
             toHTML() {
                 const attributeType = this.get('attributeType');
                 const currency = this.get('currency') || 'USD';
+                const productIndex = this.get('productIndex');
                 const symbol = currencySymbols[currency] || '$';
 
                 // Get products from localStorage
                 const products = JSON.parse(localStorage.getItem('products')) || [];
-                const product = products[0]; // Default to first product
+                const product = products[productIndex]; // Default to first product
 
                 if (!product) {
                     return `<p>Product not found</p>`;
@@ -80,11 +81,12 @@ export default (editor, opts = {}) => {
                 const { model, $el } = this;
                 const attributeType = model.get('attributeType');
                 const currency = model.get('currency') || 'USD';
+                const productIndex = model.get('productIndex');
                 const symbol = currencySymbols[currency] || '$';
 
                 // Get products from localStorage
                 const products = JSON.parse(localStorage.getItem('products')) || [];
-                const product = products[0]; // Default to first product
+                const product = products[productIndex]; // Default to first product
 
                 if (!product) {
                     $el.html(`<p>Product not found</p>`);

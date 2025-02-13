@@ -162,7 +162,12 @@ $mainColor: #34A853;
     padding-left: 20px;
     font-size: 14px;
     transition: .3s;
+    color: #fff;
 }
+
+.site-wrapper-header .header {
+    color: white;
+  }
 
 .site-wrapper.selected, .project {
     border: 2px solid $mainColor;
