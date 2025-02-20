@@ -2,98 +2,99 @@ import { PagesApp, SettingsApp, ProductApp } from './manager';
 import commands from './commands';
 import loadComponents from './components';
 import en from './locale/en';
+import Swal from 'sweetalert2';
 
 export default (editor, opts = {}) => {
-    const options = {
-        ...{
-            // default options
-            // Allow migration of projects using deprecated storage prefix
-            legacyPrefix: '',
-            // Database name
-            dbName: 'gjs',
+  const options = {
+    ...{
+      // default options
+      // Allow migration of projects using deprecated storage prefix
+      legacyPrefix: '',
+      // Database name
+      dbName: 'gjs',
 
-            // Collection name
-            objectStoreName: 'projects',
+      // Collection name
+      objectStoreName: 'projects',
 
-            // Load first template in storage
-            loadFirst: true,
+      // Load first template in storage
+      loadFirst: true,
 
-            // Confirm delete project
-            confirmDeleteProject() {
-                return confirm('Are you sure to delete this?')
-            },
+      // Confirm delete project
+      confirmDeleteProject() {
+        return confirm('Are you sure to delete this?')
+      },
 
-            // Confirm delete page
-            confirmDeletePage() {
-                return confirm('Are you sure to delete this page')
-            },
+      // Confirm delete page
+      confirmDeletePage() {
+        return confirm('Are you sure to delete this page')
+      },
 
-            // When template or page is deleted
-            onDelete(res) {
-                console.log('Deleted:', res)
-            },
+      // When template or page is deleted
+      onDelete(res) {
+        console.log('Deleted:', res)
+      },
 
-            // Handle promise from delete
-            onDeleteAsync(del) {
-                return del;
-            },
-            bgColor: {
-                one: '#fff',
-                two: '#000000',
-                three: '#1df205',
-                four: '#1df205'
-            },
-            url: 'https://www.peppubuild.com',
-            // default options
-            i18n: {},
-        },
-        ...opts,
-    };
+      // Handle promise from delete
+      onDeleteAsync(del) {
+        return del;
+      },
+      bgColor: {
+        one: '#fff',
+        two: '#000000',
+        three: '#1df205',
+        four: '#1df205'
+      },
+      url: 'https://www.peppubuild.com',
+      // default options
+      i18n: {},
+    },
+    ...opts,
+  };
 
-    editor.I18n.addMessages({
-        en,
-        ...options.i18n,
-    });
+  editor.I18n.addMessages({
+    en,
+    ...options.i18n,
+  });
 
-    // Add components
-    loadComponents(editor, options);
+  // Add components
+  loadComponents(editor, options);
 
 
-    editor.Panels.addButton('options', [
-        {
-            id: 'undo',
-            label: `<svg viewBox="0 0 24 24">
+  editor.Panels.addButton('options', [
+    {
+      id: 'undo',
+      label: `<svg viewBox="0 0 24 24">
         <path fill="currentColor" d="M20 13.5C20 17.09 17.09 20 13.5 20H6V18H13.5C16 18 18 16 18 13.5S16 9 13.5 9H7.83L10.91 12.09L9.5 13.5L4 8L9.5 2.5L10.92 3.91L7.83 7H13.5C17.09 7 20 9.91 20 13.5Z" />
     </svg>`,
-            active: false,
-            command: () => editor.runCommand('core:undo'),
-        }
-    ])
+      active: false,
+      command: () => editor.runCommand('core:undo'),
+    }
+  ])
 
-    editor.Panels.addButton('options', [
-        {
-            id: 'core:canvas-clear',
-            active: false,
-            command: () => editor.runCommand('core:canvas-clear'),
-            label: `<svg viewBox="0 0 24 24">
+  editor.Panels.addButton('options', [
+    {
+      id: 'core:canvas-clear',
+      active: false,
+      command: () => editor.runCommand('core:canvas-clear'),
+      label: `<svg viewBox="0 0 24 24">
         <path fill="currentColor" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
       </svg>`,
-        }
-    ])
+    }
+  ])
 
-    /*
-    editor.Panels.addButton('views',
-      {
-        id: 'publish',
-        className: 'fa fa-upload',
-        active: false,
-        command: 'peppu:publish'
-      }
-    )
-    */
+  /*
+  editor.Panels.addButton('views',
+    {
+      id: 'publish',
+      className: 'fa fa-upload',
+      active: false,
+      command: 'peppu:publish'
+    }
+  )
+  */
 
-    // option value for CSS values
-    let cssString = `
+  // option value for CSS values
+  let cssString = `
   .gjs-one-bg {
     background-color: ${options.bgColor.one};
     ;
@@ -147,29 +148,63 @@ export default (editor, opts = {}) => {
   }
   `;
 
-    // Append css styles to html
-    const style = document.createElement('style');
-    style.innerText = cssString;
-    document.head.appendChild(style);
+  // Append css styles to html
+  const style = document.createElement('style');
+  style.innerText = cssString;
+  document.head.appendChild(style);
 
-    // Init and add dashboard object to editor
-    editor.PagesApp = new PagesApp(editor, options);
-    editor.SettingsApp = new SettingsApp(editor, options);
-    editor.ProductApp = new ProductApp(editor, options)
+  // Init and add dashboard object to editor
+  editor.PagesApp = new PagesApp(editor, options);
+  editor.SettingsApp = new SettingsApp(editor, options);
+  editor.ProductApp = new ProductApp(editor, options)
 
-    // Load commands
-    commands(editor, options);
+  // Load commands
+  commands(editor, options);
 
-    const cm = editor.Commands;
+  const cm = editor.Commands;
 
-    // Load page with index zero
-    editor.on('load', async () => {
-        // location.reload();  
+  // Load page with index zero
+  editor.on('load', async () => {
+    editor.Panels.addPanel({
+      id: 'my-sidebar',
+      el: '.gjs-pn-views',
+      content: `
+            <div style="padding: 10px; text-align: center;">
+                <h4>Peppubuild AI</h4>
+                <p>Build with our AI Prompt</p>
+                <button id="my-button">Click Me</button>
+            </div>
+        `
     });
+    setTimeout(() => {
+      document.getElementById('my-button').addEventListener('click', () => {
+        let userReq = prompt('what can I build for you today?')
+        if (userReq) {
+          Swal.showLoading();
+        try {
+            fetch(`http://localhost:1404/promptai`, {
+                method: "POST", // or 'PUT'
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ userReq: userReq }),
+            }).then((response) => {
+                if (response.ok) {
+                  response.json().then(res => {
+                    editor.setComponents(res.html);
+                    editor.setStyle(res.css);
+                    swal("Successful!", `${res.instructions}`, "success");
+                  })
+                }
+            })
+        } catch { swal("Error", "An error occurred", "error") }}
+      });
+    }, 1000);
+  });
 
-    editor.on('update', async () => {
-      // run if command to ensure user is logged in. Else, navigate to home page.
-      // run save on each change.
-      new PagesApp(editor).saveProject()
-    });
+  editor.on('update', async () => {
+    // run if command to ensure user is logged in. Else, navigate to home page.
+    // run save on each change.
+    new PagesApp(editor).saveProject()
+  });
 };

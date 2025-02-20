@@ -7,7 +7,7 @@ exports.__esModule = true;
 exports.startServer = void 0;
 
 // Modules import
-// const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -49,16 +49,16 @@ async function startServer() {
   app.use(cookieParser())
 
   // Ensure fetch is available globally:
-if (!globalThis.fetch) {
-  globalThis.fetch = fetch;
-}
+  if (!globalThis.fetch) {
+    globalThis.fetch = fetch;
+  }
 
   process.on('uncaughtException', function (err) {
     console.log('Caught exception: ', err);
   });
-  /**
-   * app.get('/ai', async (req, res) => {
-    const genAI = new GoogleGenerativeAI("");
+  /** 
+   app.get('/ai', async (req, res) => {
+    const genAI = new GoogleGenerativeAI("AIzaSyDr8p0ildhc3-_KHqd_RU9oSqrROdKPpOo");
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = "Explain how AI works";
@@ -66,9 +66,85 @@ if (!globalThis.fetch) {
     const result = await model.generateContent(prompt);
     res.send(result.response.text())
    })
-   */
-   
+  */
+  function escapeHtml(unsafe) {
+    return unsafe
+      .replace(/&/g, "&")
+      .replace(/</g, "<")
+      .replace(/>/g, ">")
+      .replace(/'/g, "'")
+  }
+
+  app.post('/promptai', async (req, res) => {
+    let userReq = req.body.userReq;
+    // let userReq = "I want a portfolio website's home page"
+    try {
+      const genAI = new GoogleGenerativeAI('AIzaSyDr8p0ildhc3-_KHqd_RU9oSqrROdKPpOo'); // Make sure you have GOOGLE_API_KEY environment variable set
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      const prompt = `
+        You are a professional web developer AI assistant.  Your primary goal is to generate clean, well-structured HTML and CSS code for web development tasks.
+  
+        Given the following request, provide separate HTML and CSS code blocks.  Clearly label each block as "HTML Code" or "CSS Code". Always build with Bootstrap.
+  
+        Request: ${userReq}
+  
+        Ensure the HTML and CSS are well-formatted, readable, and use modern best practices. Use comments where appropriate to explain the code. Prioritize a mobile-first approach to CSS.
+      `;
+
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text();
+
+      // console.log("Full AI Response:\n", responseText); // *** IMPORTANT: Log the response! ***
+
+      // --- Extraction Regexes ---
+      const htmlRegex = /```html([\s\S]*?)```/;
+      const cssRegex = /```css([\s\S]*?)```/;
+
+      // --- Extract Code and Instructions ---
+      const htmlMatch = responseText.match(htmlRegex);
+      const cssMatch = responseText.match(cssRegex);
+
+      const nonCodeRegex = /([\s\S]*?)(?:```[\s\S]*?```|$)/g;
+
+      const extractNonCodeText = (responseText) => {
+        return [...responseText.matchAll(nonCodeRegex)]
+          .map(match => match[1].trim())  // Extract only the first capture group
+          .filter(text => text.length > 0) // Remove empty results
+          .join("\n\n");  // Preserve paragraph structure
+      };
+
+      // console.log(nonCodeText);
+
+      const htmlCode = htmlMatch ? htmlMatch[1].trim() : "<!-- No HTML Code Found -->";
+      const cssCode = cssMatch ? cssMatch[1].trim() : "/*No CSS code*/";
+
+      // --- Response Formatting ---
+      let responseHTML = "";
+      /* 
+      responseHTML += `
+      <h2>HTML Code:</h2>
+      <pre><code class="language-html">${escapeHtml(htmlCode)}</code></pre>
+      <hr>
+      <h2>CSS Code:</h2>
+      <pre><code class="language-css">${escapeHtml(cssCode)}</code></pre>
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script>
+    `;
+    */
+
+      res.send({html: escapeHtml(htmlCode), css: escapeHtml(cssCode), instructions: extractNonCodeText(responseText)});
+
+    } catch (error) {
+      console.error("Error generating content:", error);
+      res.status(500).send("An error occurred while generating the content.");
+    }
+  });
+
   /**
+   *
    * This function retrieves the gjs JSON content, which forms our website page, from Google's Drive (appDataFolder).
    * @module getContent()
    * With our fileID, we can easily retrieve file and return its content.
@@ -396,7 +472,7 @@ if (!globalThis.fetch) {
   */
   app.get('/projects/:token/:filetype', (req, res) => {
     let accessToken = req.params.token;
-    let fileType =  req.params.filetype;
+    let fileType = req.params.filetype;
     listFiles(accessToken, fileType).then((response) => {
       res.send(response)
     })
