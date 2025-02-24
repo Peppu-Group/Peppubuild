@@ -3,6 +3,8 @@ import commands from './commands';
 import loadComponents from './components';
 import en from './locale/en';
 import Swal from 'sweetalert2';
+import swal from 'sweetalert';
+
 
 export default (editor, opts = {}) => {
   const options = {
@@ -169,35 +171,55 @@ export default (editor, opts = {}) => {
       id: 'my-sidebar',
       el: '.gjs-pn-views',
       content: `
-            <div style="padding: 10px; text-align: center;">
+            <div style="position: fixed; bottom: 0; padding: 10px; text-align: center; left: 88%; ">
                 <h4>Peppubuild AI</h4>
                 <p>Build with our AI Prompt</p>
-                <button id="my-button">Click Me</button>
+                <button type="button" class="btn btn-primary" id="my-button">Click Me</button>
             </div>
         `
     });
     setTimeout(() => {
-      document.getElementById('my-button').addEventListener('click', () => {
-        let userReq = prompt('what can I build for you today?')
-        if (userReq) {
-          Swal.showLoading();
-        try {
+      document.getElementById('my-button').addEventListener('click', async () => {
+
+        swal({
+          title: `Build with Peppubuild's AI`,
+          text: 'What can I build for you today?',
+          content: "input",
+          button: {
+            text: "Send!",
+            closeModal: false,
+          },
+        })
+        .then(userReq => {
+          if (!userReq) {
+            return swal("You need to input something!");
+          }
+          try {
             fetch(`http://localhost:1404/promptai`, {
-                method: "POST", // or 'PUT'
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userReq: userReq }),
+              method: "POST", // or 'PUT'
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userReq: userReq }),
             }).then((response) => {
-                if (response.ok) {
-                  response.json().then(res => {
-                    editor.setComponents(res.html);
-                    editor.setStyle(res.css);
-                    swal("Successful!", `${res.instructions}`, "success");
-                  })
-                }
+              if (response.ok) {
+                response.json().then(res => {
+                  editor.setComponents(res.html);
+                  editor.setStyle(res.css);
+                  swal("Successful!", `${res.instructions}`, "success");
+                })
+              }
             })
-        } catch { swal("Error", "An error occurred", "error") }}
+          } catch { swal("Error", "An error occurred", "error") }
+        })
+        .catch(err => {
+          if (err) {
+            swal("Oh noes!", "An Error Occurred!", "error");
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
+        });      
       });
     }, 1000);
   });
