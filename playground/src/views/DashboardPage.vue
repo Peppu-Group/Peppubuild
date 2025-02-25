@@ -21,30 +21,31 @@
           </section-one>
           <div>
             <div id="i2sw">Bootstrap your UI with Peppubuild</div>
-              <div class="container row">
-                <div class="col">
-                  <button class="btn btn-outline-primary"><i class="bi bi-stars h2"></i>
-                    Build with AI</button>
-                </div>
-                <div class="col">
-                  <button class="btn btn-outline-success"><i class="bi bi-columns-gap h2"></i>
-                    Start from a Template</button>
-                </div>
-                <div class="col" @click="emptyProject()">
-                  <button class="btn btn-outline-danger"><i class="bi bi-columns h2"></i>
-                    Start from Scratch</button>
-                </div>
+            <div class="container row">
+              <div class="col">
+                <button class="btn btn-outline-primary"><i class="bi bi-stars h2"></i>
+                  Build with AI</button>
               </div>
-              <div class="one-container">
-                <p class="one-child">With Peppubuild, you can build your own online store faster, gain more traction,
-                  and sell on Whatsapp/Instagram</p>
-                <button class="btn btn-warning"><i class="bi bi-shop h1"></i>
-                  Build an Online Store</button>
+              <div class="col" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#templateModal">
+                <button class="btn btn-outline-success"><i class="bi bi-columns-gap h2"></i>
+                  Start from a Template</button>
               </div>
-              <div>
+              <div class="col" @click="emptyProject()">
+                <button class="btn btn-outline-danger"><i class="bi bi-columns h2"></i>
+                  Start from Scratch</button>
               </div>
             </div>
-          
+            <div class="one-container">
+              <div id="i2sw">Build an online store with Peppubuild</div>
+              <p class="one-child">With Peppubuild, you can build your own online store faster, gain more traction,
+                and sell on Whatsapp/Instagram</p>
+              <button class="btn btn-warning"><i class="bi bi-shop h1"></i>
+                Build an Online Store</button>
+            </div>
+            <div>
+            </div>
+          </div>
+
           <section-one>
             <div id="inyx">
               <div class="action_btn">
@@ -308,26 +309,41 @@ export default {
     async openWorkspace(id, value) {
       id = id || 0;
       value = value || 0;
-      let name = prompt('What will you like to name your project?');
-      if (name) {
-        if (id == 0) {
-          this.publishFront(JSON.stringify(value), name);
-        } else if (value == 0) {
-          let url = `${serverUrl}/project/${id}`
-          let accessToken = localStorage.getItem('oauth')
-          await fetch(url, {
-            method: 'POST',
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ accessToken: accessToken }),
-          }).then((res) => {
-            res.json().then((response) => {
-              this.publishFront(JSON.stringify(response.project), name);
-            })
-          })
-        }
-      }
+      swal({
+        title: `Build with Template`,
+        text: 'What will you like to name your project?',
+        content: "input",
+        button: {
+          text: "Create!",
+          closeModal: false,
+        },
+      })
+        .then(async name => {
+          if (!name) {
+            return swal("You need to input something!");
+          }
+          try {
+            if (id == 0) {
+              this.publishFront(JSON.stringify(value), name);
+            } else if (value == 0) {
+              let url = `${serverUrl}/project/${id}`
+              let accessToken = localStorage.getItem('oauth')
+              await fetch(url, {
+                method: 'POST',
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ accessToken: accessToken }),
+              }).then((res) => {
+                res.json().then((response) => {
+                  this.publishFront(JSON.stringify(response.project), name);
+                })
+              })
+            }
+          } catch {
+            return swal("An error occurred");
+          }
+        })
       // get content.
       // set the value of gjsProject.
     },
@@ -366,7 +382,6 @@ export default {
       let title = 'Peppubuild - Project';
       let url = `${serverUrl}/publishfront/${name}`;
       let products = [];
-      Swal.showLoading();
       await fetch(url, {
         method: 'POST',
         headers: {
@@ -397,10 +412,25 @@ export default {
     },
     async emptyProject() {
       let gjsProject = '{}';
-      let name = prompt('What will you like to name your project?');
-      if (name) {
-        this.publishFront(gjsProject, name);
-      }
+      swal({
+        title: `Build from Scratch`,
+        text: 'What will you like to name your project?',
+        content: "input",
+        button: {
+          text: "Create!",
+          closeModal: false,
+        },
+      })
+        .then(name => {
+          if (!name) {
+            return swal("You need to input something!");
+          }
+          try {
+            this.publishFront(gjsProject, name);
+          } catch {
+            return swal("An error occurred");
+          }
+        })
     },
     /**
       * The templateProject() function, allows you to create a project from a template.
