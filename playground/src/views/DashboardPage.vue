@@ -18,6 +18,34 @@
                 </p>
               </div>
             </div>
+          </section-one>
+          <div>
+            <div id="i2sw">Bootstrap your UI with Peppubuild</div>
+              <div class="container row">
+                <div class="col">
+                  <button class="btn btn-outline-primary"><i class="bi bi-stars h2"></i>
+                    Build with AI</button>
+                </div>
+                <div class="col">
+                  <button class="btn btn-outline-success"><i class="bi bi-columns-gap h2"></i>
+                    Start from a Template</button>
+                </div>
+                <div class="col" @click="emptyProject()">
+                  <button class="btn btn-outline-danger"><i class="bi bi-columns h2"></i>
+                    Start from Scratch</button>
+                </div>
+              </div>
+              <div class="one-container">
+                <p class="one-child">With Peppubuild, you can build your own online store faster, gain more traction,
+                  and sell on Whatsapp/Instagram</p>
+                <button class="btn btn-warning"><i class="bi bi-shop h1"></i>
+                  Build an Online Store</button>
+              </div>
+              <div>
+              </div>
+            </div>
+          
+          <section-one>
             <div id="inyx">
               <div class="action_btn">
                 <h2>Projects</h2>
@@ -167,6 +195,7 @@ import templatesData from '../assets/templates.json';
 // this works with the template method, where id is template name
 
 const serverUrl = 'https://server.peppubuild.com';
+
 export default {
   name: 'DashboardPage',
   components: { SideBar },
@@ -176,6 +205,14 @@ export default {
     * This returns and displays all projects.
   */
   async mounted() {
+    this.userName = JSON.parse(localStorage.getItem('user')).displayName;
+    swal("Your Friendly Navigator!", `Hello ${this.userName}, Let's help you navigate Peppubuild`, "info")
+      .then(() => {
+        swal("Why Peppubuild?", `Peppubuild is a no-code tool that allows you build websites and online stores without writing any code`, "info")
+          .then(() => {
+            swal("How to Guide?", `${this.userName}, We're committed to see you build, choose from template, build from scratch, or use or AI prompt`, "info")
+          })
+      })
     this.getFiles('project');
     this.getFiles('template');
     let json = templatesData;
@@ -190,7 +227,8 @@ export default {
   data() {
     return {
       projects: null,
-      templates: []
+      templates: [],
+      userName: '',
     };
   },
 
@@ -243,30 +281,30 @@ export default {
     /**
       * The projectWorkspace() function, loads our editor with the current project.
     */
-   async projectWorkspace(id, name) {
-        Swal.showLoading();
-        let url = `${serverUrl}/project/${id}`
-        localStorage.setItem('projectId', id);
-        localStorage.setItem('projectName', name);
-        let accessToken = localStorage.getItem('oauth')
-        await fetch(url, {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ accessToken: accessToken }),
-        }).then((res) => {
-          res.json().then((response) => {
-            localStorage.setItem('projectTitle', response.title)
-            localStorage.setItem('published', response.published)
-            localStorage.setItem('products', JSON.stringify(response.products) || '[]')
-            localStorage.setItem('gjsProject', JSON.stringify(response.project));
-            Swal.close();
-            // add publishfront to actually create project
-            this.$router.push({ name: "Home", params: { id } });
-          })
+    async projectWorkspace(id, name) {
+      Swal.showLoading();
+      let url = `${serverUrl}/project/${id}`
+      localStorage.setItem('projectId', id);
+      localStorage.setItem('projectName', name);
+      let accessToken = localStorage.getItem('oauth')
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken: accessToken }),
+      }).then((res) => {
+        res.json().then((response) => {
+          localStorage.setItem('projectTitle', response.title)
+          localStorage.setItem('published', response.published)
+          localStorage.setItem('products', JSON.stringify(response.products) || '[]')
+          localStorage.setItem('gjsProject', JSON.stringify(response.project));
+          Swal.close();
+          // add publishfront to actually create project
+          this.$router.push({ name: "Home", params: { id } });
         })
-   },
+      })
+    },
     async openWorkspace(id, value) {
       id = id || 0;
       value = value || 0;
@@ -274,21 +312,21 @@ export default {
       if (name) {
         if (id == 0) {
           this.publishFront(JSON.stringify(value), name);
-      } else if (value == 0) {
-        let url = `${serverUrl}/project/${id}`
-        let accessToken = localStorage.getItem('oauth')
-        await fetch(url, {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ accessToken: accessToken }),
-        }).then((res) => {
-          res.json().then((response) => {
-            this.publishFront(JSON.stringify(response.project), name);
+        } else if (value == 0) {
+          let url = `${serverUrl}/project/${id}`
+          let accessToken = localStorage.getItem('oauth')
+          await fetch(url, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ accessToken: accessToken }),
+          }).then((res) => {
+            res.json().then((response) => {
+              this.publishFront(JSON.stringify(response.project), name);
+            })
           })
-        })
-      }
+        }
       }
       // get content.
       // set the value of gjsProject.
@@ -322,40 +360,40 @@ export default {
       * The emptyProject() function, allows you to create an empty project.
     */
     async publishFront(gjsProject, name) {
-        localStorage.setItem('projectName', name);
-        let accessToken = localStorage.getItem('oauth');
-        let published = 'No';
-        let title = 'Peppubuild - Project';
-        let url = `${serverUrl}/publishfront/${name}`;
-        let products = [];
-        Swal.showLoading();
-        await fetch(url, {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken, title: title, products: products, published: published }),
-        }).then((res) => {
-          res.json().then((response) => {
-            if (res.status == 200) {
-              Swal.close();
-              let id = response.id
-              localStorage.setItem('projectId', id);
-              localStorage.setItem('gjsProject', gjsProject);
-              localStorage.setItem('published', published);
-              localStorage.setItem('projectTitle', title);
-              localStorage.setItem('products', products);
-              this.$router.push({ name: "Home", params: { id } });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: response.error,
-                footer: '<a href="https://www.docs.peppubuild.com">Why do I have this issue?</a>'
-              });
-            }
-          })
+      localStorage.setItem('projectName', name);
+      let accessToken = localStorage.getItem('oauth');
+      let published = 'No';
+      let title = 'Peppubuild - Project';
+      let url = `${serverUrl}/publishfront/${name}`;
+      let products = [];
+      Swal.showLoading();
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken, title: title, products: products, published: published }),
+      }).then((res) => {
+        res.json().then((response) => {
+          if (res.status == 200) {
+            Swal.close();
+            let id = response.id
+            localStorage.setItem('projectId', id);
+            localStorage.setItem('gjsProject', gjsProject);
+            localStorage.setItem('published', published);
+            localStorage.setItem('projectTitle', title);
+            localStorage.setItem('products', products);
+            this.$router.push({ name: "Home", params: { id } });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: response.error,
+              footer: '<a href="https://www.docs.peppubuild.com">Why do I have this issue?</a>'
+            });
+          }
         })
+      })
     },
     async emptyProject() {
       let gjsProject = '{}';

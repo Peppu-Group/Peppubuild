@@ -125,6 +125,8 @@ import { grapesjs } from 'grapesjs'
 import grapesjsIcons from 'grapesjs-icons';
 import { userAuth } from './js/firebase.js';
 import Swal from 'sweetalert2';
+import swal from 'sweetalert';
+
 const serverUrl = 'https://server.peppubuild.com';
 
 // var idx = 0;
@@ -148,10 +150,12 @@ export default {
         return {
             edit: [],
             peppuMethods: "",
-            symbols: []
+            symbols: [],
+            userName: '',
         }
     },
     mounted() {
+        this.userName = JSON.parse(localStorage.getItem('user')).displayName;
         // initialize grapesjs
         if (window.innerWidth <= '1050') {
             alert('Screen too small for Peppubuild, please use a larger screen.')
@@ -421,65 +425,78 @@ export default {
                 ],
             }
         });
+        swal("Tour Guide", `${this.userName}, the right panel contains top icons for blocks and style manager. The bottom of the right panel contains the build with AI assistant button.`, "info")
+            .then(() => {
+                swal("Tour Guide", `The left panel allows you to view layers of divs in the editor, properties, and add symbols.`, "info")
+                    .then(() => {
+                        swal("Tour Guide", `The icons in the far right allows you to view your web page in different web pages.`, "info")
+                            .then(() => {
+                                swal("Tour Guide", `The center plus icon, written 'Pages' allows you to manage your website, add new pages, add products, and meta data`, "info")
+                                    .then(() => {
+                                        swal("The End!", `${this.userName}, please watch the video resources in your dashboard or send us a mail if you need more help`, "info")
+                                    })
+                            })
+                    })
+            })
         editor.on('block:drag:stop', async (model) => {
             await this.checkState();
             model.addAttributes({ id: this.randomID() });
         })
         editor.on('load', () => {
-    const traitManager = editor.TraitManager;
+            const traitManager = editor.TraitManager;
 
-    // Extend Trait Manager with a custom button type
-    traitManager.addType('custom-button', {
-        createInput({ trait }) {
-            const el = document.createElement('button');
-            el.innerHTML = trait.get('label') || 'Click me';
-            el.style.padding = '5px 10px';
-            el.style.border = '1px solid #ccc';
-            el.style.background = '#f5f5f5';
-            el.style.cursor = 'pointer';
+            // Extend Trait Manager with a custom button type
+            traitManager.addType('custom-button', {
+                createInput({ trait }) {
+                    const el = document.createElement('button');
+                    el.innerHTML = trait.get('label') || 'Click me';
+                    el.style.padding = '5px 10px';
+                    el.style.border = '1px solid #ccc';
+                    el.style.background = '#f5f5f5';
+                    el.style.cursor = 'pointer';
 
-            el.onclick = () => {
-                const selected = editor.getSelected();
-                if (!selected) {
-                    alert('Please select an element first.');
-                    return;
+                    el.onclick = () => {
+                        const selected = editor.getSelected();
+                        if (!selected) {
+                            alert('Please select an element first.');
+                            return;
+                        }
+
+                        const attrName = prompt('Enter attribute name:');
+                        if (!attrName) return;
+
+                        const attrValue = prompt(`Enter value for "${attrName}":`);
+                        if (attrValue === null) return;
+
+                        selected.addAttributes({ [attrName]: attrValue });
+
+                        // Add the new attribute as an editable trait
+                        selected.get('traits').add({
+                            type: 'text',
+                            name: attrName,
+                            label: attrName,
+                        });
+
+                        editor.TraitManager.render(); // Refresh the traits panel
+                    };
+
+                    return el;
                 }
-
-                const attrName = prompt('Enter attribute name:');
-                if (!attrName) return;
-
-                const attrValue = prompt(`Enter value for "${attrName}":`);
-                if (attrValue === null) return;
-
-                selected.addAttributes({ [attrName]: attrValue });
-
-                // Add the new attribute as an editable trait
-                selected.get('traits').add({
-                    type: 'text',
-                    name: attrName,
-                    label: attrName,
-                });
-
-                editor.TraitManager.render(); // Refresh the traits panel
-            };
-
-            return el;
-        }
-    });
-
-    // Enable the custom trait for all components
-    editor.on('component:selected', (model) => {
-        if (!model.get('traits').find(trait => trait.get('type') === 'custom-button')) {
-            model.get('traits').add({
-                type: 'custom-button',
-                label: 'Add Attribute',
-                full: true
             });
 
-            editor.TraitManager.render();
-        }
-    });
-});
+            // Enable the custom trait for all components
+            editor.on('component:selected', (model) => {
+                if (!model.get('traits').find(trait => trait.get('type') === 'custom-button')) {
+                    model.get('traits').add({
+                        type: 'custom-button',
+                        label: 'Add Attribute',
+                        full: true
+                    });
+
+                    editor.TraitManager.render();
+                }
+            });
+        });
 
 
 
