@@ -1,13 +1,18 @@
 {
   "name": "pepputoken",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Every website created with Peppubuild, contains a `<pepputoken> script and an ai token`. This is necessary to determine the payment status of the user and determine which ui buttons to disable.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx esbuild index.js --bundle --platform=node --outfile=dist/index.min.js && npx terser dist/index.min.js --compress --mangle --output dist/index.min.js",
     "build:css": "sass built.scss dist/index.min.css --style compressed"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jspdf": "^3.0.0",
+    "sweetalert": "^2.1.2"
+  }
 }
