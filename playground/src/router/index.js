@@ -8,6 +8,7 @@ import DashboardPage from '../views/DashboardPage.vue'
 import TemplatesPage from '../views/TemplatesPage.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import CallBack from '../views/CallBack.vue'
+import ShopPage from '../views/ShopPage.vue'
 
 const routes = [
     {
@@ -27,6 +28,19 @@ const routes = [
             if (from.name == 'Home' && from.path != `/${localStorage.getItem('projectId')}`) {
                 next({ name:'NotFound' })
             } else if (to.name == 'Home' && to.path != `/${localStorage.getItem('projectId')}`) {
+                next({ name:'NotFound' })
+            } else 
+                next()
+        },
+    },
+    {
+        path: '/:id',
+        name: 'Shop',
+        component: ShopPage,
+        beforeEnter: (from, to, next) => {
+            if (from.name == 'Shop' && from.path != `/${localStorage.getItem('projectId')}`) {
+                next({ name:'NotFound' })
+            } else if (to.name == 'Shop' && to.path != `/${localStorage.getItem('projectId')}`) {
                 next({ name:'NotFound' })
             } else 
                 next()

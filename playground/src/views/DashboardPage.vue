@@ -39,8 +39,42 @@
               <div id="i2sw">Build an online store with Peppubuild</div>
               <p class="one-child">With Peppubuild, you can build your own online store faster, gain more traction,
                 and sell on Whatsapp/Instagram</p>
-              <button class="btn btn-warning"><i class="bi bi-shop h1"></i>
+              <button class="btn btn-warning" @click="peppuShop()"><i class="bi bi-shop h1"></i>
                 Build an Online Store</button>
+              <h2>Shops</h2>
+              <p class="project-deck" style="text-align: center;"> Continue from where you left off. Please note that
+                projects have auto-save turned
+                on.</p>
+              <div class="row" v-if="shops">
+                <div class="col-sm-6" v-for="shop in shops" :key="shop.id">
+                  <div class="card project-deck">
+                    <div class="card-header">
+                      Shops
+                    </div>
+                    <div class="card-body">
+                      <h2 class="card-title">{{ shop.name.split('.').slice(0, -1).join('.') }}</h2>
+                      <div class="card-footer">
+                        <button @click="deleteProject(shop.id, 'shop')" class="btn btn-danger space">Delete</button>
+                        <button @click="projectWorkspace(shop.id, shop.name.split('.').slice(0, -1).join('.'))"
+                          class="btn btn-primary">Continue</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" v-if="!shops">
+                <div class="text-center">
+                  <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div>
             </div>
@@ -78,7 +112,7 @@
                       <div class="card-body">
                         <h2 class="card-title">{{ project.name.split('.').slice(0, -1).join('.') }}</h2>
                         <div class="card-footer">
-                          <button @click="deleteProject(project.id)" class="btn btn-danger space">Delete</button>
+                          <button @click="deleteProject(project.id, 'project')" class="btn btn-danger space">Delete</button>
                           <button @click="projectWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
                             class="btn btn-primary">Continue</button>
                         </div>
@@ -195,7 +229,7 @@ import templatesData from '../assets/templates.json';
 // At publish, the template will be available in the template option.
 // this works with the template method, where id is template name
 
-const serverUrl = 'https://server.peppubuild.com';
+const serverUrl = 'http://localhost:1404';
 
 export default {
   name: 'DashboardPage',
@@ -216,18 +250,18 @@ export default {
       })
     this.getFiles('project');
     this.getFiles('template');
+    this.getFiles('shop')
     let json = templatesData;
     for (let i = 0; i < json.length; i++) {
       let obj = json[i];
-
       this.templates.push(obj)
-      console.log(this.templates)
     }
 
   },
   data() {
     return {
       projects: null,
+      shops: null,
       templates: [],
       userName: '',
     };
@@ -260,6 +294,8 @@ export default {
             }
           } else if (fileType == 'project') {
             this.projects = response;
+          } else if (fileType == 'shop') {
+            this.shops = response;
           }
         })
       })
@@ -350,11 +386,12 @@ export default {
     /**
       * The deleteProject() function, takes the id of the project, calls /pdelete/:id and deletes it..
     */
-    async deleteProject(id) {
+    async deleteProject(id, shop) {
       let accessToken = localStorage.getItem('oauth')
       let url = `${serverUrl}/pdelete/${id}`
       let deleteQuestion = confirm('Do you want to delete this project');
       if (deleteQuestion) {
+        Swal.showLoading();
         await fetch(url, {
           method: 'POST',
           headers: {
@@ -363,10 +400,16 @@ export default {
           body: JSON.stringify({ accessToken: accessToken }),
         }).then((res) => {
           if (res.status == 200) {
+            Swal.close();
             // delete project from array
             // console.log(this.projects)
             let index = this.projects.findIndex(project => project.id === id)
-            this.projects.splice(index, 1);
+            if (shop == 'project') {
+              this.projects.splice(index, 1);
+            } else {
+              let index = this.shops.findIndex(shop => shop.id === id)
+              this.shops.splice(index, 1);
+            }
             // alert('Successfully deleted project')                    
           }
         })
@@ -381,7 +424,7 @@ export default {
       let published = 'No';
       let title = 'Peppubuild - Project';
       let url = `${serverUrl}/publishfront/${name}`;
-      let products = [];
+      let products = '[]';
       await fetch(url, {
         method: 'POST',
         headers: {
@@ -399,6 +442,42 @@ export default {
             localStorage.setItem('projectTitle', title);
             localStorage.setItem('products', products);
             this.$router.push({ name: "Home", params: { id } });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: response.error,
+              footer: '<a href="https://www.docs.peppubuild.com">Why do I have this issue?</a>'
+            });
+          }
+        })
+      })
+    },
+
+    async createShop(gjsProject, name) {
+      localStorage.setItem('projectName', name);
+      let accessToken = localStorage.getItem('oauth');
+      let published = 'No';
+      let title = 'Peppubuild - Project';
+      let url = `${serverUrl}/shop/${name}`;
+      let products = '[]';
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gjsProject: gjsProject, accessToken: accessToken, title: title, products: products, published: published }),
+      }).then((res) => {
+        res.json().then((response) => {
+          if (res.status == 200) {
+            Swal.close();
+            let id = response.id
+            localStorage.setItem('projectId', id);
+            localStorage.setItem('gjsProject', gjsProject);
+            localStorage.setItem('published', published);
+            localStorage.setItem('projectTitle', title);
+            localStorage.setItem('products', products);
+            this.$router.push({ name: "Shop", params: { id } });
           } else {
             Swal.fire({
               icon: "error",
@@ -431,6 +510,28 @@ export default {
             return swal("An error occurred");
           }
         })
+    },
+    async peppuShop() {
+      let gjsProject = '{}';
+      swal({
+        title: `Build your Shop`,
+        text: 'What will you like to name your project?',
+        content: "input",
+        button: {
+          text: "Create!",
+          closeModal: false,
+        },
+      }).then(name => {
+        if (!name) {
+          return swal("You need to input something!");
+        }
+        try {
+          localStorage.setItem('New', true);
+          this.createShop(gjsProject, name);
+        } catch {
+          return swal("An error occurred");
+        }
+      })
     },
     /**
       * The templateProject() function, allows you to create a project from a template.
