@@ -609,6 +609,36 @@ async function startServer() {
     });
   })
 
+  /**
+   * app.post('/publishfront/:name', (req, res) => {})
+   * Route to publish file to Namescheap
+   * @function
+   * @memberof updateDB()
+   * @memberof createShop()
+   * @name Publish_Project
+  */
+  // create frontend project
+  /// TODO: Import the necessary functions here like createFrontend etc.
+  app.post('/shop/:name', (req, res) => {
+    let projectName = req.params.name;
+    // let projectName = req.body.projectName;
+    // let projectType = req.body.projectType;
+    // let tartgetPath = path.join(CURR_DIR, projectName);
+
+    let gjsProject = req.body.gjsProject;
+    let accessToken = req.body.accessToken;
+    let title = req.body.title;
+    let published = req.body.published;
+    let products = req.body.products;
+    let imgurl = 'na';
+
+    createFrontend(projectName, accessToken, 'shop', imgurl).then((id) => {
+      // Step 3 - Update with empty project
+      updateDB(gjsProject, id, accessToken, published, title, products);
+      res.send({ id: id });
+    });
+  })
+
   const port = 1404;
   app.listen(port);
   console.log(`started server in ${port}`)

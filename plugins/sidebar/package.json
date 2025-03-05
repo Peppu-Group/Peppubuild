@@ -1,6 +1,6 @@
 {
     "name": "peppu-sidebar",
-    "version": "0.1.44",
+    "version": "0.1.45",
     "description": "Peppubuild Sidebar",
     "main": "dist/index.min.js",
     "repository": {

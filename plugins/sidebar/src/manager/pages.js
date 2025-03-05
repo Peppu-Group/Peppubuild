@@ -438,7 +438,7 @@ export default class PagesApp extends UI {
         let title = localStorage.getItem("projectTitle");
         let published = localStorage.getItem("published");
         let accessToken = localStorage.getItem('oauth');
-        let products = localStorage.getItem('products');
+        let products = localStorage.getItem('products') || [];
         try {
             fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/save/${id}`, {
                 method: "PUT", // or 'PUT'

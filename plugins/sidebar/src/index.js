@@ -195,7 +195,7 @@ export default (editor, opts = {}) => {
             return swal("You need to input something!");
           }
           try {
-            fetch(`http://localhost:1404/promptai`, {
+            fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/promptai`, {
               method: "POST", // or 'PUT'
               headers: {
                 "Content-Type": "application/json",
@@ -223,6 +223,25 @@ export default (editor, opts = {}) => {
       });
     }, 1000);
   });
+
+  editor.Commands.add("preview", {
+    run(editor) {
+      // Get HTML & CSS from GrapesJS
+      const html = editor.getHtml();
+      const css = editor.getCss();
+  
+      // Store in sessionStorage (or Vuex/Pinia)
+      sessionStorage.setItem("grapes-html", html);
+      sessionStorage.setItem("grapes-css", css);
+  
+      // Redirect to Vue preview page
+      window.open("/preview", "_blank"); // Opens in a new tab
+    },
+    stop(editor) {
+      // Reset preview if needed
+    }
+  });
+  
 
   editor.on('update', async () => {
     // run if command to ensure user is logged in. Else, navigate to home page.
