@@ -126,7 +126,7 @@ import grapesjsIcons from 'grapesjs-icons';
 import { userAuth } from './js/firebase.js';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
-const serverUrl = 'http://localhost:1404';
+const serverUrl = 'https://server.peppubuild.com';
 
 // var idx = 0;
 const options = {

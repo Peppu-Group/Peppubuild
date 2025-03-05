@@ -229,7 +229,7 @@ import templatesData from '../assets/templates.json';
 // At publish, the template will be available in the template option.
 // this works with the template method, where id is template name
 
-const serverUrl = 'http://localhost:1404';
+const serverUrl = 'https://server.peppubuild.com';
 
 export default {
   name: 'DashboardPage',

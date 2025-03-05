@@ -9,6 +9,7 @@ import TemplatesPage from '../views/TemplatesPage.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import CallBack from '../views/CallBack.vue'
 import ShopPage from '../views/ShopPage.vue'
+import PreviewPage from '../views/PreviewPage.vue'
 
 const routes = [
     {
@@ -34,7 +35,12 @@ const routes = [
         },
     },
     {
-        path: '/:id',
+        path: '/preview',
+        name: 'Preview',
+        component: PreviewPage
+    },
+    {
+        path: '/shop/:id',
         name: 'Shop',
         component: ShopPage,
         beforeEnter: (from, to, next) => {
