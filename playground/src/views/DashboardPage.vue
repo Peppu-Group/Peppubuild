@@ -3,6 +3,12 @@
     <div class="row flex-nowrap">
       <SideBar />
       <div class="col py-3">
+        <div v-if="shops && shops.length > 0 && !socials" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <h1>ATTENTION !!!</h1>
+          <strong>Update your Socials!</strong> Please, click on the notification button in shops, or project settings 
+            navigation in the sidebar.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="dash-content" id="d-cont">
           <div id="i2sw">Manage your Projects
           </div>
@@ -41,7 +47,15 @@
                 and sell on Whatsapp/Instagram</p>
               <button class="btn btn-warning" @click="peppuShop()"><i class="bi bi-shop h1"></i>
                 Build an Online Store</button>
-              <h2>Shops</h2>
+              <h2>Shops
+                <button v-if="shops && shops.length && !socials" type="button" class="btn btn-primary position-relative" @click="updateSocials()">
+                  Update your Socials
+                  <span
+                    class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                    <span class="visually-hidden">New alerts</span>
+                  </span>
+                </button>
+              </h2>
               <p class="project-deck" style="text-align: center;"> Continue from where you left off. Please note that
                 projects have auto-save turned
                 on.</p>
@@ -112,7 +126,8 @@
                       <div class="card-body">
                         <h2 class="card-title">{{ project.name.split('.').slice(0, -1).join('.') }}</h2>
                         <div class="card-footer">
-                          <button @click="deleteProject(project.id, 'project')" class="btn btn-danger space">Delete</button>
+                          <button @click="deleteProject(project.id, 'project')"
+                            class="btn btn-danger space">Delete</button>
                           <button @click="projectWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
                             class="btn btn-primary">Continue</button>
                         </div>
@@ -240,6 +255,7 @@ export default {
     * This returns and displays all projects.
   */
   async mounted() {
+    this.socials = JSON.parse(localStorage.getItem('socials')) || null;
     this.userName = JSON.parse(localStorage.getItem('user')).displayName;
     swal("Your Friendly Navigator!", `Hello ${this.userName}, Let's help you navigate Peppubuild`, "info")
       .then(() => {
@@ -264,6 +280,7 @@ export default {
       shops: null,
       templates: [],
       userName: '',
+      socials: null
     };
   },
 

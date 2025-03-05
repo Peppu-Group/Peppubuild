@@ -2,8 +2,8 @@
   <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
       <div class="dropdown pb-4 black-box" v-if="imageLink">
-        <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
-          id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle" id="dropdownUser1"
+          data-bs-toggle="dropdown" aria-expanded="false">
           <img :src="imageLink" alt="profile_picture" width="30" height="30" class="rounded-circle">
           <span class="d-none d-sm-inline mx-1"></span>
         </a>
@@ -44,8 +44,9 @@
                 </span> Settings </a>
             </li>
             <li>
-              <a href="#" class="nav-link px-0" @click="inProgress()"> <span class="d-none d-sm-inline">Project
-                </span> Settings </a>
+              <a href="#" class="nav-link px-0" @click="updateSocials()"> <span class="d-none d-sm-inline">Project
+                </span> Settings
+              </a>
             </li>
           </ul>
         </li>
@@ -66,14 +67,16 @@
 
 <script>
 import Swal from 'sweetalert2';
-let userinfo = JSON.parse(localStorage.getItem('user'));
+import swal from 'sweetalert';
 
+let userinfo = JSON.parse(localStorage.getItem('user'));
 
 export default {
   name: 'SideBar',
   data() {
     return {
       imageLink: userinfo.photoURL,
+      shops: null
     };
   },
   methods: {
@@ -82,6 +85,34 @@ export default {
         title: "Coming Soon!",
         text: "We're adding this soon. Check later.",
         icon: "info"
+      });
+    },
+    updateSocials() {
+      swal({
+        title: 'Update Socials',
+        text: `Update your socials so that your customers can reach you.`,
+        content: {
+          element: 'div',
+          attributes: {
+            innerHTML: '<label for="swal-input1" style="display: block; font-weight: bold; margin-top: 10px;">WhatsApp Number</label>' +
+              '<input id="swal-input1" class="swal-input" placeholder="Your WhatsApp Number" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">' +
+              '<label for="swal-input2" style="display: block; font-weight: bold; margin-top: 10px;">Facebook Username</label>' +
+              '<input id="swal-input2" class="swal-input" placeholder="Your Facebook Username" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">'
+          }
+        },
+        buttons: true,
+        dangerMode: false,
+      }).then((value) => {
+        if (value) {
+          let input1 = document.getElementById('swal-input1').value;
+          let input2 = document.getElementById('swal-input2').value;
+
+          let socials = `{"whatsapp": "${input1}", "facebook": "${input2}"}`
+          localStorage.setItem('socials', socials)
+
+          console.log('First Input:', input1);
+          console.log('Second Input:', input2);
+        }
       });
     }
   }

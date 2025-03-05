@@ -43,14 +43,7 @@ const routes = [
         path: '/shop/:id',
         name: 'Shop',
         component: ShopPage,
-        beforeEnter: (from, to, next) => {
-            if (from.name == 'Shop' && from.path != `/${localStorage.getItem('projectId')}`) {
-                next({ name:'NotFound' })
-            } else if (to.name == 'Shop' && to.path != `/${localStorage.getItem('projectId')}`) {
-                next({ name:'NotFound' })
-            } else 
-                next()
-        },
+        
     },
     {
         path: '/auth',
