@@ -1,4 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Run total update when page loads
+    updateCartTotal();
+    
+    document.addEventListener("click", function (event) {
+        // Check if the clicked element has the class "close-button"
+        if (event.target.classList.contains("close-button")) {
+            document.getElementById("sidebar-toggle").checked = false;
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        // Check if the clicked element has the class "close-button"
+        if (event.target.classList.contains("all-categories")) {
+            document.getElementById('sidebar-toggle').checked = true;
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        // Check if the clicked element has the class "close-button"
+        if (event.target.classList.contains("close")) {
+            document.getElementById('i6rqp').classList.toggle('show') && document.getElementById('ZWT9').classList.toggle('reduce-margin');
+        }
+    });
+
     document.addEventListener("click", function (event) {
         // Check if the clicked element is inside a product div
         const productDiv = event.target.closest(".product");
@@ -30,7 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.closest(".get-info")) {
             // Show Swal Modal
             // Show the SweetAlert modal
-            showBuyAlert();
+            const product = { productName, productPrice, productImage, productDescription};
+            showBuyAlert(product);
         }
 
         // Add-to-cart button functionality (if needed)
@@ -77,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         swal("Added to Cart!", `${product.productName} has been added to your cart.`, "success");
     }
 
-        // Click event for the cart div
+    // Click event for the cart div
     document.querySelector(".search-bar").addEventListener("click", function (event) {
         comingSoon();
     })
@@ -134,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Function to show the alert when the button is clicked
-function showBuyAlert() {
+function showBuyAlert(product) {
     swal({
         title: "Contact Seller",
         text: "Easily contact seller on social media. You may be lucky to get a discount.",
@@ -155,13 +180,11 @@ function showBuyAlert() {
     // Wait for the DOM to update before adding event listeners
     setTimeout(() => {
         document.getElementById("btn1").addEventListener("click", function () {
-            const fbUsername = "yourPageUsername"; // Get business page name from localhost
 
-            // Get stored product details
-            const { productName, productDescription, productPrice, productURL } = window.selectedProduct;
+            const fbUsername = JSON.parse(localStorage.getItem('socials')).facebook || "yourPageUsername";
 
             // Construct Messenger message
-            const message = `Hello, I'm interested in *${productName}*, ${productDescription} priced at *${productPrice}*. Can you provide more details?%0A%0A${productURL}`;
+            const message = `Hello, I'm interested in *${product.productName}*, ${product.productDescription} priced at *${product.productPrice}*. Can you provide more details?%0A%0A${product.productImage}`;
 
             // Facebook Messenger link (Opens chat with your page)
             const fbMessengerURL = `https://m.me/${fbUsername}`;
@@ -177,13 +200,19 @@ function showBuyAlert() {
         });
 
         document.getElementById("btn2").addEventListener("click", function () {
-            const phoneNumber = "2349076993818"; // Get number from localhost
+            let str = localStorage.getItem('socials');
+            try {
+                let socials = str ? JSON.parse(str) : {}; // Parse only if not null
+                str = socials.whatsapp || "09076993818";  // Use default if whatsapp is missing
+            } catch (e) {
+                str = "09076993818"; // Fallback in case of JSON parse errors
+            }
+            str = str.substring(1);
 
-            // Get stored product details
-            const { productName, productDescription, productPrice, productURL } = window.selectedProduct;
+            const phoneNumber = "234" + `${str}`; // Get number from localhost
 
             // Construct WhatsApp message
-            const message = `Hello, I'm interested in *${productName}*, ${productDescription} priced at *${productPrice}*. Can you provide more details? %0A%0A${productURL}`;
+            const message = `Hello, I'm interested in *${product.productName}*, ${product.productDescription} priced at *${product.productPrice}*. Can you provide more details? %0A%0A${product.productImage}`;
             const encodedMessage = encodeURIComponent(message);
 
             // Generate WhatsApp link
@@ -297,7 +326,17 @@ function payNow(product = null) {
             downloadInvoice(cart, totalPrice);
             swal("WhatsApp", "We've downloaded your purchase summary. Open WhatsApp and send to the vendor.", "success")
                 .then(() => {
-                    const phoneNumber = "2349076993818";
+                    let str = localStorage.getItem('socials');
+
+                    try {
+                        let socials = str ? JSON.parse(str) : {}; // Parse only if not null
+                        str = socials.whatsapp || "09076993818";  // Use default if whatsapp is missing
+                    } catch (e) {
+                        str = "09076993818"; // Fallback in case of JSON parse errors
+                    }
+                    str = str.substring(1);
+
+                    const phoneNumber = "234" + `${str}`; // Get number from localhost
                     const message = `Hello, I'd like to make a purchase. I have attached the invoice.`;
                     const encodedMessage = encodeURIComponent(message);
                     window.location.href = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
@@ -415,9 +454,3 @@ function comingSoon() {
     swal("Feature coming soon!", "This Feature is coming soon!",
         "warning");
 }
-
-
-// Run total update when page loads
-// updateCartTotal();
-
-
