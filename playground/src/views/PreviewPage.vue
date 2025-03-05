@@ -62,7 +62,7 @@ export default {
 
                 // ✅ Add JavaScript file dynamically
                 // Step 2: Load PeppuToken and trigger DOMContentLoaded manually
-                addScript("https://cdn.jsdelivr.net/npm/pepputoken@0.0.4/dist/index.min.js")
+                addScript("https://cdn.jsdelivr.net/npm/pepputoken@0.0.5/dist/index.min.js")
                     .then(() => addScript("https://unpkg.com/sweetalert/dist/sweetalert.min.js"))
                     .then(() => {
                         console.log("PeppuToken loaded!");
