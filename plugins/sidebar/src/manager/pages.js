@@ -227,6 +227,14 @@ export default class PagesApp extends UI {
                     })
                 </script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                <script defer>
+                fetch("/socials.json")
+                    .then(response => response.json())
+                    .then(data => {
+                        localStorage.setItem("socials", JSON.stringify(data)); // Store in localStorage
+                    })
+                .catch(error => console.error("Failed to load socials.json:", error));
+                </script>
                 </body>
                 </html>
                 `
