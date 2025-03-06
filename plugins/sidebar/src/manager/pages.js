@@ -145,16 +145,16 @@ export default class PagesApp extends UI {
 
                 // Get all pages
                 const pages = editor.Pages.getAll();
-            
+
                 pages.forEach((page) => {
                     // Activate the page to retrieve its styles
                     editor.Pages.select(page);
-                    
+
                     // Get CSS for the currently active page
                     allCSS += `/* CSS for page: ${page.get('name')} */\n`;
                     allCSS += editor.getCss() + '\n\n';
                 });
-            
+
                 return allCSS;
             }
 
@@ -177,6 +177,8 @@ export default class PagesApp extends UI {
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
                     <!-- Vue Router -->
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.0.0/vue-router.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/pepputoken"></script>
+                    <script src="https://unpkg.com/sweetalert"></script>
                 </head>
                 <body>
                 <div id="app">
@@ -241,18 +243,58 @@ export default class PagesApp extends UI {
                 </IfModule>
                 `
             zip.file(".htaccess", htaccess);
+            let headerHtml = ""; // Variable to store header content
 
+            // First, extract header content from the index page
             for (const e of editor.Pages.getAll()) {
-                const name = e.id
-                const component = e.getMainComponent()
-                const html = editor.getHtml({ component });
+                if (e.id === "index") {
+                    const component = e.getMainComponent();
+                    const indexHtml = editor.getHtml({ component });
+
+                    // Extract header content using regex or DOM manipulation
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = indexHtml;
+                    const headerElement = tempDiv.querySelector("header");
+
+                    if (headerElement) {
+                        headerHtml = headerElement.outerHTML; // Store header content
+                    }
+                    break; // No need to continue searching
+                }
+            }
+
+            // Now process all pages and prepend the header (except the index page itself)
+            for (const e of editor.Pages.getAll()) {
+                const name = e.id;
+                const component = e.getMainComponent();
+                let html = editor.getHtml({ component });
+
+                if (name !== "index" && headerHtml) {
+                    html = headerHtml + html; // Prepend header content to other pages
+                }
+
                 let htmlContent = `
                         var ${name} = { 
-                        template: \`${html}\`
+                            template: \`${html}\`
                         };
-                        `
-                zip.file(`pages/${name}.js`, `${htmlContent}`);
+                    `;
+
+                zip.file(`pages/${name}.js`, htmlContent);
             }
+
+            /* 
+                        for (const e of editor.Pages.getAll()) {
+                            const name = e.id
+                            const component = e.getMainComponent()
+                            const html = editor.getHtml({ component });
+                            let htmlContent = `
+                                    var ${name} = { 
+                                    template: \`${html}\`
+                                    };
+                                    `
+                            zip.file(`pages/${name}.js`, `${htmlContent}`);
+                        }
+                        */
             resolve();
         })
     }
