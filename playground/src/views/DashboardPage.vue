@@ -257,13 +257,40 @@ export default {
   async mounted() {
     this.socials = JSON.parse(localStorage.getItem('socials')) || null;
     this.userName = JSON.parse(localStorage.getItem('user')).displayName;
-    swal("Your Friendly Navigator!", `Hello ${this.userName}, Let's help you navigate Peppubuild`, "info")
-      .then(() => {
-        swal("Why Peppubuild?", `Peppubuild is a no-code tool that allows you build websites and online stores without writing any code`, "info")
-          .then(() => {
-            swal("How to Guide?", `${this.userName}, We're committed to see you build, choose from template, build from scratch, or use or AI prompt`, "info")
-          })
-      })
+    swal({
+  title: "Your Friendly Navigator!",
+  text: `Hello ${this.userName}, Let's help you navigate Peppubuild`,
+  icon: "info",
+  buttons: {
+    skip: "Skip",
+    next: "Next"
+  }
+}).then((value) => {
+  if (value === "next") {
+    swal({
+      title: "Why Peppubuild?",
+      text: "Peppubuild is a no-code tool that allows you to build websites and online stores without writing any code.",
+      icon: "info",
+      buttons: {
+        skip: "Skip",
+        next: "Next"
+      }
+    }).then((value) => {
+      if (value === "next") {
+        swal({
+          title: "How to Guide?",
+          text: `${this.userName}, We're committed to seeing you build. Choose from a template, build from scratch, or use our AI prompt.`,
+          icon: "info",
+          buttons: {
+            skip: "Skip",
+            done: "Got it!"
+          }
+        });
+      }
+    });
+  }
+});
+
     this.getFiles('project');
     this.getFiles('template');
     this.getFiles('shop')

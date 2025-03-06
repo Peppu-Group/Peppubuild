@@ -2,7 +2,7 @@
     <div id="navbar" class="sidenav d-flex flex-column overflow-scroll">
         <nav class="navbar navbar-light">
             <div class="container-fluid">
-                <router-link to="dashboard/projects">
+                <router-link to="/dashboard/projects">
                     <img src="https://www.peppubuild.com/logo.png" class="navbar-brand mb-0 h3 logo" />
                 </router-link>
             </div>
@@ -424,19 +424,60 @@ export default {
                 ],
             }
         });
-        swal("Tour Guide", `${this.userName}, the right panel contains top icons for blocks and style manager. The bottom of the right panel contains the build with AI assistant button.`, "info")
-            .then(() => {
-                swal("Tour Guide", `The left panel allows you to view layers of divs in the editor, properties, and add symbols.`, "info")
-                    .then(() => {
-                        swal("Tour Guide", `The icons in the far right allows you to view your web page in different web pages.`, "info")
-                            .then(() => {
-                                swal("Tour Guide", `The center plus icon, written 'Pages' allows you to manage your website, add new pages, add products, and meta data`, "info")
-                                    .then(() => {
-                                        swal("The End!", `${this.userName}, please watch the video resources in your dashboard or send us a mail if you need more help`, "info")
-                                    })
-                            })
-                    })
-            })
+        swal({
+            title: "Tour Guide",
+            text: `${this.userName}, the right panel contains top icons for blocks and the style manager. The bottom of the right panel contains the 'Build with AI Assistant' button.`,
+            icon: "info",
+            buttons: {
+                skip: "Skip",
+                next: "Next"
+            }
+        }).then((value) => {
+            if (value === "next") {
+                swal({
+                    title: "Tour Guide",
+                    text: `The left panel allows you to view layers of divs in the editor, adjust properties, and add symbols.`,
+                    icon: "info",
+                    buttons: {
+                        skip: "Skip",
+                        next: "Next"
+                    }
+                }).then((value) => {
+                    if (value === "next") {
+                        swal({
+                            title: "Tour Guide",
+                            text: `The icons in the far right allow you to preview your webpage on different screen sizes.`,
+                            icon: "info",
+                            buttons: {
+                                skip: "Skip",
+                                next: "Next"
+                            }
+                        }).then((value) => {
+                            if (value === "next") {
+                                swal({
+                                    title: "Tour Guide",
+                                    text: `The center plus icon, labeled 'Pages,' allows you to manage your website, add new pages, add products, and edit metadata.`,
+                                    icon: "info",
+                                    buttons: {
+                                        skip: "Skip",
+                                        next: "Next"
+                                    }
+                                }).then((value) => {
+                                    if (value === "next") {
+                                        swal({
+                                            title: "The End!",
+                                            text: `${this.userName}, please watch the video resources in your dashboard or contact us via email if you need more help.`,
+                                            icon: "info",
+                                            button: "Got it!"
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
         editor.on('block:drag:stop', async (model) => {
             await this.checkState();
             model.addAttributes({ id: this.randomID() });
