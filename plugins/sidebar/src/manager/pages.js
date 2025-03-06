@@ -243,6 +243,44 @@ export default class PagesApp extends UI {
                 </IfModule>
                 `
             zip.file(".htaccess", htaccess);
+
+            let socials = localStorage.getItem('socials');
+            if (socials) {
+                JSON.parse(localStorage.getItem('socials'));
+                zip.file("socials.json", socials);
+            } else {
+                throw new Error(swal("Publish Unsuccessful", "You cannot publish or download artifact, without updating your socials. Click on the button to update it.", "error").then(() => {
+                    swal({
+                        title: 'Update Socials',
+                        text: `Update your socials so that your customers can reach you.`,
+                        content: {
+                            element: 'div',
+                            attributes: {
+                                innerHTML: '<label for="swal-input1" style="display: block; font-weight: bold; margin-top: 10px;">WhatsApp Number</label>' +
+                                    '<input id="swal-input1" class="swal-input" placeholder="Your WhatsApp Number" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">' +
+                                    '<label for="swal-input2" style="display: block; font-weight: bold; margin-top: 10px;">Facebook Username</label>' +
+                                    '<input id="swal-input2" class="swal-input" placeholder="Your Facebook Username" style="width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">'
+                            }
+                        },
+                        buttons: true,
+                        dangerMode: false,
+                    }).then((value) => {
+                        if (value) {
+                            let input1 = document.getElementById('swal-input1').value;
+                            let input2 = document.getElementById('swal-input2').value;
+
+                            let socials = `{"whatsapp": "${input1}", "facebook": "${input2}"}`
+                            localStorage.setItem('socials', socials)
+
+                            console.log('First Input:', input1);
+                            console.log('Second Input:', input2);
+                        }
+                    }).finally(() => {
+                        swal("Success", "Now that you've updated your socials, you can now publish", "success")
+                    })
+                }))
+            }
+
             let headerHtml = ""; // Variable to store header content
 
             // First, extract header content from the index page
