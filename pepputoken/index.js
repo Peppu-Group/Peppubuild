@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Run total update when page loads
     updateCartTotal();
-    
+
     document.addEventListener("click", function (event) {
         // Check if the clicked element has the class "close-button"
         if (event.target.classList.contains("close-button")) {
