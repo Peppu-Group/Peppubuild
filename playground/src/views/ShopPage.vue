@@ -465,359 +465,1285 @@ export default {
         });
 
         if (localStorage.getItem('New')) {
-            editor.addComponents(`
-            <div id="CUz">
-                <div id="ZWT9">
-                <div id="wrapper">
-                <div class="navbar">
-                <header id="ibw9i">
-                    <input type="checkbox" id="sidebar-toggle" />
-                <nav id="sidebar">
-                    <button type="button" onclick="document.getElementById('sidebar-toggle').checked = false;"
-                        class="close-button">×</button>
-                    <ul>
-                        <li id="itdat">
-                            <a href="/allperfumes" id="isv6v">All Perfumes</a>
-                        </li>
-                        <li>
-                            <a href="/women" id="iz8gl">Women</a>
-                        </li>
-                        <li id="iisaw">
-                            <a href="/men" id="ik2bs">Men</a>
-                        </li>
-                        <li>
-                            <a href="/belowprice" id="i14ge">Below ₦50k</a>
-                        </li>
-                        <li>
-                            <a href="#" id="i4fc6">Scented Candles &amp; Diffusers</a>
-                        </li>
-                        <li>
-                            <a href="/unisex" id="ih3gg">Unisex</a>
-                        </li>
-                        <li>
-                            <a href="/newperf" id="i7orh">New Arrivals</a>
-                        </li>
-                        <li>
-                            <a href="/giftset" id="i0opy">Gift Set</a>
-                        </li>
-                        <li>
-                            <a href="/bestsellers" id="if3ha">Best Sellers</a>
-                        </li>
-                        <li>
-                            <a href="#" id="ifxi2">Deodorants</a>
-                        </li>
-                        <li>
-                            <a href="#" id="i953i">Niche Perfumes</a>
-                        </li>
-                        <li>
-                            <a href="#" id="i4rql">Recommendations for you</a>
-                        </li>
-                    </ul>
-                </nav>
-                    <div id="izeti" class="top-bar fixed-top">
-                        <div id="ihqqj" class="container">
-                            <div id="i3v5u" class="logo">
-                            </div>
-                            <img src="https://peppubuild.com/logo.png"
-                            alt="Fragrances.com.ng Logo" id="i28sk" />
-                            <div id="i44hs3g" class="account-cart">
-                            <a href="/" id="i52kbo5"><i id="iwhpcj4" class="fa-solid fa-cart-shopping">
-                            </i>Your Cart NGN <span id="cart-total">0.00</span></a>
-                            </div>
-                        </div>
-                        <div id="im4rk" class="nav-bar">
-                            <div id="ifpss" class="container">
-                            <div onclick="document.getElementById('sidebar-toggle').checked = true;" id="ig6me"
-                                class="all-categories">
-                                All Categories
-                            </div>
-                            <i class="fa fa-bars close"
-                                onclick="document.getElementById('i6rqp').classList.toggle('show') && document.getElementById('ZWT9').classList.toggle('reduce-margin');">
-                            </i>
-                            <nav id="i6rqp">
-                                <ul id="iwo1j">
-                                    <li id="i2ra2">
-                                        <a href="/" id="i97ry">HomE</a>
-                                    </li>
-                                    <li id="idfs1">
-                                        <a href="/newperf" id="i7jkz">New Arrivals <span id="i5h89"
-                                        class="hot">Hot</span></a>
-                                    </li>
-                                    <li id="iu94f">
-                                        <a href="/giftset" id="i4y2t">Deals</a>
-                                    </li>
-                                    <li id="ihr1p">
-                                        <a href="/bestsellers" id="i663a">Best Sellers</a>
-                                    </li>
-                                    <li id="ih1kr">
-                                        <a href="/" id="iln0p1">Brands</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <div id="i9g5zv" class="search-bar">
-                                <input type="text" placeholder="Search Entire Store" id="iji4da" />
-                                <button type="button" id="ibrkp">Search</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-                </div>
-                <div id="content">
-                <section id="io50uj" class="hero">
-                    <div id="i9sxzm" class="container">
-                        <h1 id="iajfs8">Your Peppubuild Shop
-                        </h1>
-                        <p id="ifrj4f">Let us setup your Peppubuild shop!
-                        </p>
-                        <a href="/allperfumes" class="cta-button">Shop Now</a>
-                    </div>
-                </section>
-                <section class="featured-products">
-                    <div id="feature" class="container feature">
-                        <h2 id="iv6q35">Featured Products
-                        </h2>
-                        <div class="product-grid">
-                            <div class="product">
-                            <img src="https://drive.google.com/thumbnail?id=1G8tqyqvCTHIOSbK7NGx6nV84Z0XiXK6c&sz=w1000"
-                                alt="Kay Ali" style="width:100%;" />
-                            <h5>Kay Ali
-                            </h5>
-                            <p>Boujee Marshmallow
-                            </p>
-                            <p>₦ 20
-                            </p>
-                            <a href="#" class="add-to-cart btn btn-primary mx-1"><i class="bi bi-cart"></i></a>
-                            <a href="#" class="pay-now btn btn-primary mx-1"><i class="bi bi-wallet2"></i></a>
-                            <a href="#" class="get-info btn btn-primary mx-1"><i class="bi bi-info-circle"></i></a>
-                            </div>
-                            <div class="product">
-                            <img src="https://drive.google.com/thumbnail?id=1efqfmfLRx36UE3IrUbK_5Tc72kQ4XHOC&sz=w1000"
-                                alt="Ambre Nuit" style="width:100%;" />
-                            <h5>Ambre Nuit
-                            </h5>
-                            <p>Christian Dior
-                            </p>
-                            <p>₦ 30
-                            </p>
-                            <a href="#" class="add-to-cart btn btn-primary mx-1"><i class="bi bi-cart"></i></a>
-                            <a href="#" class="pay-now btn btn-primary mx-1"><i class="bi bi-wallet2"></i></a>
-                            <a href="#" class="get-info btn btn-primary mx-1"><i class="bi bi-info-circle"></i></a>
-                            </div>
-                            <div class="product">
-                            <img src="https://drive.google.com/thumbnail?id=1MPYSwebssa2IzWC23hfWEXe1XQY334xn&sz=w1000"
-                                alt="Napoleon" style="width:100%;" />
-                            <h5>Napoleon
-                            </h5>
-                            <p>Daniel
-                            </p>
-                            <p>₦ 50
-                            </p>
-                            <a href="#" class="add-to-cart btn btn-primary mx-1"><i class="bi bi-cart"></i></a>
-                            <a href="#" class="pay-now btn btn-primary mx-1"><i class="bi bi-wallet2"></i></a>
-                            <a href="#" class="get-info btn btn-primary mx-1"><i class="bi bi-info-circle"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="featured-products">
-                    <div class="container feature">
-                        <h2 id="icylrj">Shop by Categories
-                        </h2>
-                        <div id="Xkc0">
-                            <div>
-                            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-4">
-                                <!-- Product 1 -->
-                                <!-- Product 2 -->
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                        <img src="https://drive.google.com/thumbnail?id=1uAqLEn9L__LnOhQA-1jcCfmmZfdhg71g&sz=w1000"
-                                            alt="Women" style="width:100%;" />
-                                        <h5>Women
-                                        </h5>
-                                        <a href="#" type="button" class="btn btn-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                        <img src="https://drive.google.com/thumbnail?id=1fjeZ4KpS2jsVDuaC1tLO6ake3Egyef52&sz=w1000"
-                                            alt="Men" style="width:100%;" />
-                                        <h5>Men
-                                        </h5>
-                                        <a href="#" type="button" class="btn btn-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Product 3 -->
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                        <img src="https://drive.google.com/thumbnail?id=1KWFGAWiHewz7mJYU4GNZ9s6H1YM58xQ6&sz=w1000"
-                                            alt="Amouage" style="width:100%;" />
-                                        <h5 class="card-title">Unisex
-                                        </h5>
-                                        <a href="#" type="button" class="btn btn-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Product 4 -->
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                        <img src="https://drive.google.com/thumbnail?id=1zAUZL7SFOA6_BpFgcRfIoWh4Un-woRtL&sz=w1000"
-                                            alt="Electimuss" style="width:100%;" />
-                                        <h5 class="card-title">Gift
-                                        </h5>
-                                        <a href="#" type="button" class="btn btn-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Product 5 -->
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                        <img src="https://drive.google.com/thumbnail?id=1IlVxMxj8k87qAJCN6NLuZQg-mL8ILnq9&sz=w1000"
-                                            alt="Polio" style="width:100%;" />
-                                        <h5 class="card-title">Below 50k
-                                        </h5>
-                                        <a href="#" type="button" class="btn btn-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Product 6 -->
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                        <img src="https://drive.google.com/thumbnail?id=15cBXOJxfoGWYX8tg7L_HBUWXO5UK4JRO&sz=w1000"
-                                            alt="Arezzo" style="width:100%;" />
-                                        <h5 class="card-title">Niche
-                                        </h5>
-                                        <a href="#" type="button" class="btn btn-primary">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div id="iz7fdgn-2" class="d-flex justify-content-center align-items-center flex-container mar">
-                    <link id="i027p1l-2" class="bi bi-github large" />
-                </div>
-                <footer id="i8d8qff-2">
-                    <footer id="i4ufll1-2" class="container">
-                        <div id="ib0dlli-2" class="row">
-                            <div id="if1itgl-2" class="col-6 col-md-2 mb-3">
-                            <h5 id="iwj7z9f-2">Profile
-                            </h5>
-                            <ul id="i21oem3-2" class="nav flex-column">
-                                <li id="ifxwaei-2" class="nav-item mb-2">
-                                    <a href="#" id="ipztm33-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="izifwka-2">My Account
-                                    </font></a>
-                                </li>
-                                <li id="iq35z08-2" class="nav-item mb-2">
-                                    <a href="#" id="i68zg38-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="iizo5yw-2">Checkout
-                                    </font></a>
-                                </li>
-                                <li id="ib1u8je-2" class="nav-item mb-2">
-                                    <a href="#" id="ilxikmy-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="itgg3wl-2">My Cart
-                                    </font></a>
-                                </li>
-                                <li id="i3lz78f-2" class="nav-item mb-2">
-                                </li>
-                                <li id="i1uasbm-2" class="nav-item mb-2">
-                                </li>
-                            </ul>
-                            </div>
-                            <div id="i4oo42h-2" class="col-6 col-md-2 mb-3">
-                            <h5 id="ik5220i-2">Information
-                            </h5>
-                            <ul id="i9mtl8a-2" class="nav flex-column">
-                                <li id="i1b8cmm-2" class="nav-item mb-2">
-                                    <a href="#" id="i3xicwb-2" class="nav-link p-0 text-body-secondary"><span id="ihs039u-2"></span><font color="#ffffff" id="i4i2yos-2">About Us
-                                    </font></a>
-                                </li>
-                                <li id="i0pr4ci-2" class="nav-item mb-2">
-                                    <a href="#" id="icp4e6w-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="iy33jdt-2">Contact Us
-                                    </font></a>
-                                </li>
-                                <li id="i91oy5d-2" class="nav-item mb-2">
-                                    <a href="#" id="ipj66wi-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="ii25zte-2">Delivery Information
-                                    </font></a>
-                                </li>
-                                <li id="i27tkt1-2" class="nav-item mb-2">
-                                    <a href="#" id="ioms8lh-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="i7hihkv-2">Privacy Policy
-                                    </font></a>
-                                </li>
-                                <li id="i6yhnyl-2" class="nav-item mb-2">
-                                    <a href="#" id="ixh26mi-2" class="nav-link p-0 text-body-secondary"><font color="#ffffff" id="i14jtwj-2">Return Policy
-                                    </font></a>
-                                </li>
-                            </ul>
-                            </div>
-                            <div id="ix320oh-2" class="col-6 col-md-2 mb-3">
-                            <h5 id="ivqvf0j-2">Social Media
-                            </h5>
-                            <ul id="ihalt6h-2" class="nav flex-column">
-                                <li id="ipvbax8-2" class="nav-item mb-2">
-                                    <a id="i72a0lp-2" class="bi bi-facebook large"></a>
-                                </li>
-                                <li id="ieucxqw-2" class="nav-item mb-2">
-                                    <a id="itwoymd-2" class="bi bi-linkedin large"></a>
-                                </li>
-                                <li id="ig3rqpt-2" class="nav-item mb-2">
-                                    <a id="isn65jf-2" class="bi bi-twitter large"></a>
-                                </li>
-                                <li id="ikhcf8t-2" class="nav-item mb-2">
-                                    <a id="ift2lxl-2" class="bi bi-youtube large"></a>
-                                </li>
-                                <li id="i7j96pl-2" class="nav-item mb-2">
-                                </li>
-                            </ul>
-                            </div>
-                            <div id="iz8fqxg-2" class="col-md-5 offset-md-1 mb-3">
-                            <form method="get" id="ix9awe8-2">
-                                <h5 id="i2cxvod-2">About Us
-                                </h5>
-                                <p id="izqia6w-2">
-                                    <br id="ikvm37z-2"/>
-                                    <span id="isswcle-2"></span>
-                                </p>
-                                <p dir="ltr" id="i8jg9yg-2">
-                                    <span id="ik3ag4y-2"><span id="ihox72x-2">Vee's Mistique Luxury Perfumes </span>is an online perfume shop in Nigeria designed to awaken your senses with our large collection of authentic extraordinary perfumes, fragrances, scents, deodorants, best online perfumes deals and gift sets.</span>
-                                </p>
-                                <div id="ivncogi-2" class="newsletter-block">
-                                </div>
-                                <div id="i2n9bcn-2">
-                                    <span id="i8o4qml-2"><br id="i54y8m4-2"/></span>
-                                </div>
-                                <p id="iqddtbk-2">
-                                </p>
-                                <div id="inze5sc-2" class="d-flex flex-column flex-sm-row w-100 gap-2">
-                                    <label for="newsletter1" id="idilz2h-2" class="visually-hidden">Email address</label>
-                                </div>
-                            </form>
-                            </div>
-                            <div id="iz7fdgn-2" class="d-flex justify-content-center align-items-center flex-container mar">
-                            <link id="i027p1l-2" class="bi bi-github large"/>
-                            </div>
-                        </div>
-                    </footer>
-                    <div id="ihl7j6h-2" class="container">
-                        <p id="il3ykuy-2">📍Lagos, Nigeria
-                        </p>
-                        <p id="iovddck-2">© 2025 Peppubuild.com. All rights reserved.
-                        </p>
-                    </div>
-                </footer>
-            </div>
-            `);
+            editor.DomComponents.addType('custom-button', {
+                model: {
+                    defaults: {
+                        components: [
+                            {
+                                tagName: 'div',
+                                attributes: { id: 'CUz' },
+                                components: [
+                                    {
+                                        tagName: 'div',
+                                        attributes: { id: 'ZWT9' },
+                                        components: [
+                                            {
+                                                tagName: 'div',
+                                                attributes: { id: 'wrapper' },
+                                                components: [
+                                                    {
+                                                        tagName: 'div',
+                                                        attributes: { class: 'navbar' },
+                                                        components: [
+                                                            {
+                                                                tagName: 'header',
+                                                                attributes: { id: 'ibw9i' },
+                                                                components: [
+                                                                    {
+                                                                        tagName: 'input',
+                                                                        attributes: { type: 'checkbox', id: 'sidebar-toggle' }
+                                                                    },
+                                                                    {
+                                                                        tagName: 'nav',
+                                                                        attributes: { id: 'sidebar' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'button',
+                                                                                attributes: {
+                                                                                    type: 'button',
+                                                                                    onclick: "document.getElementById('sidebar-toggle').checked = false;",
+                                                                                    class: 'close-button'
+                                                                                },
+                                                                                content: '×'
+                                                                            },
+                                                                            {
+                                                                                tagName: 'ul',
+                                                                                components: [
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        attributes: { id: 'itdat' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/allperfumes', id: 'isv6v' },
+                                                                                                content: 'All Perfumes'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/women', id: 'iz8gl' },
+                                                                                                content: 'Women'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        attributes: { id: 'iisaw' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/men', id: 'ik2bs' },
+                                                                                                content: 'Men'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/belowprice', id: 'i14ge' },
+                                                                                                content: 'Below ₦50k'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', id: 'i4fc6' },
+                                                                                                content: 'Scented Candles & Diffusers'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/unisex', id: 'ih3gg' },
+                                                                                                content: 'Unisex'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/newperf', id: 'i7orh' },
+                                                                                                content: 'New Arrivals'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/giftset', id: 'i0opy' },
+                                                                                                content: 'Gift Set'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/bestsellers', id: 'if3ha' },
+                                                                                                content: 'Best Sellers'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', id: 'ifxi2' },
+                                                                                                content: 'Deodorants'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', id: 'i953i' },
+                                                                                                content: 'Niche Perfumes'
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'li',
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', id: 'i4rql' },
+                                                                                                content: 'Recommendations for you'
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        tagName: 'div',
+                                                                        attributes: { id: 'izeti', class: 'top-bar fixed-top' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'div',
+                                                                                attributes: { id: 'ihqqj', class: 'container' },
+                                                                                components: [
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'i3v5u', class: 'logo' }
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'img',
+                                                                                        attributes: {
+                                                                                            src: 'https://peppubuild.com/logo.png',
+                                                                                            alt: 'Fragrances.com.ng Logo',
+                                                                                            id: 'i28sk'
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'i44hs3g', class: 'account-cart' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '/', id: 'i52kbo5' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { id: 'iwhpcj4', class: 'fa-solid fa-cart-shopping' }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        type: 'textnode',
+                                                                                                        content: 'Your Cart NGN '
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'span',
+                                                                                                        attributes: { id: 'cart-total' },
+                                                                                                        content: '0.00'
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            {
+                                                                                tagName: 'div',
+                                                                                attributes: { id: 'im4rk', class: 'nav-bar' },
+                                                                                components: [
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'ifpss', class: 'container' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'div',
+                                                                                                attributes: {
+                                                                                                    onclick: "document.getElementById('sidebar-toggle').checked = true;",
+                                                                                                    id: 'ig6me',
+                                                                                                    class: 'all-categories'
+                                                                                                },
+                                                                                                content: 'All Categories'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'i',
+                                                                                                attributes: {
+                                                                                                    class: 'fa fa-bars close',
+                                                                                                    onclick: "document.getElementById('i6rqp').classList.toggle('show') && document.getElementById('ZWT9').classList.toggle('reduce-margin');"
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'nav',
+                                                                                                attributes: { id: 'i6rqp' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'ul',
+                                                                                                        attributes: { id: 'iwo1j' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'li',
+                                                                                                                attributes: { id: 'i2ra2' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        type: 'link',
+                                                                                                                        attributes: { href: '/', id: 'i97ry' },
+                                                                                                                        content: 'HomE'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                                tagName: 'li',
+                                                                                                                attributes: { id: 'idfs1' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        type: 'link',
+                                                                                                                        attributes: { href: '/newperf', id: 'i7jkz' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: 'New Arrivals '
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'span',
+                                                                                                                                attributes: { id: 'i5h89', class: 'hot' },
+                                                                                                                                content: 'Hot'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                                tagName: 'li',
+                                                                                                                attributes: { id: 'iu94f' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        type: 'link',
+                                                                                                                        attributes: { href: '/giftset', id: 'i4y2t' },
+                                                                                                                        content: 'Deals'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                                tagName: 'li',
+                                                                                                                attributes: { id: 'ihr1p' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        type: 'link',
+                                                                                                                        attributes: { href: '/bestsellers', id: 'i663a' },
+                                                                                                                        content: 'Best Sellers'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                                tagName: 'li',
+                                                                                                                attributes: { id: 'ih1kr' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        type: 'link',
+                                                                                                                        attributes: { href: '/', id: 'iln0p1' },
+                                                                                                                        content: 'Brands'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'div',
+                                                                                                attributes: { id: 'i9g5zv', class: 'search-bar' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'input',
+                                                                                                        attributes: { type: 'text', placeholder: 'Search Entire Store', id: 'iji4da' }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'button',
+                                                                                                        attributes: { type: 'button', id: 'ibrkp' },
+                                                                                                        content: 'Search'
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        tagName: 'div',
+                                                        attributes: { id: 'content' },
+                                                        components: [
+                                                            {
+                                                                tagName: 'section',
+                                                                attributes: { id: 'io50uj', class: 'hero' },
+                                                                components: [
+                                                                    {
+                                                                        tagName: 'div',
+                                                                        attributes: { id: 'i9sxzm', class: 'container' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'h1',
+                                                                                type: 'text',
+                                                                                attributes: { id: 'iajfs8' },
+                                                                                components: [{
+                                                                                type: 'textnode',
+                                                                                content: `Your Peppubuild Shop`
+                                                                                }]
+                                                                            },
+                                                                            {
+                                                                                tagName: 'p',
+                                                                                type: 'text',
+                                                                                attributes: { id: 'ifrj4f' },
+                                                                                components: [{
+                                                                                type: 'textnode',
+                                                                                content: `Let us setup your Peppubuild shop!`
+                                                                                }]
+                                                                            },
+                                                                            {
+                                                                                type: 'link',
+                                                                                attributes: { href: '/allperfumes', class: 'cta-button' },
+                                                                                components: [{
+                                                                                type: 'textnode',
+                                                                                content: `Shop Now`
+                                                                                }]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                tagName: 'section',
+                                                                attributes: { class: 'featured-products' },
+                                                                components: [
+                                                                    {
+                                                                        tagName: 'div',
+                                                                        attributes: { id: 'feature', class: 'container feature' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'h2',
+                                                                                type: 'text',
+                                                                                attributes: { id: 'iv6q35' },
+                                                                                components: [{
+                                                                                type: 'textnode',
+                                                                                content: `Featured Products`
+                                                                                }]
+                                                                            },
+                                                                            {
+                                                                                tagName: 'div',
+                                                                                attributes: { class: 'product-grid' },
+                                                                                components: [
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { class: 'product' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'img',
+                                                                                                attributes: {
+                                                                                                    src: 'https://drive.google.com/thumbnail?id=1G8tqyqvCTHIOSbK7NGx6nV84Z0XiXK6c&sz=w1000',
+                                                                                                    alt: 'Kay Ali',
+                                                                                                    'style': 'width:100%;',
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'h5',
+                                                                                                content: 'Kay Ali'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'p',
+                                                                                                content: 'Boujee Marshmallow'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'p',
+                                                                                                content: '₦ 20'
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'add-to-cart btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-cart' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'pay-now btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-wallet2' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'get-info btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-info-circle' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { class: 'product' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'img',
+                                                                                                attributes: {
+                                                                                                    src: 'https://drive.google.com/thumbnail?id=1efqfmfLRx36UE3IrUbK_5Tc72kQ4XHOC&sz=w1000',
+                                                                                                    alt: 'Ambre Nuit',
+                                                                                                    'style': 'width:100%;'
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'h5',
+                                                                                                content: 'Ambre Nuit'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'p',
+                                                                                                content: 'Christian Dior'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'p',
+                                                                                                content: '₦ 30'
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'add-to-cart btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-cart' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'pay-now btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-wallet2' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'get-info btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-info-circle' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { class: 'product' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'img',
+                                                                                                attributes: {
+                                                                                                    src: 'https://drive.google.com/thumbnail?id=1MPYSwebssa2IzWC23hfWEXe1XQY334xn&sz=w1000',
+                                                                                                    alt: 'Napoleon',
+                                                                                                    'style': 'width:100%;'
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'h5',
+                                                                                                content: 'Napoleon'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'p',
+                                                                                                content: 'Daniel'
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'p',
+                                                                                                content: '₦ 50'
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'add-to-cart btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-cart' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'pay-now btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-wallet2' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                type: 'link',
+                                                                                                attributes: { href: '#', class: 'get-info btn btn-primary mx-1' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'i',
+                                                                                                        attributes: { class: 'bi bi-info-circle' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                tagName: 'section',
+                                                                attributes: { class: 'featured-products' },
+                                                                components: [
+                                                                    {
+                                                                        tagName: 'div',
+                                                                        attributes: { class: 'container feature' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'h2',
+                                                                                type: 'text',
+                                                                                attributes: { id: 'icylrj' },
+                                                                                content: 'Shop by Categories'
+                                                                            },
+                                                                            {
+                                                                                tagName: 'div',
+                                                                                attributes: { id: 'Xkc0' },
+                                                                                components: [
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'div',
+                                                                                                attributes: { class: 'row row-cols-1 row-cols-md-3 row-cols-lg-6 g-4' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { class: 'col' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'div',
+                                                                                                                attributes: { class: 'card h-100' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'div',
+                                                                                                                        attributes: { class: 'card-body' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                tagName: 'img',
+                                                                                                                                attributes: {
+                                                                                                                                    src: 'https://drive.google.com/thumbnail?id=1uAqLEn9L__LnOhQA-1jcCfmmZfdhg71g&sz=w1000',
+                                                                                                                                    alt: 'Women',
+                                                                                                                                    class: 'img-fluid',
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'h5',
+                                                                                                                                type: 'text',
+                                                                                                                                attributes: { class: 'card-title' },
+                                                                                                                                components: [{
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: `Women`
+                                                                                                                                }]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                type: 'link',
+                                                                                                                                attributes: { href: '#', type: 'button', class: 'btn btn-primary' },
+                                                                                                                                content: 'View'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { class: 'col' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'div',
+                                                                                                                attributes: { class: 'card h-100' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'div',
+                                                                                                                        attributes: { class: 'card-body' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                tagName: 'img',
+                                                                                                                                attributes: {
+                                                                                                                                    src: 'https://drive.google.com/thumbnail?id=1fjeZ4KpS2jsVDuaC1tLO6ake3Egyef52&sz=w1000',
+                                                                                                                                    alt: 'Men',
+                                                                                                                                    class: 'img-fluid',
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'h5',
+                                                                                                                                type: 'text',
+                                                                                                                                attributes: { class: 'card-title' },
+                                                                                                                                components: [{
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: `Men`
+                                                                                                                                }]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                type: 'link',
+                                                                                                                                attributes: { href: '#', type: 'button', class: 'btn btn-primary' },
+                                                                                                                                content: 'View'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { class: 'col' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'div',
+                                                                                                                attributes: { class: 'card h-100' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'div',
+                                                                                                                        attributes: { class: 'card-body' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                tagName: 'img',
+                                                                                                                                attributes: {
+                                                                                                                                    src: 'https://drive.google.com/thumbnail?id=1KWFGAWiHewz7mJYU4GNZ9s6H1YM58xQ6&sz=w1000',
+                                                                                                                                    alt: 'Amouage',
+                                                                                                                                    class: 'img-fluid',
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'h5',
+                                                                                                                                type: 'text',
+                                                                                                                                attributes: { class: 'card-title' },
+                                                                                                                                components: [{
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: `Unisex`
+                                                                                                                                }]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                type: 'link',
+                                                                                                                                attributes: { href: '#', type: 'button', class: 'btn btn-primary' },
+                                                                                                                                content: 'View'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { class: 'col' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'div',
+                                                                                                                attributes: { class: 'card h-100' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'div',
+                                                                                                                        attributes: { class: 'card-body' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                tagName: 'img',
+                                                                                                                                attributes: {
+                                                                                                                                    src: 'https://drive.google.com/thumbnail?id=1zAUZL7SFOA6_BpFgcRfIoWh4Un-woRtL&sz=w1000',
+                                                                                                                                    alt: 'Electimuss',
+                                                                                                                                    class: 'img-fluid',
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'h5',
+                                                                                                                                type: 'text',
+                                                                                                                                attributes: { class: 'card-title' },
+                                                                                                                                components: [{
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: `Gift`
+                                                                                                                                }]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                type: 'link',
+                                                                                                                                attributes: { href: '#', type: 'button', class: 'btn btn-primary' },
+                                                                                                                                content: 'View'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { class: 'col' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'div',
+                                                                                                                attributes: { class: 'card h-100' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'div',
+                                                                                                                        attributes: { class: 'card-body' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                tagName: 'img',
+                                                                                                                                attributes: {
+                                                                                                                                    src: 'https://drive.google.com/thumbnail?id=1IlVxMxj8k87qAJCN6NLuZQg-mL8ILnq9&sz=w1000',
+                                                                                                                                    alt: 'Polio',
+                                                                                                                                    class: 'img-fluid',
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'h5',
+                                                                                                                                type: 'text',
+                                                                                                                                attributes: { class: 'card-title' },
+                                                                                                                                components: [{
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: `Below 50k`
+                                                                                                                                }]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                type: 'link',
+                                                                                                                                attributes: { href: '#', type: 'button', class: 'btn btn-primary' },
+                                                                                                                                content: 'View'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { class: 'col' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'div',
+                                                                                                                attributes: { class: 'card h-100' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'div',
+                                                                                                                        attributes: { class: 'card-body' },
+                                                                                                                        components: [
+                                                                                                                            {
+                                                                                                                                tagName: 'img',
+                                                                                                                                attributes: {
+                                                                                                                                    src: 'https://drive.google.com/thumbnail?id=15cBXOJxfoGWYX8tg7L_HBUWXO5UK4JRO&sz=w1000',
+                                                                                                                                    alt: 'Arezzo',
+                                                                                                                                    class: 'img-fluid',
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                tagName: 'h5',
+                                                                                                                                type: 'text',
+                                                                                                                                attributes: { class: 'card-title' },
+                                                                                                                                components: [{
+                                                                                                                                type: 'textnode',
+                                                                                                                                content: `Niche`
+                                                                                                                                }]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                type: 'link',
+                                                                                                                                attributes: { href: '#', type: 'button', class: 'btn btn-primary' },
+                                                                                                                                content: 'View'
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                tagName: 'div',
+                                                                attributes: { id: 'iz7fdgn-2', class: 'd-flex justify-content-center align-items-center flex-container mar' },
+                                                                components: [
+                                                                    {
+                                                                        tagName: 'link',
+                                                                        attributes: { id: 'i027p1l-2', class: 'bi bi-github large' }
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                tagName: 'footer',
+                                                                attributes: { id: 'i8d8qff-2' },
+                                                                components: [
+                                                                    {
+                                                                        tagName: 'footer',
+                                                                        attributes: { id: 'i4ufll1-2', class: 'container' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'div',
+                                                                                attributes: { id: 'ib0dlli-2', class: 'row' },
+                                                                                components: [
+                                                                                    // Profile section
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'if1itgl-2', class: 'col-6 col-md-2 mb-3' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'h5',
+                                                                                                attributes: { id: 'iwj7z9f-2' },
+                                                                                                components: [{
+                                                                                                type: 'textnode',
+                                                                                                content: `Profile`
+                                                                                                }]
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'ul',
+                                                                                                attributes: { id: 'i21oem3-2', class: 'nav flex-column' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'ifxwaei-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'ipztm33-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'izifwka-2' },
+                                                                                                                        content: 'My Account'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'iq35z08-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'i68zg38-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'iizo5yw-2' },
+                                                                                                                        content: 'Checkout'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'ib1u8je-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'ilxikmy-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'itgg3wl-2' },
+                                                                                                                        content: 'My Cart'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i3lz78f-2', class: 'nav-item mb-2' }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i1uasbm-2', class: 'nav-item mb-2' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    // Information section
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'i4oo42h-2', class: 'col-6 col-md-2 mb-3' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'h5',
+                                                                                                attributes: { id: 'ik5220i-2' },
+                                                                                                components: [{
+                                                                                                type: 'textnode',
+                                                                                                content: `Information`
+                                                                                                }]
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'ul',
+                                                                                                attributes: { id: 'i9mtl8a-2', class: 'nav flex-column' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i1b8cmm-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'i3xicwb-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'span',
+                                                                                                                        attributes: { id: 'ihs039u-2' }
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'i4i2yos-2' },
+                                                                                                                        content: 'About Us'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i0pr4ci-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'icp4e6w-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'iy33jdt-2' },
+                                                                                                                        content: 'Contact Us'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i91oy5d-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'ipj66wi-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'ii25zte-2' },
+                                                                                                                        content: 'Delivery Information'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i27tkt1-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'ioms8lh-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'i7hihkv-2' },
+                                                                                                                        content: 'Privacy Policy'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i6yhnyl-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { href: '#', id: 'ixh26mi-2', class: 'nav-link p-0 text-body-secondary' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'font',
+                                                                                                                        attributes: { color: '#ffffff', id: 'i14jtwj-2' },
+                                                                                                                        content: 'Return Policy'
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    // Social Media section
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'ix320oh-2', class: 'col-6 col-md-2 mb-3' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'h5',
+                                                                                                attributes: { id: 'ivqvf0j-2' },
+                                                                                                components: [{
+                                                                                                type: 'textnode',
+                                                                                                content: `Social Media`
+                                                                                                }]
+                                                                                            },
+                                                                                            {
+                                                                                                tagName: 'ul',
+                                                                                                attributes: { id: 'ihalt6h-2', class: 'nav flex-column' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'ipvbax8-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { id: 'i72a0lp-2', class: 'bi bi-facebook large' }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'ieucxqw-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { id: 'itwoymd-2', class: 'bi bi-linkedin large' }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'ig3rqpt-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { id: 'isn65jf-2', class: 'bi bi-twitter large' }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'ikhcf8t-2', class: 'nav-item mb-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                type: 'link',
+                                                                                                                attributes: { id: 'ift2lxl-2', class: 'bi bi-youtube large' }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'li',
+                                                                                                        attributes: { id: 'i7j96pl-2', class: 'nav-item mb-2' }
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    // About Us section
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'iz8fqxg-2', class: 'col-md-5 offset-md-1 mb-3' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'form',
+                                                                                                attributes: { method: 'get', id: 'ix9awe8-2' },
+                                                                                                components: [
+                                                                                                    {
+                                                                                                        tagName: 'h5',
+                                                                                                        attributes: { id: 'i2cxvod-2' },
+                                                                                                        components: [{
+                                                                                                        type: 'textnode',
+                                                                                                        content: `About Us`
+                                                                                                        }]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'p',
+                                                                                                        attributes: { id: 'izqia6w-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'br',
+                                                                                                                attributes: { id: 'ikvm37z-2' }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                tagName: 'span',
+                                                                                                                attributes: { id: 'isswcle-2' }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'p',
+                                                                                                        attributes: { dir: 'ltr', id: 'i8jg9yg-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'span',
+                                                                                                                attributes: { id: 'ik3ag4y-2' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'span',
+                                                                                                                        type: 'text',
+                                                                                                                        components: [{
+                                                                                                                        type: 'textnode',
+                                                                                                                        content: 'Vee\'s Mistique Luxury Perfumes '
+                                                                                                                        }],
+                                                                                                                        attributes: { id: 'ihox72x-2' },
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        type: 'text',
+                                                                                                                        components: [{
+                                                                                                                        type: 'textnode',
+                                                                                                                        content: 'is an online perfume shop in Nigeria designed to awaken your senses with our large collection of authentic extraordinary perfumes, fragrances, scents, deodorants, best online perfumes deals and gift sets.'
+                                                                                                                        }],
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { id: 'ivncogi-2', class: 'newsletter-block' }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { id: 'i2n9bcn-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'span',
+                                                                                                                attributes: { id: 'i8o4qml-2' },
+                                                                                                                components: [
+                                                                                                                    {
+                                                                                                                        tagName: 'br',
+                                                                                                                        attributes: { id: 'i54y8m4-2' }
+                                                                                                                    }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'p',
+                                                                                                        attributes: { id: 'iqddtbk-2' }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        tagName: 'div',
+                                                                                                        attributes: { id: 'inze5sc-2', class: 'd-flex flex-column flex-sm-row w-100 gap-2' },
+                                                                                                        components: [
+                                                                                                            {
+                                                                                                                tagName: 'label',
+                                                                                                                attributes: { for: 'newsletter1', id: 'idilz2h-2', class: 'visually-hidden' },
+                                                                                                                content: 'Email address'
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        tagName: 'div',
+                                                                                        attributes: { id: 'iz7fdgn-2', class: 'd-flex justify-content-center align-items-center flex-container mar' },
+                                                                                        components: [
+                                                                                            {
+                                                                                                tagName: 'link',
+                                                                                                attributes: { id: 'i027p1l-2', class: 'bi bi-github large' }
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        tagName: 'div',
+                                                                        attributes: { id: 'ihl7j6h-2', class: 'container' },
+                                                                        components: [
+                                                                            {
+                                                                                tagName: 'p',
+                                                                                attributes: { id: 'il3ykuy-2' },
+                                                                                type: 'text',
+                                                                                components: [{
+                                                                                type: 'textnode',
+                                                                                content: '📍Lagos, Nigeria'
+                                                                                }],
+                                                                            },
+                                                                            {
+                                                                                tagName: 'p',
+                                                                                attributes: { id: 'iovddck-2' },
+                                                                                type: 'text',
+                                                                                components: [{
+                                                                                type: 'textnode',
+                                                                                content: '© 2025 Peppubuild.com. All rights reserved.'
+                                                                                }],
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }]
+                                                    }]
+                                            }]
+                                    }]
+                            }
 
-            editor.Css.addRules(`
-        body {
+
+                        ],
+                        styles: `
+                        body {
             margin-top: 0px;
             margin-right: 0px;
             margin-bottom: 0px;
@@ -1583,7 +2509,20 @@ export default {
                 width: auto;
             }
         }
-            `);
+                        `
+                    },
+                },
+            });
+
+
+            // **Append a new instance of the component to the editor**
+            editor.on('load', function () {
+                const components = editor.getWrapper().get('components');
+                components.add({
+                    type: 'custom-button'
+                });
+            });
+
             const projectdata = editor.getProjectData();
             let gjsProject = JSON.stringify(projectdata);
             let id = localStorage.getItem('projectId');
