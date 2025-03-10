@@ -3,27 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCartTotal();
 
     document.addEventListener("click", function (event) {
-        // Check if the clicked element has the class "close-button"
-        if (event.target.classList.contains("close-button")) {
-            document.getElementById("sidebar-toggle").checked = false;
-        }
-    });
-
-    document.addEventListener("click", function (event) {
-        // Check if the clicked element has the class "close-button"
-        if (event.target.classList.contains("all-categories")) {
-            document.getElementById('sidebar-toggle').checked = true;
-        }
-    });
-
-    document.addEventListener("click", function (event) {
-        // Check if the clicked element has the class "close-button"
-        if (event.target.classList.contains("close")) {
-            document.getElementById('i6rqp').classList.toggle('show') && document.getElementById('ZWT9').classList.toggle('reduce-margin');
-        }
-    });
-
-    document.addEventListener("click", function (event) {
         // Check if the clicked element is inside a product div
         const productDiv = event.target.closest(".product");
 
