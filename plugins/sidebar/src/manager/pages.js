@@ -231,7 +231,7 @@ export default class PagesApp extends UI {
                 fetch("/socials.json")
                     .then(response => response.json())
                     .then(data => {
-                        localStorage.setItem("socials", JSON.stringify(data)); // Store in localStorage
+                        localStorage.setItem("socials", JSON.stringify(data));
                     })
                 .catch(error => console.error("Failed to load socials.json:", error));
                 </script>
@@ -290,6 +290,7 @@ export default class PagesApp extends UI {
             }
 
             let headerHtml = ""; // Variable to store header content
+            let footerHtml = ""; // Variable to store footer content
 
             // First, extract header content from the index page
             for (const e of editor.Pages.getAll()) {
@@ -302,8 +303,15 @@ export default class PagesApp extends UI {
                     tempDiv.innerHTML = indexHtml;
                     const headerElement = tempDiv.querySelector("header");
 
+                    // Extract footer
+                    const footerElement = tempDiv.querySelector("footer");
+
                     if (headerElement) {
                         headerHtml = headerElement.outerHTML; // Store header content
+                    }
+
+                    if (footerElement) {
+                        footerHtml = footerElement.outerHTML; // Store footer content
                     }
                     break; // No need to continue searching
                 }
@@ -312,11 +320,33 @@ export default class PagesApp extends UI {
             // Now process all pages and prepend the header (except the index page itself)
             for (const e of editor.Pages.getAll()) {
                 const name = e.id;
+
                 const component = e.getMainComponent();
                 let html = editor.getHtml({ component });
+                
+                // Parse the HTML and extract only the body content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+                const bodyContent = doc.body.innerHTML; // Extracts everything inside <body>
 
+                // Add header and footer only if the page is not "index"
                 if (name !== "index" && headerHtml) {
-                    html = headerHtml + html; // Prepend header content to other pages
+                    html = `
+                    <body>
+                    <div id="wrapper">
+                        <div id="ZWT9">
+                            <div class="navbar">
+                            ${headerHtml}
+                            </div>
+                        </div>
+                    </div>
+                    ${bodyContent + footerHtml}
+                    </body>`;
+                } else {
+                    html = 
+                    `<body>
+                        ${bodyContent}
+                    </body>`
                 }
 
                 let htmlContent = `
