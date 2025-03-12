@@ -69,7 +69,7 @@
                       <h2 class="card-title">{{ shop.name.split('.').slice(0, -1).join('.') }}</h2>
                       <div class="card-footer">
                         <button @click="deleteProject(shop.id, 'shop')" class="btn btn-danger space">Delete</button>
-                        <button @click="projectWorkspace(shop.id, shop.name.split('.').slice(0, -1).join('.'))"
+                        <button @click="projectWorkspace(shop.id, 'shop', shop.name.split('.').slice(0, -1).join('.'))"
                           class="btn btn-primary">Continue</button>
                       </div>
                     </div>
@@ -128,7 +128,7 @@
                         <div class="card-footer">
                           <button @click="deleteProject(project.id, 'project')"
                             class="btn btn-danger space">Delete</button>
-                          <button @click="projectWorkspace(project.id, project.name.split('.').slice(0, -1).join('.'))"
+                          <button @click="projectWorkspace(project.id, 'project', project.name.split('.').slice(0, -1).join('.'))"
                             class="btn btn-primary">Continue</button>
                         </div>
                       </div>
@@ -362,7 +362,7 @@ export default {
     /**
       * The projectWorkspace() function, loads our editor with the current project.
     */
-    async projectWorkspace(id, name) {
+    async projectWorkspace(id, project, name) {
       Swal.showLoading();
       let url = `${serverUrl}/project/${id}`
       localStorage.setItem('projectId', id);
@@ -382,7 +382,11 @@ export default {
           localStorage.setItem('gjsProject', JSON.stringify(response.project));
           Swal.close();
           // add publishfront to actually create project
-          this.$router.push({ name: "Home", params: { id } });
+          if (project == 'project') {
+            this.$router.push({ name: "Home", params: { id } });
+          } else {
+            this.$router.push({ name: "Shop", params: { id } });
+          }
         })
       })
     },
@@ -430,7 +434,7 @@ export default {
     /**
       * The deleteProject() function, takes the id of the project, calls /pdelete/:id and deletes it..
     */
-    async deleteProject(id, shop) {
+    async deleteProject(id, project) {
       let accessToken = localStorage.getItem('oauth')
       let url = `${serverUrl}/pdelete/${id}`
       let deleteQuestion = confirm('Do you want to delete this project');
@@ -448,7 +452,7 @@ export default {
             // delete project from array
             // console.log(this.projects)
             let index = this.projects.findIndex(project => project.id === id)
-            if (shop == 'project') {
+            if (project == 'project') {
               this.projects.splice(index, 1);
             } else {
               let index = this.shops.findIndex(shop => shop.id === id)
