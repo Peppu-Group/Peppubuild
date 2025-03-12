@@ -163,67 +163,6 @@ export default (editor, opts = {}) => {
   // Load commands
   commands(editor, options);
 
-  const cm = editor.Commands;
-
-  // Load page with index zero
-  editor.on('load', async () => {
-    editor.Panels.addPanel({
-      id: 'my-sidebar',
-      el: '.gjs-pn-views',
-      content: `
-            <div style="position: fixed; bottom: 0; padding: 10px; text-align: center; left: 88%; ">
-                <h4>Peppubuild AI</h4>
-                <p>Build with our AI Prompt</p>
-                <button type="button" class="btn btn-primary" id="my-button">Click Me</button>
-            </div>
-        `
-    });
-    setTimeout(() => {
-      document.getElementById('my-button').addEventListener('click', async () => {
-
-        swal({
-          title: `Build with Peppubuild's AI`,
-          text: 'What can I build for you today?',
-          content: "input",
-          button: {
-            text: "Send!",
-            closeModal: false,
-          },
-        })
-        .then(userReq => {
-          if (!userReq) {
-            return swal("You need to input something!");
-          }
-          try {
-            fetch(`${editor.I18n.t('peppu-sidebar.project.url')}/promptai`, {
-              method: "POST", // or 'PUT'
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ userReq: userReq }),
-            }).then((response) => {
-              if (response.ok) {
-                response.json().then(res => {
-                  editor.setComponents(res.html);
-                  editor.setStyle(res.css);
-                  swal("Successful!", `${res.instructions}`, "success");
-                })
-              }
-            })
-          } catch { swal("Error", "An error occurred", "error") }
-        })
-        .catch(err => {
-          if (err) {
-            swal("Oh noes!", "An Error Occurred!", "error");
-          } else {
-            swal.stopLoading();
-            swal.close();
-          }
-        });      
-      });
-    }, 1000);
-  });
-
   editor.Commands.add("preview", {
     run(editor) {
       // Get HTML & CSS from GrapesJS
