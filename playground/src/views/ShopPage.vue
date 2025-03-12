@@ -105,23 +105,11 @@
 
 <script>
 import { grapesjs } from 'grapesjs'
-import grapesjsIcons from 'grapesjs-icons';
 import { userAuth } from './js/firebase.js';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
 
 const serverUrl = 'https://server.peppubuild.com';
-
-// var idx = 0;
-const options = {
-    // see https://icon-sets.iconify.design/
-    collections: [
-        'ri', // Remix Icon by Remix Design
-        'mdi', // Material Design Icons by Pictogrammers
-        'uim', // Unicons Monochrome by Iconscout
-        'streamline-emojis' // Streamline Emojis by Streamline
-    ]
-}
 
 export default {
     /**
@@ -387,12 +375,9 @@ export default {
                 }
             },
             // Add peppu and other plugins.
-            plugins: ['peppu-sidebar', 'peppubuild-custom-code', 'peppu-blocks', "gjs-blocks-basic", "grapesjs-plugin-forms", 'grapesjs-style-bg', 'grapesjs-touch', grapesjsIcons, 'grapesjs-rulers'],
+            plugins: ['peppu-sidebar', 'peppu-market', 'grapesjs-style-bg', 'grapesjs-touch', 'grapesjs-rulers'],
             pluginsOpts: {
                 'peppu-sidebar': { /* Test here your options  */ },
-                'peppu-bootstrap': {},
-                'gjs-blocks-basic': { flexGrid: true },
-                [grapesjsIcons]: options,
                 'grapesjs-rulers': {
                     dragMode: 'absolute'
                 }
