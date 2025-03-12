@@ -811,8 +811,8 @@ export default {
                                                                                 type: 'text',
                                                                                 attributes: { id: 'iajfs8' },
                                                                                 components: [{
-                                                                                type: 'textnode',
-                                                                                content: `Your Peppubuild Shop`
+                                                                                    type: 'textnode',
+                                                                                    content: `Your Peppubuild Shop`
                                                                                 }]
                                                                             },
                                                                             {
@@ -820,16 +820,16 @@ export default {
                                                                                 type: 'text',
                                                                                 attributes: { id: 'ifrj4f' },
                                                                                 components: [{
-                                                                                type: 'textnode',
-                                                                                content: `Let us setup your Peppubuild shop!`
+                                                                                    type: 'textnode',
+                                                                                    content: `Let us setup your Peppubuild shop!`
                                                                                 }]
                                                                             },
                                                                             {
                                                                                 type: 'link',
                                                                                 attributes: { href: '/allperfumes', class: 'cta-button' },
                                                                                 components: [{
-                                                                                type: 'textnode',
-                                                                                content: `Shop Now`
+                                                                                    type: 'textnode',
+                                                                                    content: `Shop Now`
                                                                                 }]
                                                                             }
                                                                         ]
@@ -849,8 +849,8 @@ export default {
                                                                                 type: 'text',
                                                                                 attributes: { id: 'iv6q35' },
                                                                                 components: [{
-                                                                                type: 'textnode',
-                                                                                content: `Featured Products`
+                                                                                    type: 'textnode',
+                                                                                    content: `Featured Products`
                                                                                 }]
                                                                             },
                                                                             {
@@ -1081,8 +1081,8 @@ export default {
                                                                                                                                 type: 'text',
                                                                                                                                 attributes: { class: 'card-title' },
                                                                                                                                 components: [{
-                                                                                                                                type: 'textnode',
-                                                                                                                                content: `Women`
+                                                                                                                                    type: 'textnode',
+                                                                                                                                    content: `Women`
                                                                                                                                 }]
                                                                                                                             },
                                                                                                                             {
@@ -1121,8 +1121,8 @@ export default {
                                                                                                                                 type: 'text',
                                                                                                                                 attributes: { class: 'card-title' },
                                                                                                                                 components: [{
-                                                                                                                                type: 'textnode',
-                                                                                                                                content: `Men`
+                                                                                                                                    type: 'textnode',
+                                                                                                                                    content: `Men`
                                                                                                                                 }]
                                                                                                                             },
                                                                                                                             {
@@ -1161,8 +1161,8 @@ export default {
                                                                                                                                 type: 'text',
                                                                                                                                 attributes: { class: 'card-title' },
                                                                                                                                 components: [{
-                                                                                                                                type: 'textnode',
-                                                                                                                                content: `Unisex`
+                                                                                                                                    type: 'textnode',
+                                                                                                                                    content: `Unisex`
                                                                                                                                 }]
                                                                                                                             },
                                                                                                                             {
@@ -1201,8 +1201,8 @@ export default {
                                                                                                                                 type: 'text',
                                                                                                                                 attributes: { class: 'card-title' },
                                                                                                                                 components: [{
-                                                                                                                                type: 'textnode',
-                                                                                                                                content: `Gift`
+                                                                                                                                    type: 'textnode',
+                                                                                                                                    content: `Gift`
                                                                                                                                 }]
                                                                                                                             },
                                                                                                                             {
@@ -1241,8 +1241,8 @@ export default {
                                                                                                                                 type: 'text',
                                                                                                                                 attributes: { class: 'card-title' },
                                                                                                                                 components: [{
-                                                                                                                                type: 'textnode',
-                                                                                                                                content: `Below 50k`
+                                                                                                                                    type: 'textnode',
+                                                                                                                                    content: `Below 50k`
                                                                                                                                 }]
                                                                                                                             },
                                                                                                                             {
@@ -1281,8 +1281,8 @@ export default {
                                                                                                                                 type: 'text',
                                                                                                                                 attributes: { class: 'card-title' },
                                                                                                                                 components: [{
-                                                                                                                                type: 'textnode',
-                                                                                                                                content: `Niche`
+                                                                                                                                    type: 'textnode',
+                                                                                                                                    content: `Niche`
                                                                                                                                 }]
                                                                                                                             },
                                                                                                                             {
@@ -1337,8 +1337,8 @@ export default {
                                                                                                 tagName: 'h5',
                                                                                                 attributes: { id: 'iwj7z9f-2' },
                                                                                                 components: [{
-                                                                                                type: 'textnode',
-                                                                                                content: `Profile`
+                                                                                                    type: 'textnode',
+                                                                                                    content: `Profile`
                                                                                                 }]
                                                                                             },
                                                                                             {
@@ -1417,8 +1417,8 @@ export default {
                                                                                                 tagName: 'h5',
                                                                                                 attributes: { id: 'ik5220i-2' },
                                                                                                 components: [{
-                                                                                                type: 'textnode',
-                                                                                                content: `Information`
+                                                                                                    type: 'textnode',
+                                                                                                    content: `Information`
                                                                                                 }]
                                                                                             },
                                                                                             {
@@ -1527,8 +1527,8 @@ export default {
                                                                                                 tagName: 'h5',
                                                                                                 attributes: { id: 'ivqvf0j-2' },
                                                                                                 components: [{
-                                                                                                type: 'textnode',
-                                                                                                content: `Social Media`
+                                                                                                    type: 'textnode',
+                                                                                                    content: `Social Media`
                                                                                                 }]
                                                                                             },
                                                                                             {
@@ -1596,8 +1596,8 @@ export default {
                                                                                                         tagName: 'h5',
                                                                                                         attributes: { id: 'i2cxvod-2' },
                                                                                                         components: [{
-                                                                                                        type: 'textnode',
-                                                                                                        content: `About Us`
+                                                                                                            type: 'textnode',
+                                                                                                            content: `About Us`
                                                                                                         }]
                                                                                                     },
                                                                                                     {
@@ -1626,16 +1626,16 @@ export default {
                                                                                                                         tagName: 'span',
                                                                                                                         type: 'text',
                                                                                                                         components: [{
-                                                                                                                        type: 'textnode',
-                                                                                                                        content: 'Vee\'s Mistique Luxury Perfumes '
+                                                                                                                            type: 'textnode',
+                                                                                                                            content: 'Vee\'s Mistique Luxury Perfumes '
                                                                                                                         }],
                                                                                                                         attributes: { id: 'ihox72x-2' },
                                                                                                                     },
                                                                                                                     {
                                                                                                                         type: 'text',
                                                                                                                         components: [{
-                                                                                                                        type: 'textnode',
-                                                                                                                        content: 'is an online perfume shop in Nigeria designed to awaken your senses with our large collection of authentic extraordinary perfumes, fragrances, scents, deodorants, best online perfumes deals and gift sets.'
+                                                                                                                            type: 'textnode',
+                                                                                                                            content: 'is an online perfume shop in Nigeria designed to awaken your senses with our large collection of authentic extraordinary perfumes, fragrances, scents, deodorants, best online perfumes deals and gift sets.'
                                                                                                                         }],
                                                                                                                     }
                                                                                                                 ]
@@ -1704,8 +1704,8 @@ export default {
                                                                                 attributes: { id: 'il3ykuy-2' },
                                                                                 type: 'text',
                                                                                 components: [{
-                                                                                type: 'textnode',
-                                                                                content: '📍Lagos, Nigeria'
+                                                                                    type: 'textnode',
+                                                                                    content: '📍Lagos, Nigeria'
                                                                                 }],
                                                                             },
                                                                             {
@@ -1713,8 +1713,8 @@ export default {
                                                                                 attributes: { id: 'iovddck-2' },
                                                                                 type: 'text',
                                                                                 components: [{
-                                                                                type: 'textnode',
-                                                                                content: '© 2025 Peppubuild.com. All rights reserved.'
+                                                                                    type: 'textnode',
+                                                                                    content: '© 2025 Peppubuild.com. All rights reserved.'
                                                                                 }],
                                                                             }
                                                                         ]
@@ -2540,6 +2540,9 @@ export default {
             await this.checkState();
             model.addAttributes({ id: this.randomID() });
         })
+        editor.on('page:add', () => {
+            swal("Success", `You can now navigate to your new page. There's no need to add header or footer, it is added automatically.`, "success");
+        });
         editor.on('load', () => {
             const traitManager = editor.TraitManager;
 
