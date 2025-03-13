@@ -634,7 +634,7 @@ export default {
                                                                                         attributes: { id: 'i3v5u', class: 'logo' }
                                                                                     },
                                                                                     {
-                                                                                        tagName: 'img',
+                                                                                       type: 'image',
                                                                                         attributes: {
                                                                                             src: 'https://peppubuild.com/logo.png',
                                                                                             alt: 'Fragrances.com.ng Logo',
@@ -862,7 +862,7 @@ export default {
                                                                                         attributes: { class: 'product' },
                                                                                         components: [
                                                                                             {
-                                                                                                tagName: 'img',
+                                                                                               type: 'image',
                                                                                                 attributes: {
                                                                                                     src: 'https://drive.google.com/thumbnail?id=1G8tqyqvCTHIOSbK7NGx6nV84Z0XiXK6c&sz=w1000',
                                                                                                     alt: 'Kay Ali',
@@ -918,7 +918,7 @@ export default {
                                                                                         attributes: { class: 'product' },
                                                                                         components: [
                                                                                             {
-                                                                                                tagName: 'img',
+                                                                                               type: 'image',
                                                                                                 attributes: {
                                                                                                     src: 'https://drive.google.com/thumbnail?id=1efqfmfLRx36UE3IrUbK_5Tc72kQ4XHOC&sz=w1000',
                                                                                                     alt: 'Ambre Nuit',
@@ -974,7 +974,7 @@ export default {
                                                                                         attributes: { class: 'product' },
                                                                                         components: [
                                                                                             {
-                                                                                                tagName: 'img',
+                                                                                               type: 'image',
                                                                                                 attributes: {
                                                                                                     src: 'https://drive.google.com/thumbnail?id=1MPYSwebssa2IzWC23hfWEXe1XQY334xn&sz=w1000',
                                                                                                     alt: 'Napoleon',
@@ -1069,7 +1069,7 @@ export default {
                                                                                                                         attributes: { class: 'card-body' },
                                                                                                                         components: [
                                                                                                                             {
-                                                                                                                                tagName: 'img',
+                                                                                                                               type: 'image',
                                                                                                                                 attributes: {
                                                                                                                                     src: 'https://drive.google.com/thumbnail?id=1uAqLEn9L__LnOhQA-1jcCfmmZfdhg71g&sz=w1000',
                                                                                                                                     alt: 'Women',
@@ -1109,7 +1109,7 @@ export default {
                                                                                                                         attributes: { class: 'card-body' },
                                                                                                                         components: [
                                                                                                                             {
-                                                                                                                                tagName: 'img',
+                                                                                                                               type: 'image',
                                                                                                                                 attributes: {
                                                                                                                                     src: 'https://drive.google.com/thumbnail?id=1fjeZ4KpS2jsVDuaC1tLO6ake3Egyef52&sz=w1000',
                                                                                                                                     alt: 'Men',
@@ -1149,7 +1149,7 @@ export default {
                                                                                                                         attributes: { class: 'card-body' },
                                                                                                                         components: [
                                                                                                                             {
-                                                                                                                                tagName: 'img',
+                                                                                                                               type: 'image',
                                                                                                                                 attributes: {
                                                                                                                                     src: 'https://drive.google.com/thumbnail?id=1KWFGAWiHewz7mJYU4GNZ9s6H1YM58xQ6&sz=w1000',
                                                                                                                                     alt: 'Amouage',
@@ -1189,7 +1189,7 @@ export default {
                                                                                                                         attributes: { class: 'card-body' },
                                                                                                                         components: [
                                                                                                                             {
-                                                                                                                                tagName: 'img',
+                                                                                                                               type: 'image',
                                                                                                                                 attributes: {
                                                                                                                                     src: 'https://drive.google.com/thumbnail?id=1zAUZL7SFOA6_BpFgcRfIoWh4Un-woRtL&sz=w1000',
                                                                                                                                     alt: 'Electimuss',
@@ -1229,7 +1229,7 @@ export default {
                                                                                                                         attributes: { class: 'card-body' },
                                                                                                                         components: [
                                                                                                                             {
-                                                                                                                                tagName: 'img',
+                                                                                                                               type: 'image',
                                                                                                                                 attributes: {
                                                                                                                                     src: 'https://drive.google.com/thumbnail?id=1IlVxMxj8k87qAJCN6NLuZQg-mL8ILnq9&sz=w1000',
                                                                                                                                     alt: 'Polio',
@@ -1269,7 +1269,7 @@ export default {
                                                                                                                         attributes: { class: 'card-body' },
                                                                                                                         components: [
                                                                                                                             {
-                                                                                                                                tagName: 'img',
+                                                                                                                               type: 'image',
                                                                                                                                 attributes: {
                                                                                                                                     src: 'https://drive.google.com/thumbnail?id=15cBXOJxfoGWYX8tg7L_HBUWXO5UK4JRO&sz=w1000',
                                                                                                                                     alt: 'Arezzo',
