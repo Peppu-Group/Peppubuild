@@ -2523,13 +2523,6 @@ export default {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ accessToken: accessToken, gjsProject: gjsProject, title: title, products: products, published: published }),
-                }).then((response) => {
-                    console.log(response)
-                    if (!response.ok) {
-                        swal("Error", "You're not logged in", "error").then(() => {
-                            // window.location.href = 'https://app.peppubuild.com/dashboard/projects';
-                        })
-                    }
                 })
             } catch {
                 swal("Error", "You're not logged in", "error").then(() => {
