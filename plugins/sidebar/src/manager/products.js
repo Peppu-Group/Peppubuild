@@ -164,7 +164,7 @@ export default class ProductApp extends UI {
 
             try {
                 const res = await fetch(url, {
-                    signal: AbortSignal.timeout(10000),
+                    signal: AbortSignal.timeout(300000),
                     method: 'POST',
                     body: imgdata
                 });
