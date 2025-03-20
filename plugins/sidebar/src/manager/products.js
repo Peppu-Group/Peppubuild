@@ -115,10 +115,31 @@ export default class ProductApp extends UI {
     productEditor(e) {
         const { editor } = this;
         const productIndex = e.target.getAttribute('data-id');
+        const productContainer = editor.getWrapper().find('.product-grid')[0]; // Select the target div
+
+        if (productContainer) {
+            const wrapper = editor.Components.addComponent({
+                tagName: 'div',
+                classes: ['product']
+            });
+            
+            // Append the product inside the wrapper
+            wrapper.append({
+                type: 'collection',
+                productIndex: productIndex, // Render only the product at index
+            });
+            
+            // Finally, append the wrapper to the editor
+            productContainer.append(wrapper);
+        } else {
+            console.error("Target div #product not found");
+        }
+        /* 
         editor.addComponents({
             type: 'collection',
             productIndex: productIndex // Render only the product at index
         })
+        */
         Swal.fire('Added to Editor',
             `Your product has successfully been added to the bottom of the editor, you can drag it to any location of 
         your choice. The default property added is the name, you can duplicate it and change to image, description,  
