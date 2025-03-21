@@ -71,6 +71,26 @@ $mainColor: #34A853;
     }
 }
 
+#fileInput {
+    display: none;
+    /* Hide default file input */
+  }
+
+  .custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .custom-button:hover {
+    background-color: #0056b3;
+  }
+
 .flex-row {
     display: flex;
     justify-content: space-between;

@@ -7,6 +7,7 @@ export default class ProductApp extends UI {
         this.handleSave = this.handleSave.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleThumbnail = this.handleThumbnail.bind(this);
+        this.handleCSV = this.handleCSV.bind(this);
         this.productEditor = this.productEditor.bind(this);
 
         /* Set initial app state */
@@ -281,6 +282,63 @@ export default class ProductApp extends UI {
         }
     }
 
+    handleCSV() {
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+        
+            if (!file) {
+                console.log("No file selected");
+                return;
+            }
+        
+            const reader = new FileReader();
+        
+            reader.onload = function(e) {
+                const content = e.target.result;
+                console.log("Raw CSV Content:", content); // Debugging
+        
+                // Split CSV into rows and remove empty lines
+                const rows = content.trim().split("\n").filter(row => row.trim() !== "");
+        
+                // Extract headers (first row)
+                const headers = rows[0].split(",").map(h => h.trim());
+                console.log("Headers:", headers); // Debugging
+        
+                // Extract data rows and map to objects
+                const products = rows.slice(1).map(row => {
+                    const values = row.split(",").map(value => value.trim());
+                    return headers.reduce((obj, key, index) => {
+                        obj[key] = values[index] || ""; // Assign values to corresponding keys
+                        return obj;
+                    }, {});
+                });
+        
+                console.log("Parsed Products:", products); // Debugging
+        
+                // Retrieve existing products from localStorage
+                let storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+        
+                // Add new products from CSV
+                storedProducts = storedProducts.concat(products);
+        
+                // Store updated products in localStorage
+                localStorage.setItem("products", JSON.stringify(storedProducts));
+        
+                console.log("Updated LocalStorage:", localStorage.getItem("products"));
+        
+                // Display success message
+                document.getElementById("output").innerHTML = "<strong>Products added successfully!</strong>";
+            };
+        
+            reader.onerror = function() {
+                console.error("Error reading file");
+            };
+        
+            reader.readAsText(file);
+        });
+        
+    }
+
     renderProducts() {
         const content = `<div class="table-container">
         <div class="table">
@@ -400,6 +458,10 @@ export default class ProductApp extends UI {
 
         const cont = $(`<div class="app">
             <button id='vwproducts' class='add-template'> View Products</button>
+
+            <label for="fileInput" class="custom-button"> Upload Products via CSV </label>
+            <input type="file" id="fileInput" accept=".csv" />
+
             <div class="formbold-main-wrapper">
                 <!-- Author: FormBold Team -->
                 <!-- Learn More: https://formbold.com -->
@@ -462,6 +524,7 @@ export default class ProductApp extends UI {
             </div>`);
         cont.find('#save').on('click', this.handleSave);
         cont.find('#vwproducts').on('click', this.handleThumbnail);
+        cont.find('#fileInput').on('click', this.handleCSV);
 
         this.$el = cont;
         return cont;
