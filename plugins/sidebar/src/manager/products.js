@@ -117,34 +117,69 @@ export default class ProductApp extends UI {
         const productIndex = e.target.getAttribute('data-id');
         const productContainer = editor.getWrapper().find('.product-grid')[0]; // Select the target div
 
-        if (productContainer) {
-            const wrapper = editor.Components.addComponent({
-                tagName: 'div',
-                classes: ['product']
-            });
-            
-            // Append the product inside the wrapper
-            wrapper.append({
-                type: 'collection',
-                productIndex: productIndex, // Render only the product at index
-            });
-            
-            // Finally, append the wrapper to the editor
-            productContainer.append(wrapper);
-        } else {
-            console.error("Target div #product not found");
-        }
         /* 
         editor.addComponents({
             type: 'collection',
             productIndex: productIndex // Render only the product at index
         })
         */
-        Swal.fire('Added to Editor',
-            `Your product has successfully been added to the bottom of the editor, you can drag it to any location of 
-        your choice. The default property added is the name, you can duplicate it and change to image, description,  
-        or price, using the properties tab`,
-            'success');
+        Swal.fire({
+            title: "Individual or Group Import",
+            text: "Will you like to import only this product or everything in the category?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Single Product",
+            cancelButtonText: "All Categories",
+            reverseButtons: true // Swaps position of confirm and cancel buttons
+        }).then((result) => {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const selectedProduct = products[productIndex];
+
+            const category = selectedProduct.category;
+            const filteredProducts = products.filter(product => product.category === category);
+
+            if (result.isConfirmed) {
+                if (productContainer) {
+                    const wrapper = editor.Components.addComponent({
+                        tagName: 'div',
+                        classes: ['product']
+                    });
+
+                    // Append the product inside the wrapper
+                    wrapper.append({
+                        type: 'collection',
+                        productIndex: productIndex, // Render only the product at index
+                    });
+
+                    // Finally, append the wrapper to the editor
+                    productContainer.append(wrapper);
+                } else {
+                    Swal.fire("Error", "Cannot find a product section in your current page", "error");
+                }
+
+                Swal.fire("Added to your product section!", "Single Product Added", "success");
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                if (productContainer) {
+                    filteredProducts.forEach((product, index) => {
+                        const wrapper = editor.Components.addComponent({
+                            tagName: 'div',
+                            classes: ['product']
+                        });
+
+                        wrapper.append({
+                            type: 'collection',
+                            productIndex: index // Assign one product per collection
+                        });
+
+                        productContainer.append(wrapper);
+                    });
+                    Swal.fire("Added to your product section!", "Multiple Products Added", "success");
+                } else {
+                    Swal.fire("Error", "Cannot find a product section in your current page", "error");
+                }
+            }
+        });
+
         this.update()
     }
 
@@ -309,12 +344,9 @@ export default class ProductApp extends UI {
                     <img src="https://drive.google.com/thumbnail?id=${product.file}&sz=w1000" alt="" />
                 </div>
                 <div class="site-info">
-                    <h2>
+                    <h4>
                         ${product.name}
-                    </h2>
-                    <div class="site-meta">
-                        ${product.description}
-                    </div>
+                    </h4>
                 </div>
                 <div class="site-price">
                     ${product.price}
