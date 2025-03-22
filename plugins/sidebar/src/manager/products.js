@@ -137,7 +137,11 @@ export default class ProductApp extends UI {
             const selectedProduct = products[productIndex];
 
             const category = selectedProduct.category;
-            const filteredProducts = products.filter(product => product.category === category);
+
+            // Add original index before filtering
+            const categorizedProducts = products
+            .map((product, index) => ({ ...product, originalIndex: index })) // Store original index
+            .filter(product => product.category === category); // Filter by category
 
             if (result.isConfirmed) {
                 if (productContainer) {
@@ -154,24 +158,23 @@ export default class ProductApp extends UI {
 
                     // Finally, append the wrapper to the editor
                     productContainer.append(wrapper);
+                    Swal.fire("Added to your product section!", "Single Product Added", "success");
                 } else {
                     Swal.fire("Error", "Cannot find a product section in your current page", "error");
                 }
-
-                Swal.fire("Added to your product section!", "Single Product Added", "success");
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 if (productContainer) {
-                    filteredProducts.forEach((product, index) => {
+                    categorizedProducts.forEach((product) => {                
                         const wrapper = editor.Components.addComponent({
                             tagName: 'div',
                             classes: ['product']
                         });
-
+                
                         wrapper.append({
                             type: 'collection',
-                            productIndex: index // Assign one product per collection
+                            productIndex: product.originalIndex // Use the correct index
                         });
-
+                
                         productContainer.append(wrapper);
                     });
                     Swal.fire("Added to your product section!", "Multiple Products Added", "success");
@@ -277,6 +280,15 @@ export default class ProductApp extends UI {
     handleThumbnail() {
         this.$el?.find('#vwproducts').html(this.renderProducts());
         const element = document.getElementById("productForm");
+        // Remove the label and input after file selection
+        let label = document.querySelector("label[for='fileInput']");
+        let file = document.getElementById("fileInput");
+        if (file) {
+            file.remove()
+        }
+        if (label) {
+            label.remove()
+        }
         if (element) {
             element.remove();
         }
@@ -287,22 +299,24 @@ export default class ProductApp extends UI {
             const file = event.target.files[0];
         
             if (!file) {
-                console.log("No file selected");
+                Swal.fire("Error", "No file selected", "error");
                 return;
             }
+
+            // Remove the label and input after file selection
+            document.querySelector("label[for='fileInput']").remove();
+            document.getElementById("fileInput").remove();
         
             const reader = new FileReader();
         
             reader.onload = function(e) {
                 const content = e.target.result;
-                console.log("Raw CSV Content:", content); // Debugging
         
                 // Split CSV into rows and remove empty lines
                 const rows = content.trim().split("\n").filter(row => row.trim() !== "");
         
                 // Extract headers (first row)
                 const headers = rows[0].split(",").map(h => h.trim());
-                console.log("Headers:", headers); // Debugging
         
                 // Extract data rows and map to objects
                 const products = rows.slice(1).map(row => {
@@ -312,9 +326,7 @@ export default class ProductApp extends UI {
                         return obj;
                     }, {});
                 });
-        
-                console.log("Parsed Products:", products); // Debugging
-        
+                
                 // Retrieve existing products from localStorage
                 let storedProducts = JSON.parse(localStorage.getItem("products")) || [];
         
@@ -323,15 +335,13 @@ export default class ProductApp extends UI {
         
                 // Store updated products in localStorage
                 localStorage.setItem("products", JSON.stringify(storedProducts));
-        
-                console.log("Updated LocalStorage:", localStorage.getItem("products"));
-        
+                
                 // Display success message
-                document.getElementById("output").innerHTML = "<strong>Products added successfully!</strong>";
+                Swal.fire("Success", "Products added successfully!", "success");
             };
         
             reader.onerror = function() {
-                console.error("Error reading file");
+                Swal.fire("Error", "There was an error reading file", "error");
             };
         
             reader.readAsText(file);

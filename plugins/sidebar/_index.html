@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>peppu-sidebar</title>
-  <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/grapesjs"></script>
+  <link href="https://cdn.jsdelivr.net/npm/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/grapesjs"></script>
   <style>
     body,
     html {
@@ -84,21 +84,24 @@
     }
 
     #fileInput {
-    display: none; /* Hide default file input */
-  }
-  .custom-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  .custom-button:hover {
-    background-color: #0056b3;
-  }
+      display: none;
+      /* Hide default file input */
+    }
+
+    .custom-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .custom-button:hover {
+      background-color: #0056b3;
+    }
 
     .flex-row button {
       height: 45px
@@ -732,7 +735,7 @@
             {
               id: 'index',
               styles: `.my-class { color: red }`, // or a JSON of styles
-              component: '<div class="my-class">My element</div>', // or a JSON of components
+              component: '<div class="product-grid">My element</div>', // or a JSON of components
             }
           ]
         },
