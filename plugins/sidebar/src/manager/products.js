@@ -302,7 +302,7 @@ export default class ProductApp extends UI {
                 Swal.fire("Error", "No file selected", "error");
                 return;
             }
-
+        
             // Remove the label and input after file selection
             document.querySelector("label[for='fileInput']").remove();
             document.getElementById("fileInput").remove();
@@ -319,25 +319,40 @@ export default class ProductApp extends UI {
                 const headers = rows[0].split(",").map(h => h.trim());
         
                 // Extract data rows and map to objects
-                const products = rows.slice(1).map(row => {
+                const newProducts = rows.slice(1).map(row => {
                     const values = row.split(",").map(value => value.trim());
                     return headers.reduce((obj, key, index) => {
                         obj[key] = values[index] || ""; // Assign values to corresponding keys
                         return obj;
                     }, {});
                 });
-                
+        
                 // Retrieve existing products from localStorage
                 let storedProducts = JSON.parse(localStorage.getItem("products")) || [];
         
-                // Add new products from CSV
-                storedProducts = storedProducts.concat(products);
+                // Identify duplicates before updating localStorage
+                const duplicates = storedProducts.filter(storedProduct =>
+                    newProducts.some(newProduct => newProduct.file == storedProduct.file)
+                );
+        
+                // Remove duplicates from storedProducts
+                storedProducts = storedProducts.filter(storedProduct =>
+                    !duplicates.some(dup => dup.file == storedProduct.file)
+                );
+        
+                // Add new products
+                storedProducts.push(...newProducts);
         
                 // Store updated products in localStorage
                 localStorage.setItem("products", JSON.stringify(storedProducts));
-                
-                // Display success message
-                Swal.fire("Success", "Products added successfully!", "success");
+
+                // Show duplicate message if there were duplicates
+                if (duplicates) {
+                    Swal.fire("Duplicates Found", `Some duplicates were found and removed, the other products have been added successfully`, "warning");
+                } else {
+                    // Display success message
+                    Swal.fire("Success", "Products added successfully!", "success");
+                }
             };
         
             reader.onerror = function() {
@@ -346,6 +361,7 @@ export default class ProductApp extends UI {
         
             reader.readAsText(file);
         });
+        
         
     }
 
